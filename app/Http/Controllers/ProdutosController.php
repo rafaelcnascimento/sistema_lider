@@ -20,11 +20,18 @@ class ProdutosController extends Controller
     {
         $output="";
        
-        $produtos = new produto;
+        $produtos = new Produto;
 
-        $produtos = produto::where('nome', 'LIKE', "%{$request->search}%")
-                                ->orWhere('codigo', 'LIKE', "%{$request->search}%")->get();
-     
+        if (!$request->search) 
+        {
+            $produtos = Produto::paginate(50);
+        } 
+        else
+        {
+            $produtos = Produto::where('nome', 'LIKE', "%{$request->search}%")
+                                    ->orWhere('codigo', 'LIKE', "%{$request->search}%")->get();
+        }
+ 
         if ($produtos) {
             foreach ($produtos as $produto) {
                 $output.='<tr>'.
@@ -34,11 +41,11 @@ class ProdutosController extends Controller
                 '<td>'.$produto->unidade->nome.'</td>'.
                 '<td>'.$produto->fornecedor->nome.'</td>'.
                 '<td>R$ '.number_format($produto->custo_inicial,2,',','.').'</td>'.
-                '<td>'.$produto->ipi.'</td>'.
-                '<td>'.$produto->icms.'</td>'.
-                '<td>'.$produto->frete.'</td>'.
+                '<td>'.$produto->ipi.'%</td>'.
+                '<td>'.$produto->icms.'%</td>'.
+                '<td>'.$produto->frete.'%</td>'.
                 '<td>R$ '.number_format($produto->custo_unitario,2,',','.').'</td>'.
-                '<td>'.$produto->margem.'</td>'.
+                '<td>'.$produto->margem.'%</td>'.
                 '<td>R$ '.number_format($produto->custo_final,2,',','.').'</td>'.
                 '<td>R$ '.number_format($produto->preco,2,',','.').'</td>'.
                 '</tr>';
