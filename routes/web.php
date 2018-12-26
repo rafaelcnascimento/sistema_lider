@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ProdutosController@index');
+
+Route::get('/produtoAjax', 'ProdutosController@busca');
+
+
+// Route::get('/import', 'ProdutoController@import');
+
