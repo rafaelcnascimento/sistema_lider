@@ -1,86 +1,101 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Fornecedor;
 
-class FornecedorController extends Controller 
+class FornecedorController extends Controller
 {
+    public function index()
+    {
+        $fornecedores = Fornecedor::where('id','>',1)->paginate(50);
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-    
-  }
+        return view('fornecedor.listar', compact('fornecedores'));
+    }
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-    
-  }
+    public function create()
+    {
+        return view('fornecedor.novo');
+    }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
-  public function store(Request $request)
-  {
-    
-  }
+    public function show(Fornecedor $fornecedor)
+    {
+        return view('fornecedor.editar', compact('fornecedor'));
+    }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-    
-  }
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nome' => 'required|regex:/^[\pL\s\-]+$/u|max:255',      
+            'endereco' => 'nullable|string|max:255',
+        ]);
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
-    
-  }
+        Fornecedor::create(request()->all());
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-    
-  }
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Fornecedor adicionado com sucesso');
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    
-  }
-  
+        return redirect('/fornecedor-listar');
+    }
+
+    public function update(Fornecedor $fornecedor, Request $request)
+    {
+        $request->validate([
+            'nome' => 'required|regex:/^[\pL\s\-]+$/u|max:255',      
+            'endereco' => 'nullable|string|max:255',
+        ]);
+
+        $fornecedor->update(request()->all());
+
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Fornecedor modificado com sucesso');
+
+        return redirect('/fornecedor/'.$fornecedor->id);
+    }
+
+    public function delete(Fornecedor $fornecedor, Request $request)
+    {
+        $fornecedor->delete();
+
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Fornecedor removido com sucesso');
+
+        return redirect('/fornecedor-listar');
+    }
+
+    public function busca(Request $request)
+    {
+        $output="";
+       
+        $fornecedores = new Fornecedor;
+
+        if (!$request->search) 
+        {
+            $fornecedores = Fornecedor::where('id','>',1)->paginate(50);
+        } 
+        else
+        {
+            $fornecedores = Fornecedor::where('nome', 'LIKE', "%{$request->search}%")->get();
+        }
+ 
+        if ($fornecedores) {
+            foreach ($fornecedores as $fornecedor) {
+                $output.='<tr>'.
+                '<td>'.$fornecedor->nome.'</td>'.
+                '<td>'.$fornecedor->telefone.'</td>'.
+                '<td>'.$fornecedor->celular.'</td>'.
+                '<td>'.$fornecedor->endereco.'</td>'.
+                '<td>
+                    <a href="fornecedor/'.$fornecedor->id.'">
+                        <button type="submit" class="btn btn-primary custom-btn">
+                            Editar
+                        </button>
+                        </a>
+                </td>    '.
+                '</tr>';
+            }
+            return Response($output);
+        }
+    }
 }
-
-?>

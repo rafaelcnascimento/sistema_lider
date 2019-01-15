@@ -10,6 +10,7 @@ class CreateUnidadesTable extends Migration {
 		Schema::create('unidades', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('nome', 255);
+			$table->softDeletes();
 		});
 	}
 

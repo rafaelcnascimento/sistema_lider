@@ -14,6 +14,7 @@ class CreateClientesTable extends Migration {
 			$table->string('celular')->nullable();
 			$table->string('documento', 255)->nullable();
 			$table->string('endereco')->nullable();
+			$table->softDeletes();
 		});
 	}
 

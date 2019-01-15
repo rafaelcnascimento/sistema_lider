@@ -10,7 +10,7 @@ class CreateProdutosTable extends Migration {
 		Schema::create('produtos', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('nome', 255);
-			$table->string('codigo', 50);
+			$table->string('codigo', 50)->unique();
 			$table->integer('unidade_id')->unsigned()->index();
 			$table->integer('fornecedor_id')->unsigned()->nullable();
 			$table->integer('quantidade')->default('0');
@@ -22,6 +22,7 @@ class CreateProdutosTable extends Migration {
 			$table->float('margem')->default('0');
 			$table->float('custo_final');
 			$table->float('preco');
+			$table->softDeletes();
 		});
 	}
 
