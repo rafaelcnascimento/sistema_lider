@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <table class="table table-striped">
             <thead class="thead-dark">
-                <th>ID</th>
+                <th>Código</th>
                 <th>Material</th>
                 <th>Quantidade</th>
                 <th>Unidade</th>
@@ -32,11 +32,10 @@
             <tbody class="resultado">
                 @foreach ($produtos as $produto)
                 <tr>
-                    <td>{{$produto->id}}</td>
-                    <td>{{$produto->nome}}</td>
+                    <td><a href="produto/{{$produto->id}}" target="_blank">{{$produto->nome}}</a></td>
                     <td>{{$produto->quantidade}}</td>
                     <td>{{$produto->unidade->nome}}</td>
-                    <td><a href="fornecedor/{{$produto->fornecedor->id}}" target="_blank">{{$produto->fornecedor->nome}}</a></td>
+                    <td><a href="fornecedor/{{$produto->getFornecedorId()}}" target="_blank">{{$produto->getFornecedorNome()}}</a></td>
                     <td>@moeda($produto->custo_inicial)</td>
                     <td>{{$produto->ipi}}%</td>
                     <td>{{$produto->icms}}%</td>

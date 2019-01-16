@@ -43,7 +43,7 @@
                             <option selected="" disabled="">Selecione</option>
                                 @foreach ($fornecedores as $fornecedor)
                                     <option value="{{$fornecedor->id}}" {{ (old('fornecedor_id') == $fornecedor->id ? "selec    ted":"") }}>{{$fornecedor->nome}}</option>
-                            @endforeach
+                                @endforeach
                         </select>
                         @if ($errors->has('fornecedor_id'))
                             <span class="invalid-feedback">
@@ -75,7 +75,7 @@
                     <label for="quantidade" class="col-md-4 col-form-label text-md-right">{{ __('Quantidade') }}</label>
                     
                     <div class="col-md-6">
-                        <input id="quantidade" type="text" class="form-control{{ $errors->has('quantidade') ? ' is-invalid' : '' }}" name="quantidade" value="{{ old('quantidade') }}" required>
+                        <input id="quantidade" type="text" class="form-control{{ $errors->has('quantidade') ? ' is-invalid' : '' }}" name="quantidade" value="{{ old('quantidade') }}" >
                     
                         @if ($errors->has('quantidade'))
                             <span class="invalid-feedback" role="alert">
@@ -89,7 +89,7 @@
                     <label for="estoque_baixo" class="col-md-4 col-form-label text-md-right">{{ __('Estoque Baixo') }}</label>
                     
                     <div class="col-md-6">
-                        <input id="estoque_baixo" type="text" class="form-control{{ $errors->has('estoque_baixo') ? ' is-invalid' : '' }}" name="estoque_baixo" value="{{ old('estoque_baixo') }}" required>
+                        <input id="estoque_baixo" type="text" class="form-control{{ $errors->has('estoque_baixo') ? ' is-invalid' : '' }}" name="estoque_baixo" value="{{ old('estoque_baixo') }}" >
                     
                         @if ($errors->has('estoque_baixo'))
                             <span class="invalid-feedback" role="alert">
@@ -101,6 +101,7 @@
                 </div>
             </div>
             <div class="col">
+                <div class="tabela">  
                 {{-- Lado Direiro --}}
                 <table class="table table-bordered">
                     <thead>
@@ -158,7 +159,7 @@
                             </td>
                             <td>
                                 <div style="width: 100%;">
-                                    <input id="custo_unitario" type="text" class="form-control{{ $errors->has('custo_unitario') ? ' is-invalid' : '' }}" name="custo_unitario" value="{{ old('custo_unitario') }}" disabled>
+                                    <input id="custo_unitario" type="text" class="form-control{{ $errors->has('custo_unitario') ? ' is-invalid' : '' }}" name="custo_unitario" value="{{ old('custo_unitario') }}" readonly="" >
                             
                                     @if ($errors->has('custo_unitario'))
                                         <span class="invalid-feedback" role="alert">
@@ -180,7 +181,7 @@
                             </td>
                             <td>
                                 <div style="width: 100%;">
-                                    <input id="custo_final" type="text" class="form-control{{ $errors->has('custo_final') ? ' is-invalid' : '' }}" name="custo_final" value="{{ old('custo_final') }}" disabled="">
+                                    <input id="custo_final" type="text" class="form-control{{ $errors->has('custo_final') ? ' is-invalid' : '' }}" name="custo_final" value="{{ old('custo_final') }}" readonly="">
                             
                                     @if ($errors->has('custo_final'))
                                         <span class="invalid-feedback" role="alert">
@@ -212,9 +213,30 @@
                         </button>
                     </div>
                 </div>          
-                
+            </div>  
             </div>
         </div>
     </form>
 </div>
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+        //Busca
+        $('.tabela').on('keyup', function() {
+           var custo_inicial = $("#custo_inicial").val();
+           var ipi = $("#ipi").val();
+           var icms = $("#icms").val();
+           var frete = $("#frete").val();
+           var margem = $("#margem").val();
+           var custo_unitario;
+           var custo_final
+
+           custo_unitario = custo_inicial * (1 + (ipi/100)) * (1 + (icms/100)) * (1 + (frete/100));
+           custo_final = custo_unitario * (1 + (margem/100));
+
+           $("#custo_unitario").val(custo_unitario); 
+           $("#custo_final").val(custo_final); 
+        })
+    </script>
 @endsection

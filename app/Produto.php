@@ -13,7 +13,7 @@ class Produto extends Model
     protected $dates = ['deleted_at'];
     protected $table = 'produtos';
     public $timestamps = false;
-    protected $guarded = array('codigo');
+    protected $guarded = [];
 
     public function fornecedor()
     {

@@ -9,7 +9,7 @@ class FornecedorController extends Controller
 {
     public function index()
     {
-        $fornecedores = Fornecedor::where('id','>',1)->paginate(50);
+        $fornecedores = Fornecedor::orderBy('nome','asc')->paginate(50);
 
         return view('fornecedor.listar', compact('fornecedores'));
     }
@@ -72,7 +72,7 @@ class FornecedorController extends Controller
 
         if (!$request->search) 
         {
-            $fornecedores = Fornecedor::where('id','>',1)->paginate(50);
+            $fornecedores = Fornecedor::orderBy('nome','asc')->paginate(50);
         } 
         else
         {

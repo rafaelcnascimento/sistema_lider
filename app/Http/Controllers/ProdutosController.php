@@ -19,7 +19,7 @@ class ProdutosController extends Controller
     }
     public function create()
     {
-        $fornecedores = Fornecedor::where('id','>','1')->orderBy('nome','asc')->get();
+        $fornecedores = Fornecedor::orderBy('nome','asc')->get();
 
         $unidades = Unidade::orderBy('nome','asc')->get();
 
@@ -28,13 +28,17 @@ class ProdutosController extends Controller
 
     public function show(Produto $produto)
     {
-        return view('produto.editar', compact('produto'));
+        $fornecedores = Fornecedor::orderBy('nome','asc')->get();
+
+        $unidades = Unidade::orderBy('nome','asc')->get();
+
+        return view('produto.editar', compact('produto','fornecedores','unidades'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nome' => 'required|regex:/^[\pL\s\-]+$/u|max:255',      
+            'nome' => 'required|string|max:255',      
             'endereco' => 'nullable|string|max:255',
             'codigo' => 'nullable|numeric|unique:produtos',
             'unidade_id' => 'required|numeric',
@@ -51,19 +55,32 @@ class ProdutosController extends Controller
             'preco' => 'required|numeric',
         ]);
 
-        // Produto::create(request()->all());
+        Produto::create(request()->all());
 
-        // $request->session()->flash('message.level', 'success');
-        // $request->session()->flash('message.content', 'Produto adicionado com sucesso');
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Produto adicionado com sucesso');
 
-        // return redirect('/produto-listar');
+        return redirect('/produto-listar');
     }
 
     public function update(Produto $produto, Request $request)
     {
         $request->validate([
-            'nome' => 'required|regex:/^[\pL\s\-]+$/u|max:255',      
+            'nome' => 'required|string|max:255',      
             'endereco' => 'nullable|string|max:255',
+            'codigo' => 'nullable|numeric|unique:produtos,codigo,'.$produto->codigo,
+            'unidade_id' => 'required|numeric',
+            'fornecedor_id' => 'nullable|numeric',
+            'quantidade' => 'nullable|numeric',
+            'estoque_baixo' => 'nullable|numeric',
+            'custo_inicial' => 'nullable|numeric',
+            'ipi' => 'nullable|numeric',
+            'icms' => 'nullable|numeric',
+            'frete' => 'nullable|numeric',
+            'custo_unitario' => 'nullable|numeric',
+            'margem' => 'nullable|numeric',
+            'custo_final' => 'nullable|numeric',
+            'preco' => 'required|numeric',
         ]);
 
         $produto->update(request()->all());
@@ -103,8 +120,9 @@ class ProdutosController extends Controller
         if ($produtos) {
             foreach ($produtos as $produto) {
                 $output.='<tr>'.
-                '<td>'.$produto->id.'</td>'.
-                '<td>'.$produto->nome.'</td>'.
+                '<td>
+                    <a href="produto/'.$produto->id.'"target="_blank">'.$produto->nome.'</a>
+                </td>'.
                 '<td>'.$produto->quantidade.'</td>'.
                 '<td>'.$produto->unidade->nome.'</td>'.
                 '<td>
