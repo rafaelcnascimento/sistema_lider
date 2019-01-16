@@ -30,7 +30,7 @@
                     <a class="nav-item nav-link active" href="/entrada-listar">Entradas de produtos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item nav-link active" href="/entrada-novo">Nova Entrada</a>
+                    <a class="nav-item nav-link active" href="/entrada-nova">Nova Entrada</a>
                 </li>
             </ul>
         </nav>
