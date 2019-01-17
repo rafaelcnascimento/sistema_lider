@@ -4,6 +4,11 @@
 @endsection
 @section('corpo')
     <div class="container">
+        @if(session()->has('message.level'))
+            <div class="alert alert-{{ session('message.level') }}"> 
+            {!! session('message.content') !!}
+            </div>
+        @endif
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">

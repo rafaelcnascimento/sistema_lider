@@ -15,7 +15,6 @@
     <div class="container-fluid">
         <table class="table table-striped">
             <thead class="thead-dark">
-                <th>Código</th>
                 <th>Material</th>
                 <th>Quantidade</th>
                 <th>Unidade</th>

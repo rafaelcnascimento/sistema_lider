@@ -19,7 +19,7 @@ class EntradaController extends Controller
     {
         $produtos = Produto::orderBy('nome','asc')->get();
 
-        return view('entrada.novo', compact('produtos'));
+        return view('entrada.nova', compact('produtos'));
     }
 
     public function show(Entrada $entrada)
@@ -37,17 +37,22 @@ class EntradaController extends Controller
 
         Entrada::create(request()->all());
 
+        $produto = Produto::find($request->produto_id);
+        $produto->quantidade += $request->quantidade;
+        $produto->save();
+
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', 'Entrada adicionada com sucesso');
 
-        return redirect('/entrada-listar');
+        return redirect('/entrada-nova');
     }
 
     public function update(Entrada $entrada, Request $request)
     {
         $request->validate([
-            'nome' => 'required|regex:/^[\pL\s\-]+$/u|max:255',      
-            'endereco' => 'nullable|string|max:255',
+            'produto_id' => 'required',      
+            'quantidade' => 'required',
+            'custo' => 'required',
         ]);
 
         $entrada->update(request()->all());
