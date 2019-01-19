@@ -17,21 +17,23 @@
     <div class="container-fluid">
         <table class="table table-striped">
             <thead class="thead-dark">
-                <th>Produto</th>
-                <th>Quantidade</th>
-                <th>Custo Total</th>
-                <th>Data</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Celular</th>
+                <th>Documento</th>
+                <th>Endereço</th>
                 <th>Editar</th>
             </thead>
             <tbody class="resultado">
-                @foreach ($entradas as $entrada)
+                @foreach ($clientes as $cliente)
                 <tr>
-                    <td>{{$entrada->produto->nome}}</td>
-                    <td>{{$entrada->quantidade}}</td>
-                    <td>{{$entrada->custo}}</td>
-                    <td>{{$entrada->created_at}}</td>
+                    <td>{{$cliente->nome}}</td>
+                    <td>{{$cliente->telefone}}</td>
+                    <td>{{$cliente->celular}}</td>
+                    <td>{{$cliente->documento}}</td>
+                    <td>{{$cliente->endereco}}</td>
                     <td>
-                        <a href="entrada/{{$entrada->id}}">
+                        <a href="cliente/{{$cliente->id}}">
                             <button type="submit" class="btn btn-primary custom-btn">
                                 {{ __('Editar') }}
                             </button>
@@ -42,7 +44,7 @@
             </tbody>
         </table>
     </div>
-    {{ $entradas->links() }}
+    {{ $clientes->links() }}
 @endsection
 
 @section('js')
@@ -52,7 +54,7 @@
             $value = $(this).val();
             $.ajax({
                 type: 'get',
-                url: '/entradaAjax',
+                url: '/clienteAjax',
                 data: {
                     'search': $value
                 },

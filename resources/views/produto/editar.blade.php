@@ -230,11 +230,23 @@
                             {{ __('Salvar') }}
                         </button>
                     </div>
-                </div>          
+                </div>  
             </div>  
             </div>
         </div>
     </form>
+    <br>   
+    <div>
+        <form method="post" action="/produto/{{$produto->id}}" >
+            @method('delete')
+            @csrf
+            <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-danger">
+                    {{ __('Deletar') }}
+                </button>
+            </div>   
+        </form>   
+    </div>    
 </div>
 @endsection
 

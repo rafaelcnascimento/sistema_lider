@@ -86,6 +86,8 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('.select-produto').select2();
+
+            $('#produto_id').select2('open');
         });
     </script>
 @endsection

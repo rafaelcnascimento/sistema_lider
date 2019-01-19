@@ -32,6 +32,12 @@
                 <li class="nav-item">
                     <a class="nav-item nav-link active" href="/entrada-nova">Nova Entrada</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link active" href="/cliente-listar">Clientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link active" href="/cliente-novo">Novo Cliente</a>
+                </li>
             </ul>
         </nav>
 

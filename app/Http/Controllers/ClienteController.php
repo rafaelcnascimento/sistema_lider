@@ -1,86 +1,101 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Cliente;
 
-class ClienteController extends Controller 
+class ClienteController extends Controller
 {
+    public function index()
+    {
+        $clientes = Cliente::orderBy('nome','asc')->paginate(50);
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-    
-  }
+        return view('cliente.listar', compact('clientes'));
+    }
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-    
-  }
+    public function create()
+    {
+        return view('cliente.novo');
+    }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
-  public function store(Request $request)
-  {
-    
-  }
+    public function show(Cliente $cliente)
+    {
+        return view('cliente.editar', compact('cliente'));
+    }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-    
-  }
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nome' => 'required|regex:/^[\pL\s\-]+$/u|max:255',      
+            'endereco' => 'nullable|string|max:255',
+        ]);
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
-    
-  }
+        Cliente::create(request()->all());
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-    
-  }
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Cliente adicionado com sucesso');
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    
-  }
-  
+        return redirect('/cliente-listar');
+    }
+
+    public function update(Cliente $cliente, Request $request)
+    {
+        $request->validate([
+            'nome' => 'required|regex:/^[\pL\s\-]+$/u|max:255',      
+            'endereco' => 'nullable|string|max:255',
+        ]);
+
+        $cliente->update(request()->all());
+
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Cliente modificado com sucesso');
+
+        return redirect('/cliente/'.$cliente->id);
+    }
+
+    public function delete(Cliente $cliente, Request $request)
+    {
+        $cliente->delete();
+
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Cliente removido com sucesso');
+
+        return redirect('/cliente-listar');
+    }
+
+    public function busca(Request $request)
+    {
+        $output="";
+       
+        $clientes = new Cliente;
+
+        if (!$request->search) 
+        {
+            $clientes = Cliente::orderBy('nome','asc')->paginate(50);
+        } 
+        else
+        {
+            $clientes = Cliente::where('nome', 'LIKE', "%{$request->search}%")->get();
+        }
+ 
+        if ($clientes) {
+            foreach ($clientes as $cliente) {
+                $output.='<tr>'.
+                '<td>'.$cliente->nome.'</td>'.
+                '<td>'.$cliente->telefone.'</td>'.
+                '<td>'.$cliente->celular.'</td>'.
+                '<td>'.$cliente->endereco.'</td>'.
+                '<td>
+                    <a href="cliente/'.$cliente->id.'">
+                        <button type="submit" class="btn btn-primary custom-btn">
+                            Editar
+                        </button>
+                        </a>
+                </td>    '.
+                '</tr>';
+            }
+            return Response($output);
+        }
+    }
 }
-
-?>
