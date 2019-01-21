@@ -18,25 +18,30 @@
                     <a class="nav-item nav-link active" href="/produto-listar">Estoque</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item nav-link active" href="/produto-novo">Novo Produto</a>
+                    <a class="nav-item nav-link active" href="/produto-catalogo">Catálogo</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link active" href="/fornecedor-listar">Fornecedores</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                        Produtos
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/produto-novo">Novo Produto</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/entrada-listar">Entradas de produtos</a>
+                        <a class="dropdown-item" href="/entrada-nova">Nova Entrada</a>
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link active" href="/fornecedor-novo">Novo Fornecedor</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link active" href="/entrada-listar">Entradas de produtos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link active" href="/entrada-nova">Nova Entrada</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link active" href="/cliente-listar">Clientes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link active" href="/cliente-novo">Novo Cliente</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                        Pessoas
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/clientes-listar">Clientes</a>
+                        <a class="dropdown-item" href="/cliente-novo">Novo Cliente</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/fornecedor-listar">Fornecedores</a>
+                        <a class="dropdown-item" href="/fornecedor-novo">Novo Fornecedor</a>
+                    </div>
                 </li>
             </ul>
         </nav>

@@ -17,6 +17,14 @@ class ProdutosController extends Controller
 
         return view('produto.listar', compact('produtos'));
     }
+
+    public function catalogo()
+    {
+        $produtos = Produto::orderBy('nome','asc')->paginate(50);
+
+        return view('produto.catalogo', compact('produtos'));
+    }
+
     public function create()
     {
         $fornecedores = Fornecedor::orderBy('nome','asc')->get();
@@ -120,6 +128,34 @@ class ProdutosController extends Controller
         if ($produtos) {
             foreach ($produtos as $produto) {
                 $output.='<tr>'.
+                '<td>'.$produto->nome.'</td>'.
+                '<td>'.$produto->unidade->nome.'</td>'.
+                '<td>R$ '.number_format($produto->preco,2,',','.').'</td>'.
+                '</tr>';
+            }
+            return Response($output);
+        }
+    }
+
+    public function buscaCatalogo(Request $request)
+    {
+        $output="";
+       
+        $produtos = new Produto;
+
+        if (!$request->search) 
+        {
+            $produtos = Produto::paginate(50);
+        } 
+        else
+        {
+            $produtos = Produto::where('nome', 'LIKE', "%{$request->search}%")
+                                    ->orWhere('codigo', 'LIKE', "%{$request->search}%")->get();
+        }
+    
+        if ($produtos) {
+            foreach ($produtos as $produto) {
+                $output.='<tr>'.
                 '<td>
                     <a href="produto/'.$produto->id.'"target="_blank">'.$produto->nome.'</a>
                 </td>'.
@@ -141,7 +177,6 @@ class ProdutosController extends Controller
             return Response($output);
         }
     }
-
 
     public function import() 
     {

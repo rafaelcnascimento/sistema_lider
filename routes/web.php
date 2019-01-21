@@ -17,10 +17,20 @@ Route::get('/', 'ProdutosController@index');
 Route::get('/produto-listar', 'ProdutosController@index');
 Route::get('/produto/{produto}', 'ProdutosController@show');
 Route::get('/produto-novo', 'ProdutosController@create');
+Route::get('/produto-catalogo', 'ProdutosController@catalogo');
 
 Route::post('/produto', 'ProdutosController@store');
 Route::patch('/produto/{produto}', 'ProdutosController@update');
 Route::delete('/produto/{produto}', 'ProdutosController@delete');
+
+//Rotas Pedido
+Route::get('/pedido-listar', 'PedidoController@index');
+Route::get('/pedido/{pedido}', 'PedidoController@show');
+Route::get('/pedido-novo', 'PedidoController@create');
+
+Route::post('/pedido', 'PedidoController@store');
+Route::patch('/pedido/{pedido}', 'PedidoController@update');
+Route::delete('/pedido/{pedido}', 'PedidoController@delete');
 
 //Rotas Cliente
 Route::get('/cliente-listar', 'ClienteController@index');
@@ -51,6 +61,7 @@ Route::delete('/entrada/{entrada}', 'EntradaController@delete');
 
 //Rotas Ajax
 Route::get('/produtoAjax', 'ProdutosController@busca');
+Route::get('/catalogoAjax', 'ProdutosController@buscaCatalogo');
 Route::get('/fornecedorAjax', 'FornecedorController@busca');
 Route::get('/entradaAjax', 'EntradaController@busca');
 

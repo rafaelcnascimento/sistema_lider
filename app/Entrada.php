@@ -2,7 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use App\Entrada;
+use App\Produto;
 
 class Entrada extends Model 
 {
