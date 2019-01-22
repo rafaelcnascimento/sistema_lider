@@ -109,7 +109,7 @@ class ProdutosController extends Controller
         return redirect('/produto-listar');
     }
 
-    public function busca(Request $request)
+    public function buscaCatalogo(Request $request)
     {
         $output="";
        
@@ -121,8 +121,10 @@ class ProdutosController extends Controller
         } 
         else
         {
-            $produtos = Produto::where('nome', 'LIKE', "%{$request->search}%")
-                                    ->orWhere('codigo', 'LIKE', "%{$request->search}%")->get();
+            $produtos = Produto::search($request->search)->orderBy('nome','asc')->get();
+
+            // $produtos = Produto::where('nome', 'LIKE', "%{$request->search}%")
+            //                     ->orWhere('codigo', 'LIKE', "%{$request->search}%")->get();
         }
  
         if ($produtos) {
@@ -137,7 +139,7 @@ class ProdutosController extends Controller
         }
     }
 
-    public function buscaCatalogo(Request $request)
+    public function busca(Request $request)
     {
         $output="";
        
@@ -149,8 +151,7 @@ class ProdutosController extends Controller
         } 
         else
         {
-            $produtos = Produto::where('nome', 'LIKE', "%{$request->search}%")
-                                    ->orWhere('codigo', 'LIKE', "%{$request->search}%")->get();
+            $produtos = Produto::search($request->search)->get();
         }
     
         if ($produtos) {

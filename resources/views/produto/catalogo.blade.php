@@ -40,7 +40,7 @@
             $value = $(this).val();
             $.ajax({
                 type: 'get',
-                url: '/produtoAjax',
+                url: '/catalogoAjax',
                 data: {
                     'search': $value
                 },
