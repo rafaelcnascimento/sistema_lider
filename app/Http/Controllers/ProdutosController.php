@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Produto;
+use App\Entrada;
 use App\Unidade;
 use App\Fornecedor;
 use App\Imports\ProdutosImport;
@@ -23,6 +24,13 @@ class ProdutosController extends Controller
         $produtos = Produto::orderBy('nome','asc')->paginate(50);
 
         return view('produto.catalogo', compact('produtos'));
+    }
+
+    public function estoqueBaixo()
+    {
+        $produtos = Produto::where('quantidade','<=','estoque_baixo')->get();
+
+        return view('produto.estoque_baixo', compact('produtos'));
     }
 
     public function create()
@@ -51,7 +59,8 @@ class ProdutosController extends Controller
             'codigo' => 'nullable|numeric|unique:produtos',
             'unidade_id' => 'required|numeric',
             'fornecedor_id' => 'nullable|numeric',
-            'quantidade' => 'nullable|numeric',
+            'quantidade' => 'nullable|required_with:custo|numeric',
+            'custo' => 'nullable|required_with:quantidade|numeric',
             'estoque_baixo' => 'nullable|numeric',
             'custo_inicial' => 'nullable|numeric',
             'ipi' => 'nullable|numeric',
@@ -63,7 +72,16 @@ class ProdutosController extends Controller
             'preco' => 'required|numeric',
         ]);
 
-        Produto::create(request()->all());
+        $produto = Produto::create(request()->except('custo'));
+
+        if ($request->quantidade) 
+        {
+            $entrada = new Entrada();
+            $entrada->produto_id = $produto->id;
+            $entrada->quantidade = $request->quantidade;
+            $entrada->custo = $request->custo;
+            $entrada->save();
+        }
 
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', 'Produto adicionado com sucesso');

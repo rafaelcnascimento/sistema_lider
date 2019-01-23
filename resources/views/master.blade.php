@@ -26,6 +26,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/produto-novo">Novo Produto</a>
+                        <a class="dropdown-item" href="/estoque-baixo">Produtos com pouco estoque</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/entrada-listar">Entradas de produtos</a>
                         <a class="dropdown-item" href="/entrada-nova">Nova Entrada</a>

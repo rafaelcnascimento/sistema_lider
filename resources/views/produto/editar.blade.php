@@ -268,5 +268,13 @@
            $("#custo_unitario").val(custo_unitario); 
            $("#custo_final").val(custo_final); 
         })
+
+        //Desativar Enter
+        $('input').on('keydown', function(event) {
+            var x = event.which;
+            if (x === 13) {
+                event.preventDefault();
+            }
+        });
     </script>
 @endsection
