@@ -20,6 +20,9 @@
                 <li class="nav-item">
                     <a class="nav-item nav-link active" href="/produto-catalogo">Catálogo</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link active" href="/pedido-novo">Venda</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                         Produtos

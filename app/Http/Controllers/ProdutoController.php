@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 use App\Produto;
 use App\Entrada;
 use App\Unidade;
@@ -10,7 +11,7 @@ use App\Fornecedor;
 use App\Imports\ProdutosImport;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ProdutosController extends Controller
+class ProdutoController extends Controller
 {
     public function index()
     {
@@ -127,36 +128,6 @@ class ProdutosController extends Controller
         return redirect('/produto-listar');
     }
 
-    public function buscaCatalogo(Request $request)
-    {
-        $output="";
-       
-        $produtos = new Produto;
-
-        if (!$request->search) 
-        {
-            $produtos = Produto::paginate(50);
-        } 
-        else
-        {
-            $produtos = Produto::search($request->search)->orderBy('nome','asc')->get();
-
-            // $produtos = Produto::where('nome', 'LIKE', "%{$request->search}%")
-            //                     ->orWhere('codigo', 'LIKE', "%{$request->search}%")->get();
-        }
- 
-        if ($produtos) {
-            foreach ($produtos as $produto) {
-                $output.='<tr>'.
-                '<td>'.$produto->nome.'</td>'.
-                '<td>'.$produto->unidade->nome.'</td>'.
-                '<td>R$ '.number_format($produto->preco,2,',','.').'</td>'.
-                '</tr>';
-            }
-            return Response($output);
-        }
-    }
-
     public function busca(Request $request)
     {
         $output="";
@@ -169,7 +140,22 @@ class ProdutosController extends Controller
         } 
         else
         {
-            $produtos = Produto::search($request->search)->get();
+            $term = $request->search;
+
+            $terms = explode(' ', $term);
+
+            $produtos = Produto::
+            where(function($query) use ($terms){
+               foreach($terms as $term){
+                   $query->where('produtos.nome', 'LIKE', '%'.$term.'%');
+               }
+            })
+            ->orWhere(function($query) use ($terms){
+               foreach($terms as $term){
+                   $query->where('produtos.codigo', 'LIKE', '%'.$term.'%');
+               }
+            })     
+            ->get();     
         }
     
         if ($produtos) {
@@ -190,6 +176,48 @@ class ProdutosController extends Controller
                 '<td>R$ '.number_format($produto->custo_unitario,2,',','.').'</td>'.
                 '<td>'.$produto->margem.'%</td>'.
                 '<td>R$ '.number_format($produto->custo_final,2,',','.').'</td>'.
+                '<td>R$ '.number_format($produto->preco,2,',','.').'</td>'.
+                '</tr>';
+            }
+            return Response($output);
+        }
+    }
+
+    public function buscaCatalogo(Request $request)
+    {
+        $output="";
+       
+        $produtos = new Produto;
+
+        if (!$request->search) 
+        {
+            $produtos = Produto::paginate(50);
+        } 
+        else
+        {
+            $term = $request->search;
+
+            $terms = explode(' ', $term);
+
+            $produtos = Produto::
+            where(function($query) use ($terms){
+                foreach($terms as $term){
+                    $query->where('produtos.nome', 'LIKE', '%'.$term.'%');
+                }
+            })
+            ->orWhere(function($query) use ($terms){
+                foreach($terms as $term){
+                    $query->where('produtos.codigo', 'LIKE', '%'.$term.'%');
+                }
+            })     
+            ->get();                 
+        }
+    
+        if ($produtos) {
+            foreach ($produtos as $produto) {
+                $output.='<tr>'.
+                '<td>'.$produto->nome.'</td>'.
+                '<td>'.$produto->unidade->nome.'</td>'.
                 '<td>R$ '.number_format($produto->preco,2,',','.').'</td>'.
                 '</tr>';
             }
