@@ -1,0 +1,11 @@
+.no-border {
+    border: 0;
+    box-shadow: none; 
+}
+
+.valor {
+    font-size:40px; 
+    margin-left: -30px;
+    margin-top: 18px; 
+    color: green; 
+}

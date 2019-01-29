@@ -62,6 +62,7 @@ Route::delete('/entrada/{entrada}', 'EntradaController@delete');
 
 //Rotas Ajax
 Route::get('/produtoAjax', 'ProdutoController@busca');
+Route::get('/clienteAjax', 'ClienteController@busca');
 Route::get('/catalogoAjax', 'ProdutoController@buscaCatalogo');
 Route::get('/checkoutAjax', 'PedidoController@buscaCheckout');
 Route::get('/fornecedorAjax', 'FornecedorController@busca');

@@ -8,6 +8,7 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
         {{-- CSS extra --}}
+        <link href="{{ asset('css/lider.css') }}" rel="stylesheet" type="text/css">
         @yield('css')
     </head>
     <body style="padding-top: 70px;">
@@ -40,7 +41,7 @@
                         Pessoas
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/clientes-listar">Clientes</a>
+                        <a class="dropdown-item" href="/cliente-listar">Clientes</a>
                         <a class="dropdown-item" href="/cliente-novo">Novo Cliente</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/fornecedor-listar">Fornecedores</a>

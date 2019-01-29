@@ -14,7 +14,7 @@
                                 <label for="nome" class="col-md-4 col-form-label text-md-right">{{ __('*Nome') }}</label>
                             
                                 <div class="col-md-6">
-                                    <input id="nome" type="text" class="form-control{{$errors->has('nome') ? ' is-invalid' : '' }}" name="nome" value="{{ old('nome') }}" required autofocus>
+                                    <input id="nome" type="text" class="form-control{{$errors->has('nome') ? ' is-invalid' : '' }}" name="nome" value="{{ old('nome') }}"  autofocus required>
                             
                                     @if ($errors->has('nome'))
                                         <span class="invalid-feedback" role="alert">
@@ -37,20 +37,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="celular" class="col-md-4 col-form-label text-md-right">{{ __('Celular') }}</label>
-                            
-                                <div class="col-md-6">
-                                    <input id="celular" type="text" class="form-control{{$errors->has('celular') ? ' is-invalid' : '' }}" name="celular" value="{{ old('celular') }}" >
-                            
-                                    @if ($errors->has('celular'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('celular') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="documento" class="col-md-4 col-form-label text-md-right">{{ __('Documento') }}</label>
+                                <label for="documento" class="col-md-4 col-form-label text-md-right">{{ __('CPF/CNPJ') }}</label>
                             
                                 <div class="col-md-6">
                                     <input id="documento" type="text" class="form-control{{ $errors->has('documento') ? ' is-invalid' : '' }}" name="documento" value="{{ old('documento') }}" >
@@ -63,14 +50,79 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="endereco" class="col-md-4 col-form-label text-md-right">{{ __('Endereço') }}</label>
+                                <label for="logradouro" class="col-md-4 col-form-label text-md-right">{{ __('Logradouro') }}</label>
                             
                                 <div class="col-md-6">
-                                    <input id="endereco" type="text" class="form-control{{$errors->has('endereco') ? ' is-invalid' : '' }}" name="endereco" value="{{ old('endereco') }}" >
+                                    <input id="logradouro" type="text" class="form-control{{ $errors->has('logradouro') ? ' is-invalid' : '' }}" name="logradouro" value="{{ old('logradouro') }}" >
                             
-                                    @if ($errors->has('endereco'))
+                                    @if ($errors->has('logradouro'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('endereco') }}</strong>
+                                            <strong>{{ $errors->first('logradouro') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="numero" class="col-md-4 col-form-label text-md-right">{{ __('Número') }}</label>
+                            
+                                <div class="col-md-6">
+                                    <input id="numero" type="text" class="form-control{{ $errors->has('numero') ? ' is-invalid' : '' }}" name="numero" value="{{ old('numero') }}" >
+                            
+                                    @if ($errors->has('numero'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('numero') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="complemento" class="col-md-4 col-form-label text-md-right">{{ __('Complemento') }}</label>
+                            
+                                <div class="col-md-6">
+                                    <input id="complemento" type="text" class="form-control{{ $errors->has('complemento') ? ' is-invalid' : '' }}" name="complemento" value="{{ old('complemento') }}" >
+                            
+                                    @if ($errors->has('complemento'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('complemento') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="bairro" class="col-md-4 col-form-label text-md-right">{{ __('Bairro') }}</label>
+                            
+                                <div class="col-md-6">
+                                    <input id="bairro" type="text" class="form-control{{ $errors->has('bairro') ? ' is-invalid' : '' }}" name="bairro" value="{{ old('bairro') }}" >
+                            
+                                    @if ($errors->has('bairro'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('bairro') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="cep" class="col-md-4 col-form-label text-md-right">{{ __('CEP') }}</label>
+                            
+                                <div class="col-md-6">
+                                    <input id="cep" type="text" class="form-control{{ $errors->has('cep') ? ' is-invalid' : '' }}" name="cep" value="{{ old('cep') }}" >
+                            
+                                    @if ($errors->has('cep'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('cep') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="cidade" class="col-md-4 col-form-label text-md-right">{{ __('Cidade') }}</label>
+                            
+                                <div class="col-md-6">
+                                    <input id="cidade" type="text" class="form-control{{ $errors->has('cidade') ? ' is-invalid' : '' }}" name="cidade" value="{{ old('cidade') }}" >
+                            
+                                    @if ($errors->has('cidade'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('cidade') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -82,7 +134,6 @@
                                     </button>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>

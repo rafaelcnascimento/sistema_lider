@@ -11,9 +11,13 @@ class CreateClientesTable extends Migration {
 			$table->increments('id');
 			$table->string('nome', 255);
 			$table->string('telefone')->nullable();
-			$table->string('celular')->nullable();
 			$table->string('documento', 255)->nullable();
-			$table->string('endereco')->nullable();
+			$table->string('logradouro')->nullable();
+			$table->string('numero')->nullable();
+			$table->string('bairro')->nullable();
+			$table->string('cidade')->nullable();
+			$table->string('cep')->nullable();
+			$table->string('complemento')->nullable();
 			$table->softDeletes();
 		});
 	}

@@ -28,7 +28,6 @@ class ClienteController extends Controller
     {
         $request->validate([
             'nome' => 'required|regex:/^[\pL\s\-]+$/u|max:255',      
-            'endereco' => 'nullable|string|max:255',
         ]);
 
         Cliente::create(request()->all());
@@ -43,7 +42,6 @@ class ClienteController extends Controller
     {
         $request->validate([
             'nome' => 'required|regex:/^[\pL\s\-]+$/u|max:255',      
-            'endereco' => 'nullable|string|max:255',
         ]);
 
         $cliente->update(request()->all());
@@ -84,8 +82,8 @@ class ClienteController extends Controller
                 $output.='<tr>'.
                 '<td>'.$cliente->nome.'</td>'.
                 '<td>'.$cliente->telefone.'</td>'.
-                '<td>'.$cliente->celular.'</td>'.
-                '<td>'.$cliente->endereco.'</td>'.
+                '<td>'.$cliente->documento.'</td>'.
+                '<td>'.$cliente->logradouro. $cliente->numero.'</td>'.
                 '<td>
                     <a href="cliente/'.$cliente->id.'">
                         <button type="submit" class="btn btn-primary custom-btn">

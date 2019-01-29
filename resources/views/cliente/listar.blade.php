@@ -19,7 +19,6 @@
             <thead class="thead-dark">
                 <th>Nome</th>
                 <th>Telefone</th>
-                <th>Celular</th>
                 <th>Documento</th>
                 <th>Endereço</th>
                 <th>Editar</th>
@@ -29,9 +28,8 @@
                 <tr>
                     <td>{{$cliente->nome}}</td>
                     <td>{{$cliente->telefone}}</td>
-                    <td>{{$cliente->celular}}</td>
                     <td>{{$cliente->documento}}</td>
-                    <td>{{$cliente->endereco}}</td>
+                    <td>{{$cliente->logradouro}} {{$cliente->numero}}</td>
                     <td>
                         <a href="cliente/{{$cliente->id}}">
                             <button type="submit" class="btn btn-primary custom-btn">

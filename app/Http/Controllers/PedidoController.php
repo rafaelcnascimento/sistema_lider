@@ -58,8 +58,8 @@ class PedidoController extends Controller
                     <div style="width: 110%;">
                         <input id="quantidade" type="text" class="form-control" name="quantidade">
                     </div>
-                </td>'.
-                '</tr>';
+                </td>
+                </tr>';
             }
             return Response($output);
         }
