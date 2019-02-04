@@ -53,10 +53,11 @@ class PedidoController extends Controller
                 $output.='<tr>'.
                 '<td>'.$produto->nome.'</td>'.
                 '<td>'.$produto->unidade->nome.'</td>'.
+                '<td>'.$produto->quantidade.'</td>'.
                 '<td>R$ '.number_format($produto->preco,2,',','.').'</td>'.
                 '<td>
-                    <div style="width: 110%;">
-                        <input id="quantidade" type="text" class="form-control" name="quantidade">
+                    <div class="qtd" style="width: 60px;">
+                        <input id="desconto" type="text" class="form-control" name="quantidade">
                     </div>
                 </td>
                 </tr>';
