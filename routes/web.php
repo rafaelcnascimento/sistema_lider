@@ -68,5 +68,8 @@ Route::get('/checkoutAjax', 'PedidoController@buscaCheckout');
 Route::get('/fornecedorAjax', 'FornecedorController@busca');
 Route::get('/entradaAjax', 'EntradaController@busca');
 
+//Carrinho
+Route::get('/adicionarProduto', 'pedidoController@add');
+
 
 

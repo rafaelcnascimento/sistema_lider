@@ -1,6 +1,7 @@
 @extends('master')
 @section('css')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" rel="stylesheet" >
 @endsection
 @section('corpo')
 <div class="container-fluid">
@@ -43,7 +44,7 @@
                 <label for="custo" class="col-md-4 col-form-label text-md-right">{{ __('Total R$') }}</label>
             
                 <div class="col-md-4">
-                    <input id="custo" type="text" class="form-control no-border valor" name="custo" value="12,00" required>
+                    <input id="custo" type="text" class="form-control no-border valor" name="custo" required>
                 </div>
             </div>
             {{-- listagem --}}
@@ -52,7 +53,7 @@
                     <th>
                         <form class="form-inline">
                           <div class="form-group mx-sm-3 mb-2">
-                                <select class="select-cliente form-control" id="cliente_id"  name="cliente_id" required>
+                                <select class="select-cliente form-control" id="cliente_id"  name="cliente_id" >
                                     <option>Cliente</option>
                                     @foreach ($clientes as $cliente)
                                             <option value="{{$cliente->id}}">{{$cliente->nome}}</option>
@@ -83,15 +84,19 @@
                     <th>Material</th>
                     <th>Quantidade</th>
                     <th>Preço</th>
+                    <th>Remover</th>
                 </thead>
-                <tbody class="resultado">
-                    @foreach ($produtos as $produto)
+                <tbody class="carrinho" id="teste">
+                    {{-- @foreach ($produtos as $produto)
                     <tr>
                         <td>{{$produto->nome}}</td>
                         <td>{{$produto->quantidade}}</td>
                         <td>@moeda($produto->preco)</td>
+                        <td>
+                            <div id="{{$produto->id}}" style="cursor:pointer; margin-left:25px;"><i class="fas fa-minus-circle"></i></div>
+                        </td>
                     </tr>
-                    @endforeach  
+                    @endforeach   --}}
                 </tbody>
             </table>
 
@@ -108,10 +113,5 @@
         $(document).ready(function() {
             $('.select-cliente').select2();
         });
-
-        // $('.qtd').on('keydown', function(e){
-        //     var value=$("td input").attr("id");
-        //     alert(value);
-        // });
     </script>
 @endsection

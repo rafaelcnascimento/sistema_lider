@@ -10,10 +10,9 @@ class CreatePedidosTable extends Migration {
 		Schema::create('pedidos', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('cliente_id')->unsigned()->nullable();
-			$table->float('preco');
+			$table->float('valor');
 			$table->float('desconto')->default('0');
 			$table->boolean('pago')->default(0);
-			$table->string('documento', 255)->default('Não');
 			$table->integer('pagamento_id');
 			$table->integer('parcela_paga')->default(1);
 			$table->integer('parcela_total')->default(1);

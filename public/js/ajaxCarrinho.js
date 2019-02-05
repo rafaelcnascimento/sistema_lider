@@ -1,3 +1,6 @@
+//CSRF token
+$.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+
 //Busca
 $('#busca').on('keyup', function() {
     $value = $(this).val();
@@ -12,6 +15,7 @@ $('#busca').on('keyup', function() {
         }
     });
 })
+
 //Enter 
 $('.qtd').on('keydown', function(e)
 {
@@ -47,16 +51,29 @@ $('.qtd').on('keydown', function(e)
             alert(quantidade + ">" + estoque);
         }
         
-        // $.ajax({
-        //     type: 'get',
-        //     url: '/carrinhoAjax',
-        //     data: {
-        //         'item': value,
-        //         'quantidade':qtd
-        //     },
-        //     success: function(data) {
-        //         $('.cart').append(data);
-        //     }
-        // });
+        $.ajax({
+            type: 'get',
+            url: '/adicionarProduto',
+            data: {
+                'item': id,
+                'quantidade':quantidade
+            },
+            success: function(data) {
+                $('.carrinho').append(data);
+                
+                var itemRow =  document.getElementById("teste");
+                var itemColumns = itemRow.find('td');
+                var itemValores = [];
+                var custo = 0;
+                   
+                jQuery.each(itemColumns, function(i, item) {
+                    itemValores[i] = +item.innerHTML;
+                    alert(itemValores[i]);
+                    //custo = custo + (itemValores[4] * quantidade);
+                });
+
+                $('#custo').val(custo);
+            }
+        });
     }
 });

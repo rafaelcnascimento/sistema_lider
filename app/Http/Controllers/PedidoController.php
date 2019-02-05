@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Produto;
 use App\Cliente;
 use App\Pagamento;
+use Session;
 
 class PedidoController extends Controller 
 {
@@ -15,7 +16,40 @@ class PedidoController extends Controller
         $pagamentos = Pagamento::all();
         $clientes = Cliente::all();
 
+        Session::forget('carrinho');
+        // Session::forget('valor');
+
         return view('pedido.checkout', compact('produtos','pagamentos','clientes'));
+    }
+
+    public function add(Request $request)
+    {
+        $output="";
+
+        $quantidade = $request->quantidade;
+        $produto = Produto::find($request->item);
+        $preco = $produto->preco * $quantidade;
+
+        $item = array(
+            'produtoId' => $produto->id,
+            'produtoNome' => $produto->nome,
+            'preco' => $produto->preco,
+            'quantidade' => $quantidade
+        );
+
+        Session::push('carrinho', $item);
+        // $valor = Session::get('valor');
+        // $valor = $valor+ ($produto->preco * $quantidade);
+        // session(['valor' => $valor]);
+        // Session::push('valor', $valor);
+
+        $output.='<tr id="row'.$produto->id.'">'.
+        '<td>'.$produto->nome.'</td>'.
+        '<td>'.$quantidade.'</td>'.
+        '<td>'.number_format($preco,2,',','.').'</td>'.
+        '<td><div id="'.$produto->id.'"style="cursor:pointer; margin-left:25px;"><i class="fas fa-minus-circle"></i></div></td>';
+        
+        return Response($output);
     }
 
     public function buscaCheckout(Request $request)

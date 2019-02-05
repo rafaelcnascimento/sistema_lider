@@ -10,9 +10,10 @@ class CreatePedidoProdutoTable extends Migration {
 		Schema::create('pedido_produto', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('pedido_id')->unsigned();
-			$table->integer('produto')->unsigned();
+			$table->integer('produto_id')->unsigned();
+			$table->integer('preco_unitario');
 			$table->integer('quantidade');
-			$table->integer('preco');
+			$table->integer('preco_total');
 		});
 	}
 
