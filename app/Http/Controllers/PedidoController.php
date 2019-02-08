@@ -43,7 +43,7 @@ class PedidoController extends Controller
         // session(['valor' => $valor]);
         // Session::push('valor', $valor);
 
-        $output.='<tr id="row'.$produto->id.'">'.
+        $output.='<tr>'.
         '<td>'.$produto->nome.'</td>'.
         '<td>'.$quantidade.'</td>'.
         '<td>'.number_format($preco,2,',','.').'</td>'.
@@ -60,7 +60,7 @@ class PedidoController extends Controller
 
         if (!$request->search) 
         {
-            $produtos = Produto::paginate(50);
+            $produtos = Produto::orderBy('nome','asc')->get();
         } 
         else
         {
@@ -84,14 +84,15 @@ class PedidoController extends Controller
     
         if ($produtos) {
             foreach ($produtos as $produto) {
-                $output.='<tr>'.
+                $output.='<tr id="row'.$produto->id.'">'.
+                '<td style="display:none;">'.$produto->id.'</td>'.
                 '<td>'.$produto->nome.'</td>'.
                 '<td>'.$produto->unidade->nome.'</td>'.
                 '<td>'.$produto->quantidade.'</td>'.
                 '<td>R$ '.number_format($produto->preco,2,',','.').'</td>'.
                 '<td>
                     <div class="qtd" style="width: 60px;">
-                        <input id="desconto" type="text" class="form-control" name="quantidade">
+                        <input id="'.$produto->id.'" type="text" class="form-control" name="quantidade" >
                     </div>
                 </td>
                 </tr>';

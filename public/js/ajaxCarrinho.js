@@ -17,25 +17,27 @@ $('#busca').on('keyup', function() {
 })
 
 //Enter 
-$('.qtd').on('keydown', function(e)
+$(document).on('keyup','.qtd input' ,function(event)
 {
     var tecla = event.which;
+    
     if (tecla === 13) {
         event.preventDefault();
 
-        var row = jQuery(this).closest('tr');
+        var value = $(this).attr('id');
+        var row = $('#row' + value).closest("tr");
         var columns = row.find('td');
         var valores = [];
            
-        jQuery.each(columns, function(i, item) {
+        $.each(columns, function(i, item) {
             valores[i] = item.innerHTML;
         });
 
-        var id = valores[0];
+        var id = valores[0]; 
         var estoque = +valores[3];
-        var quantidade = +$('#qtd' + valores[0]).val();
+        var preco = converterPreco(valores[4]);
 
-        //alert(typeof(quantidade));
+        var quantidade = +$('#'+valores[0]).val();
         
         if (quantidade == '') {
             alert("Informe a quantidade");
@@ -48,7 +50,7 @@ $('.qtd').on('keydown', function(e)
         }
 
         if (quantidade > estoque) {
-            alert(quantidade + ">" + estoque);
+            alert("Quantidade maior que o estoque");
         }
         
         $.ajax({
@@ -61,19 +63,20 @@ $('.qtd').on('keydown', function(e)
             success: function(data) {
                 $('.carrinho').append(data);
                 
-                var itemRow =  document.getElementById("teste");
-                var itemColumns = itemRow.find('td');
-                var itemValores = [];
-                var custo = 0;
-                   
-                jQuery.each(itemColumns, function(i, item) {
-                    itemValores[i] = +item.innerHTML;
-                    alert(itemValores[i]);
-                    //custo = custo + (itemValores[4] * quantidade);
-                });
-
+                var custo = $('#custo').val();
+                custo = +custo;
+                custo = custo + (preco * quantidade);
                 $('#custo').val(custo);
             }
         });
     }
 });
+
+function converterPreco(valor)
+{
+    var preco = valor.substring(3);
+
+    preco = +preco.replace(/,/g, ".")
+
+    return preco;
+}

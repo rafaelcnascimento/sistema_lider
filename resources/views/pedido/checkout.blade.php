@@ -20,9 +20,9 @@
                     <th class="w-25">Preço</th>
                     <th>Qtd</th>
                 </thead>
-                <tbody class="resultado">
+                <tbody class="resultado" id="lista">
                     @foreach ($produtos as $produto)
-                    <tr>
+                    <tr id="row{{$produto->id}}">
                         <td style="display:none;">{{$produto->id}}</td>
                         <td>{{$produto->nome}}</td>
                         <td>{{$produto->unidade->nome}}</td>
@@ -30,7 +30,7 @@
                         <td>@moeda($produto->preco)</td>
                         <td>
                             <div class="qtd" style="width: 60px;">
-                                <input id="qtd{{$produto->id}}" type="text" class="form-control" name="quantidade" >
+                                <input id="{{$produto->id}}" type="text" class="form-control" name="quantidade" >
                             </div>
                         </td>
                     </tr>
@@ -80,15 +80,15 @@
                 </thead>
             </table>
             <table class="table table-striped">
-                <thead class="thead-dark">
+                {{-- <thead class="thead-dark">
                     <th>Material</th>
                     <th>Quantidade</th>
                     <th>Preço</th>
                     <th>Remover</th>
-                </thead>
-                <tbody class="carrinho" id="teste">
+                </thead> --}}
+                <tbody class="carrinho">
                     {{-- @foreach ($produtos as $produto)
-                    <tr>
+                    <tr id=row{{$produto->id}}>
                         <td>{{$produto->nome}}</td>
                         <td>{{$produto->quantidade}}</td>
                         <td>@moeda($produto->preco)</td>
