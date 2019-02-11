@@ -63,14 +63,18 @@ $(document).on('keyup','.qtd input' ,function(event)
             success: function(data) {
                 $('.carrinho').append(data);
                 
-                var custo = $('#custo').val();
-                custo = +custo;
-                custo = custo + (preco * quantidade);
-                $('#custo').val(custo);
+                var valor = $('#valor').val();
+                valor = +valor;
+                valor = valor + (preco * quantidade);
+                $('#valor').val(valor);
             }
         });
     }
 });
+
+ //Remove
+
+
 
 function converterPreco(valor)
 {

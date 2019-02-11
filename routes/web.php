@@ -70,6 +70,8 @@ Route::get('/entradaAjax', 'EntradaController@busca');
 
 //Carrinho
 Route::get('/adicionarProduto', 'pedidoController@add');
+Route::get('/removerProduto', 'pedidoController@remove');
+
 
 
 

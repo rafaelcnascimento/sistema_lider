@@ -14,6 +14,11 @@ class Pedido extends Model
     protected $table = 'pedidos';
     public $timestamps = true;
 
+    protected $attributes = [
+        'desconto' => 0,
+        'pago' => true,
+    ];
+
     public function cliente()
     {
         return $this->belongsTo('Cliente', 'cliente_id');
