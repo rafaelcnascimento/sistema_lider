@@ -26,7 +26,7 @@
             <tbody class="resultado">
                 @foreach ($entradas as $entrada)
                 <tr>
-                    <td>{{$entrada->produto->nome}}</td>
+                    <td><a href="/produto/{{$entrada->produto->id}}" target="_blank">{{$entrada->produto->nome}}</a></td>
                     <td>{{$entrada->quantidade}}</td>
                     <td>{{$entrada->custo}}</td>
                     <td>{{$entrada->created_at}}</td>

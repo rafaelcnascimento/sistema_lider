@@ -48,6 +48,9 @@
                         <a class="dropdown-item" href="/fornecedor-novo">Novo Fornecedor</a>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link active" href="/pedido-listar">Pedidos</a>
+                </li>
             </ul>
         </nav>
 

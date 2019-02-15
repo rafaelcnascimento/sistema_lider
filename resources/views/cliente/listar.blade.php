@@ -21,22 +21,14 @@
                 <th>Telefone</th>
                 <th>Documento</th>
                 <th>Endereço</th>
-                <th>Editar</th>
             </thead>
             <tbody class="resultado">
                 @foreach ($clientes as $cliente)
                 <tr>
-                    <td>{{$cliente->nome}}</td>
+                    <td><a href="cliente/{{$cliente->id}}" target="_blank">{{$cliente->nome}}</a></td>
                     <td>{{$cliente->telefone}}</td>
                     <td>{{$cliente->documento}}</td>
-                    <td>{{$cliente->logradouro}} {{$cliente->numero}}</td>
-                    <td>
-                        <a href="cliente/{{$cliente->id}}">
-                            <button type="submit" class="btn btn-primary custom-btn">
-                                {{ __('Editar') }}
-                            </button>
-                        </a>
-                    </td>    
+                    <td>{{$cliente->logradouro}} {{$cliente->numero}}</td> 
                 </tr>
                 @endforeach  
             </tbody>

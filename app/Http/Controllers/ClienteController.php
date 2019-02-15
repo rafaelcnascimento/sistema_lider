@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cliente;
+use App\Pedido;
+
 
 class ClienteController extends Controller
 {
@@ -21,7 +23,9 @@ class ClienteController extends Controller
 
     public function show(Cliente $cliente)
     {
-        return view('cliente.editar', compact('cliente'));
+        $pedidos = Pedido::where('cliente_id',$cliente->id)->paginate(25);
+
+        return view('cliente.editar', compact('cliente','pedidos'));
     }
 
     public function store(Request $request)

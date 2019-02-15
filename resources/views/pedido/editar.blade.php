@@ -7,7 +7,67 @@
             {!! session('message.content') !!}
             </div>
         @endif
-        <div class="row justify-content-center">
+
+        <div class="container-fluid">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <th>Código</th>
+                    <th>Cliente</th>
+                    <th>Valor</th>
+                    <th>Desconto</th>
+                    <th>Forma de Pagamento</th>
+                    <th>Parcelas/Pagas</th>
+                    <th>Situação</th>
+                    <th>Data</th>
+                </thead>
+                <tbody class="resultado">
+                <tr>
+                    <td><a href="pedido/{{$pedido->id}}" target="_blank">{{$pedido->id}}</a></td>
+                    <td><a href="cliente/{{$pedido->cliente->id}}" target="_blank">{{$pedido->cliente->nome}}</a></td>
+                    <td>R${{$pedido->valor}}</td>
+                    <td>{{$pedido->desconto}}%</td>
+                    <td>{{$pedido->pagamento->nome}}</td>
+                    <td>{{$pedido->parcela_paga}}/<b>{{$pedido->parcela_total}}</b></td>
+                    
+                    @if ($pedido->pago)
+                    <td class="table-success">
+                        Pago
+                    </td>
+                    @elseif (!$pedido->pago && $pedido->parcela_paga > 1 )
+                        <td class="table-warning">
+                            Em Aberto
+                        </td>
+                    @else
+                        <td class="table-danger">
+                            Não Pago
+                        </td>
+                    @endif
+                    <td>{{$pedido->created_at}}</td>
+                </tr>  
+                </tbody>
+            </table>
+        </div>
+        
+        <table class="table table-borderless">
+           <thead>
+               <th>Produto</th>
+               <th>Quantidade</th>
+               <th>Preço Unitário</th>
+               <th>Preço Total</th>
+           </thead>
+           <tbody>
+               @foreach ($pedido->produtos as $produto)
+                   <tr>
+                       <td>{{$produto->nome}}</td>
+                       <td>{{$produto->pivot->quantidade}}</td>
+                       <td>R${{$produto->pivot->preco_unitario}}</td>
+                       <td>R${{$produto->pivot->preco_total}}</td>
+                   </tr>
+                @endforeach   
+           </tbody>
+        </table>
+
+       {{--  <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('Editar  Entrada') }}</div>
@@ -94,8 +154,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div> --}}
+    </div> 
 @endsection
 
 

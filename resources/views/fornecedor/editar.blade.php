@@ -95,6 +95,27 @@
                 </div>
             </div>
         </div>
+        <br>
+        <h2>Produtos desse fornecedor:</h2>
+        <br>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <th>Material</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                </thead>
+                <tbody class="resultado">
+                    @foreach ($produtos as $produto)
+                    <tr>
+                        <td><a href="/produto/{{$produto->id}}" target="_blank">{{$produto->nome}}</a></td>
+                        <td>{{$produto->quantidade}}</td>
+                        <td>@moeda($produto->preco)</td>
+                    </tr>
+                    @endforeach  
+                </tbody>
+            </table>
+
+        {{ $produtos->links() }}
     </div>
 @endsection
 @section('js')

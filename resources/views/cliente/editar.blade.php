@@ -156,11 +156,56 @@
                                         </button>
                                     </div>   
                                 </form>  
-                                </div>                 
+                        </div>                 
                     </div>
                 </div>
             </div>
         </div>
+        <br>
+        <center><h2>Compras desse cliente</h2></center>
+        <br>
+        <div class="container-fluid">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <th>Código</th>
+                    <th>Cliente</th>
+                    <th>Valor</th>
+                    <th>Desconto</th>
+                    <th>Forma de Pagamento</th>
+                    <th>Parcelas/Pagas</th>
+                    <th>Situação</th>
+                    <th>Data</th>
+                </thead>
+                <tbody class="resultado">
+                    @foreach ($pedidos as $pedido)
+                    <tr>
+                        <td><a href="pedido/{{$pedido->id}}" target="_blank">{{$pedido->id}}</a></td>
+                        <td><a href="cliente/{{$pedido->cliente->id}}" target="_blank">{{$pedido->cliente->nome}}</a></td>
+                        <td>R${{$pedido->valor}}</td>
+                        <td>{{$pedido->desconto}}%</td>
+                        <td>{{$pedido->pagamento->nome}}</td>
+                        <td>{{$pedido->parcela_paga}}/<b>{{$pedido->parcela_total}}</b></td>
+                        
+                        @if ($pedido->pago)
+                        <td class="table-success">
+                            Pago
+                        </td>
+                        @elseif (!$pedido->pago && $pedido->parcela_paga > 1 )
+                            <td class="table-warning">
+                                Em Aberto
+                            </td>
+                        @else
+                            <td class="table-danger">
+                                Não Pago
+                            </td>
+                        @endif
+                        <td>{{$pedido->created_at}}</td>
+                    </tr>
+                    @endforeach    
+                </tbody>
+            </table>
+        </div>
+        {{ $pedidos->links() }}
     </div>
 @endsection
 @section('js')

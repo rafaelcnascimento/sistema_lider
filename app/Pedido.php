@@ -21,12 +21,21 @@ class Pedido extends Model
 
     public function cliente()
     {
-        return $this->belongsTo('Cliente', 'cliente_id');
+        return $this->belongsTo('App\Cliente', 'cliente_id');
+    }
+
+    public function pagamento()
+    {
+        return $this->belongsTo('App\pagamento', 'pagamento_id');
     }
 
     public function produtos()
     {
-        return $this->belongsToMany('Produto', 'pedido_produto', 'pedido_id', 'produto_id')->withPivot('quantidade','preco');
+        return $this->belongsToMany('App\Produto', 'pedido_produto', 'pedido_id', 'produto_id')->withPivot('preco_unitario', 'quantidade','preco_total');
+    }
+
+    public function getCreatedAtAttribute($value) {
+        return \Carbon\Carbon::parse($value)->format('d/m/Y  H:i');
     }
 
 }

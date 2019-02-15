@@ -8,58 +8,80 @@
         </div>
     @endif
 
-    <center>
-        <div class="form-group has-feedback" style="width: 50%">
-            <input type="text" class="form-control" name="busca" id="busca" placeholder="Buscar">
-        </div>
+        <form class="form-inline filtrar" method="POST" action="/pedido-filtrar">
+            @csrf
+            <h3>Filtrar:</h3>
+            <select class="form-control espaco20" id="mes"  name="mes" >
+                <option selected="" disabled="">Escolha o mês</option>
+                <option value="01">Janeiro</option>
+                <option value="02">Fevereiro</option>
+                <option value="03">Março</option>
+                <option value="04">Abril</option>
+                <option value="05">Maio</option>
+                <option value="06">Junho</option>
+                <option value="07">Julho</option>
+                <option value="08">Agosto</option>
+                <option value="09">Setembro</option>
+                <option value="10">Outubro</option>
+                <option value="11">Novembro</option>
+                <option value="12">Dezembro</option>
+            </select>
+
+            <select class="form-control espaco20" id="ano"  name="ano" >
+                <option selected="" disabled="">Escolha o ano</option>
+
+                @foreach ($anos as $ano)
+                    <option value="{{$ano->valor}}">{{$ano->valor}}</option>
+                @endforeach
+            </select>
+
+        </form>
+
     </center>
+
+    {{-- Filtrar depois por ano e mes --}}
+
     <br>
     <div class="container-fluid">
         <table class="table table-striped">
             <thead class="thead-dark">
-                <th>Produto</th>
-                <th>Quantidade</th>
-                <th>Custo Total</th>
+                <th>Código</th>
+                <th>Cliente</th>
+                <th>Valor</th>
+                <th>Desconto</th>
+                <th>Forma de Pagamento</th>
+                <th>Parcelas/Pagas</th>
+                <th>Situação</th>
                 <th>Data</th>
-                <th>Editar</th>
             </thead>
             <tbody class="resultado">
-                @foreach ($entradas as $entrada)
+                @foreach ($pedidos as $pedido)
                 <tr>
-                    <td>{{$entrada->produto->nome}}</td>
-                    <td>{{$entrada->quantidade}}</td>
-                    <td>{{$entrada->custo}}</td>
-                    <td>{{$entrada->created_at}}</td>
-                    <td>
-                        <a href="entrada/{{$entrada->id}}">
-                            <button type="submit" class="btn btn-primary custom-btn">
-                                {{ __('Editar') }}
-                            </button>
-                        </a>
-                    </td>    
+                    <td><a href="pedido/{{$pedido->id}}" target="_blank">{{$pedido->id}}</a></td>
+                    <td><a href="cliente/{{$pedido->cliente->id}}" target="_blank">{{$pedido->cliente->nome}}</a></td>
+                    <td>R${{$pedido->valor}}</td>
+                    <td>{{$pedido->desconto}}%</td>
+                    <td>{{$pedido->pagamento->nome}}</td>
+                    <td>{{$pedido->parcela_paga}}/<b>{{$pedido->parcela_total}}</b></td>
+                    
+                    @if ($pedido->pago)
+                    <td class="table-success">
+                        Pago
+                    </td>
+                    @elseif (!$pedido->pago && $pedido->parcela_paga > 1 )
+                        <td class="table-warning">
+                            Em Aberto
+                        </td>
+                    @else
+                        <td class="table-danger">
+                            Não Pago
+                        </td>
+                    @endif
+                    <td>{{$pedido->created_at}}</td>
                 </tr>
-                @endforeach  
+                @endforeach    
             </tbody>
         </table>
     </div>
-    {{ $entradas->links() }}
-@endsection
-
-@section('js')
-    <script type="text/javascript">
-        //Busca
-        $('#busca').on('keyup', function() {
-            $value = $(this).val();
-            $.ajax({
-                type: 'get',
-                url: '/entradaAjax',
-                data: {
-                    'search': $value
-                },
-                success: function(data) {
-                    $('.resultado').html(data);
-                }
-            });
-        })
-    </script>
+    {{ $pedidos->links() }}
 @endsection

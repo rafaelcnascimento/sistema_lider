@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 use App\Pedido;
 use App\Produto;
 use App\Cliente;
@@ -29,25 +30,42 @@ class PedidoController extends Controller
 
         $valor = $request->valor * (1 - $desconto/100);
 
+        switch ($request->pagamento_id) 
+        {
+            case '2':
+                # parcelado...
+                break;
+            
+            default:
+                $parcela_paga = 1;
+                $parcela_total = 1;
+                break;
+        }
+
         $pedido = Pedido::create([
             'valor' => $valor,
             'desconto' => $desconto,
             'cliente_id' => $request->cliente_id,
             'pagamento_id' => $request->pagamento_id,
+            'parcela_paga' => $parcela_paga,
+            'parcela_total' => $parcela_total
         ]);
 
-        dd($pedido);
-
-        $items = Session::get('cart');
+        $items = Session::get('carrinho');
         
         foreach ($items as $item) 
         {
-            $novo_pedido->materials()->attach($novo_pedido->id, ['id_material' => $item['material'], 'quantidade' => $item['quantidade'], 'atendido' => 0]);
+            $pedido->produtos()->attach
+            ($pedido->id, ['produto_id' => $item['produtoId'], 'preco_unitario' => $item['preco'],
+                'quantidade' => $item['quantidade'], 'preco_total' => $item['preco'] * $item['quantidade']]);
         }
 
-        Session::forget('cart');
+        Session::forget('carrinho');
 
-        return redirect('/material');
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Pedido realizado com sucesso');
+
+        return redirect('/pedido-novo');
     }
 
     public function add(Request $request)
@@ -144,5 +162,19 @@ class PedidoController extends Controller
             }
             return Response($output);
         }
+    }
+
+    public function index()
+    {
+        $anos = Pedido::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
+
+        $pedidos = Pedido::orderBy('id','dsc')->paginate(50);
+
+        return view('pedido.listar', compact('pedidos','anos'));
+    }
+
+    public function show(Pedido $pedido)
+    {
+        return view('pedido.editar', compact('pedido'));
     }
 }

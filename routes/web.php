@@ -29,6 +29,7 @@ Route::get('/pedido-listar', 'PedidoController@index');
 Route::get('/pedido/{pedido}', 'PedidoController@show');
 Route::get('/pedido-novo', 'PedidoController@create');
 
+Route::post('/pedido-filtrar', 'PedidoController@filter');
 Route::post('/pedido', 'PedidoController@store');
 Route::patch('/pedido/{pedido}', 'PedidoController@update');
 Route::delete('/pedido/{pedido}', 'PedidoController@delete');

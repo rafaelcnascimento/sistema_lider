@@ -98,7 +98,6 @@ class ProdutoController extends Controller
             'codigo' => 'nullable|numeric|exists:produtos',
             'unidade_id' => 'required|numeric',
             'fornecedor_id' => 'nullable|numeric',
-            'quantidade' => 'nullable|numeric',
             'estoque_baixo' => 'nullable|numeric',
             'custo_inicial' => 'nullable|numeric',
             'ipi' => 'nullable|numeric',
@@ -108,9 +107,20 @@ class ProdutoController extends Controller
             'margem' => 'nullable|numeric',
             'custo_final' => 'nullable|numeric',
             'preco' => 'required|numeric',
+            'quantidade' => 'nullable|required_with:custo|numeric',
+            'custo' => 'nullable|required_with:quantidade|numeric',
         ]);
 
-        $produto->update(request()->all());
+        $produto->update(request()->except('custo','quantidade','quantidade_atual'));
+
+        if ($request->quantidade) 
+        {
+            $entrada = new Entrada();
+            $entrada->produto_id = $produto->id;
+            $entrada->quantidade = $request->quantidade;
+            $entrada->custo = $request->custo;
+            $entrada->save();
+        }
 
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', 'Produto modificado com sucesso');

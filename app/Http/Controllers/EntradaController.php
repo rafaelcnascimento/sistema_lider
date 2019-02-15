@@ -10,7 +10,7 @@ class EntradaController extends Controller
 {
     public function index()
     {
-        $entradas = Entrada::paginate(50);
+        $entradas = Entrada::orderBy('id','dsc')->paginate(50);
 
         return view('entrada.listar', compact('entradas'));
     }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Fornecedor;
+use App\Produto;
+
 
 class FornecedorController extends Controller
 {
@@ -21,7 +23,9 @@ class FornecedorController extends Controller
 
     public function show(Fornecedor $fornecedor)
     {
-        return view('fornecedor.editar', compact('fornecedor'));
+        $produtos = Produto::where('fornecedor_id',$fornecedor->id)->paginate(50);
+
+        return view('fornecedor.editar', compact('fornecedor','produtos'));
     }
 
     public function store(Request $request)
