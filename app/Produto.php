@@ -24,9 +24,14 @@ class Produto extends Model
         return $this->belongsTo('App\Unidade', 'unidade_id');
     }
 
-    public function produtos()
+    public function pedidos()
     {
         return $this->belongsToMany('App\Pedido', 'pedido_produto', 'pedido_id', 'produto_id')->withPivot('preco_unitario', 'quantidade','preco_total');
+    }
+
+    public function orcamentos()
+    {
+        return $this->belongsToMany('App\Orcamento', 'pedido_produto', 'pedido_id', 'produto_id')->withPivot('preco_unitario', 'quantidade','preco_total');
     }
 
     public function getFornecedorNome()

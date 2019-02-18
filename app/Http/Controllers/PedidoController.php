@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Pedido;
+use App\Orcamento;
 use App\Produto;
 use App\Cliente;
 use App\Pagamento;
@@ -27,6 +28,7 @@ class PedidoController extends Controller
     public function store(Request $request)
     {
         if ($request->desconto ? $desconto = $request->desconto : $desconto = 0);
+        // if ($request->$cliente_id ? $cliente_id = $request->$cliente_id : $cliente_id = null);
 
         $valor = $request->valor * (1 - $desconto/100);
 
@@ -42,22 +44,41 @@ class PedidoController extends Controller
                 break;
         }
 
-        $pedido = Pedido::create([
-            'valor' => $valor,
-            'desconto' => $desconto,
-            'cliente_id' => $request->cliente_id,
-            'pagamento_id' => $request->pagamento_id,
-            'parcela_paga' => $parcela_paga,
-            'parcela_total' => $parcela_total
-        ]);
-
         $items = Session::get('carrinho');
-        
-        foreach ($items as $item) 
+
+        if ($request->botao == 'orcamento')
         {
-            $pedido->produtos()->attach
-            ($pedido->id, ['produto_id' => $item['produtoId'], 'preco_unitario' => $item['preco'],
-                'quantidade' => $item['quantidade'], 'preco_total' => $item['preco'] * $item['quantidade']]);
+            $orcamento = Orcamento::create([
+               'valor' => $valor,
+               'desconto' => $desconto,
+               'cliente_id' => $request->cliente_id,
+            ]);
+
+            foreach ($items as $item) 
+            {
+                $orcamento->produtos()->attach
+                ($orcamento->id, ['produto_id' => $item['produtoId'], 'preco_unitario' => $item['preco'],
+                    'quantidade' => $item['quantidade'], 'preco_total' => $item['preco'] * $item['quantidade']]);
+            }
+        } 
+
+        else 
+        {
+            $pedido = Pedido::create([
+                'valor' => $valor,
+                'desconto' => $desconto,
+                'cliente_id' => $request->cliente_id,
+                'pagamento_id' => $request->pagamento_id,
+                'parcela_paga' => $parcela_paga,
+                'parcela_total' => $parcela_total
+            ]);
+
+            foreach ($items as $item) 
+            {
+                $pedido->produtos()->attach
+                ($pedido->id, ['produto_id' => $item['produtoId'], 'preco_unitario' => $item['preco'],
+                    'quantidade' => $item['quantidade'], 'preco_total' => $item['preco'] * $item['quantidade']]);
+            }
         }
 
         Session::forget('carrinho');

@@ -69,9 +69,12 @@ Route::get('/checkoutAjax', 'PedidoController@buscaCheckout');
 Route::get('/fornecedorAjax', 'FornecedorController@busca');
 Route::get('/entradaAjax', 'EntradaController@busca');
 
+//Orçamento
+Route::get('/orcamento/{{orcamento}}', 'OrcamentoController@show');
+Route::post('/orcamento', 'OrcamentoController@store');
 //Carrinho
-Route::get('/adicionarProduto', 'pedidoController@add');
-Route::get('/removerProduto', 'pedidoController@remove');
+Route::get('/adicionarProduto', 'PedidoController@add');
+Route::get('/removerProduto', 'PedidoController@remove');
 
 
 

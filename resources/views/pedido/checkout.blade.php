@@ -55,7 +55,14 @@
                 </div>
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" name="botao" value="orcamento" class="btn btn-success">
+                            {{ __('Orcamento') }}
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group row mb-0">
+                    <div class="col-md-6 offset-md-4">
+                        <button type="submit" name="botao" class="btn btn-primary">
                             {{ __('Finalizar') }}
                         </button>
                     </div>
@@ -67,7 +74,7 @@
                     <th class="form-inline">
                         <div class="form-group mx-sm-3 mb-2">
                             <select class="select-cliente form-control" id="cliente_id"  name="cliente_id" >
-                                <option>Cliente</option>
+                                <option value="" >Cliente</option>
                                 @foreach ($clientes as $cliente)
                                         <option value="{{$cliente->id}}">{{$cliente->nome}}</option>
                                 @endforeach
