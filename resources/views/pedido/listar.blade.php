@@ -58,7 +58,13 @@
                 @foreach ($pedidos as $pedido)
                 <tr>
                     <td><a href="pedido/{{$pedido->id}}" target="_blank">{{$pedido->id}}</a></td>
-                    <td><a href="cliente/{{$pedido->cliente->id}}" target="_blank">{{$pedido->cliente->nome}}</a></td>
+                    <td>
+                        @if(empty($pedido->cliente->id))
+
+                        @else
+                            <a href="cliente/{{$pedido->cliente->id}}" target="_blank">{{$pedido->cliente->nome}}</a>
+                        @endif
+                    </td>
                     <td>R${{$pedido->valor}}</td>
                     <td>{{$pedido->desconto}}%</td>
                     <td>{{$pedido->pagamento->nome}}</td>

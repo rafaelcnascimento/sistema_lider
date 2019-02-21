@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Orcamento extends Model 
 {
-    protected $table = 'produtos';
+    protected $table = 'orcamentos';
     public $timestamps = false;
     protected $guarded = [];
 
    public function cliente()
    {
-       return $this->belongsTo('App\Cliente', 'cliente_id');
+      return $this->belongsTo('App\Cliente', 'cliente_id');
    }
 
    public function pagamento()

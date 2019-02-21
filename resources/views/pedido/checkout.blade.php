@@ -86,7 +86,7 @@
 
                         <div class="form-group mx-sm-3 mb-2">
                             <select class="form-control" id="pagamento_id"  name="pagamento_id" required>
-                                <option disabled>Dinheiro, à vista</option>
+                                <option value="1" disabled>Dinheiro, à vista</option>
                                 @foreach ($pagamentos as $pagamento)
                                     <option value="{{$pagamento->id}}">{{$pagamento->nome}}</option>
                                 @endforeach

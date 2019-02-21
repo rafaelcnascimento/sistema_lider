@@ -70,7 +70,7 @@ Route::get('/fornecedorAjax', 'FornecedorController@busca');
 Route::get('/entradaAjax', 'EntradaController@busca');
 
 //Orçamento
-Route::get('/orcamento/{{orcamento}}', 'OrcamentoController@show');
+Route::get('/orcamento/{orcamento}', 'OrcamentoController@show');
 Route::post('/orcamento', 'OrcamentoController@store');
 //Carrinho
 Route::get('/adicionarProduto', 'PedidoController@add');
