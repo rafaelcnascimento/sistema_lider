@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use VerumConsilium\Browsershot\Facades\Screenshot;
 use DB;
 use App\Pedido;
 use App\Orcamento;
@@ -60,6 +61,11 @@ class PedidoController extends Controller
                 ($orcamento->id, ['produto_id' => $item['produtoId'], 'preco_unitario' => $item['preco'],
                     'quantidade' => $item['quantidade'], 'preco_total' => $item['preco'] * $item['quantidade']]);
             }
+
+            Screenshot::loadUrl('http://127.0.0.1/orcamento'.$orcamento->id)
+                       ->useJPG()
+                       ->margins(20, 0, 0, 20)
+                       ->download();
         } 
 
         else 
