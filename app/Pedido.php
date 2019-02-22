@@ -26,7 +26,7 @@ class Pedido extends Model
 
     public function pagamento()
     {
-        return $this->belongsTo('App\pagamento', 'pagamento_id');
+        return $this->belongsTo('App\Pagamento', 'pagamento_id');
     }
 
     public function produtos()
