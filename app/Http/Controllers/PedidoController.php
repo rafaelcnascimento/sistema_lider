@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use VerumConsilium\Browsershot\Facades\Screenshot;
 use DB;
+use Anam\PhantomMagick\Converter;
 use App\Pedido;
 use App\Orcamento;
 use App\Produto;
@@ -62,10 +62,13 @@ class PedidoController extends Controller
                     'quantidade' => $item['quantidade'], 'preco_total' => $item['preco'] * $item['quantidade']]);
             }
 
-            Screenshot::loadUrl('http://127.0.0.1/orcamento'.$orcamento->id)
-                       ->useJPG()
-                       ->margins(20, 0, 0, 20)
-                       ->download();
+            $conv = new Converter();
+            $conv->setBinary('C:\xampp\htdocs\sistema_lider\bin\phantomjs');
+            $conv->source('http://127.0.0.1/orcamento/'.$orcamento->id)
+                ->toPng()
+                ->download($orcamento->cliente->nome.'.png');
+
+                dd('lol');  
         } 
 
         else 
