@@ -67,8 +67,6 @@ class PedidoController extends Controller
             $conv->source('http://127.0.0.1/orcamento/'.$orcamento->id)
                 ->toPng()
                 ->download($orcamento->cliente->nome.'.png');
-
-                dd('lol');  
         } 
 
         else 
