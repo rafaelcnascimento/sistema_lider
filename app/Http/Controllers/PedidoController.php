@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use Anam\PhantomMagick\Converter;
 use App\Pedido;
 use App\Orcamento;
 use App\Produto;
@@ -29,7 +28,7 @@ class PedidoController extends Controller
     public function store(Request $request)
     {
         if ($request->desconto ? $desconto = $request->desconto : $desconto = 0);
-        // if ($request->$cliente_id ? $cliente_id = $request->$cliente_id : $cliente_id = null);
+        //if ($request->$cliente_id ? $cliente_id = $request->$cliente_id : $cliente_id = null);
 
         $valor = $request->valor * (1 - $desconto/100);
 
@@ -50,10 +49,10 @@ class PedidoController extends Controller
         if ($request->botao == 'orcamento')
         {
             $orcamento = Orcamento::create([
-               'valor' => $valor,
-               'desconto' => $desconto,
-               'cliente_id' => $request->cliente_id,
-            ]);
+                'valor' => $valor,
+                'desconto' => $desconto,
+                'cliente_id' => $request->cliente_id,
+           ]);
 
             foreach ($items as $item) 
             {
@@ -62,11 +61,7 @@ class PedidoController extends Controller
                     'quantidade' => $item['quantidade'], 'preco_total' => $item['preco'] * $item['quantidade']]);
             }
 
-            $conv = new Converter();
-            $conv->setBinary('C:\xampp\htdocs\sistema_lider\bin\phantomjs');
-            $conv->source('http://127.0.0.1/orcamento/'.$orcamento->id)
-                ->toPng()
-                ->download($orcamento->cliente->nome.'.png');
+            return redirect('/redirect-orcamento/'.$orcamento->id);
         } 
 
         else 
@@ -85,6 +80,10 @@ class PedidoController extends Controller
                 $pedido->produtos()->attach
                 ($pedido->id, ['produto_id' => $item['produtoId'], 'preco_unitario' => $item['preco'],
                     'quantidade' => $item['quantidade'], 'preco_total' => $item['preco'] * $item['quantidade']]);
+
+                $produto = Produto::find($item['produtoId']);
+                $produto->quantidade -= $item['quantidade'];
+                $produto->save();
             }
         }
 
@@ -204,5 +203,10 @@ class PedidoController extends Controller
     public function show(Pedido $pedido)
     {
         return view('pedido.editar', compact('pedido'));
+    }
+
+    public function redirect(Pedido $pedido, $flag)
+    {
+        return view('pedido.gerar', compact('pedido','flag'));
     }
 }

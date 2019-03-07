@@ -76,6 +76,14 @@ Route::post('/orcamento', 'OrcamentoController@store');
 Route::get('/adicionarProduto', 'PedidoController@add');
 Route::get('/removerProduto', 'PedidoController@remove');
 
+//Rotas imagens
+Route::get('/redirect-orcamento/{orcamento}', 'OrcamentoController@redirect');
+Route::get('/redirect-pedido/{pedido}&{flag}', 'pedidoController@redirect');
+Route::get('/gerar-orcamento/{orcamento}', 'OrcamentoController@gerarImagem');
+Route::get('/gerar-cliente/{pedido}', 'OrcamentoController@gerarCliente');
+Route::get('/gerar-entrega/{pedido}', 'OrcamentoController@gerarEntrega');
+
+
 
 
 

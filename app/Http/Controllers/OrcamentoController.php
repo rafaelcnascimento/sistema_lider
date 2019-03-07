@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Anam\PhantomMagick\Converter;
 use DB;
 use App\Orcamento;
 use App\Produto;
@@ -15,6 +16,37 @@ class OrcamentoController extends Controller
     public function show(Orcamento $orcamento)
     {
         return view('orcamento.ver', compact('orcamento'));
+    }
+
+    public function redirect(Orcamento $orcamento)
+    {
+        return view('orcamento.gerar', compact('orcamento'));
+    }
+
+    public function gerarImagem(Orcamento $orcamento) 
+    {
+        $options = [
+            'width' => 445,
+            'quality' => 100
+        ];
+
+        if ($orcamento->cliente_id) 
+        {
+            $conv = new Converter();
+            $conv->setBinary('C:\xampp\htdocs\sistema_lider\bin\phantomjs');            
+            $conv->source('http://127.0.0.1/orcamento/'.$orcamento->id)
+                ->toPng($options)
+                ->download($orcamento->cliente->nome.$orcamento->id.'.png');
+        } 
+        else 
+        {
+            $conv = new Converter();
+            $conv->setBinary('C:\xampp\htdocs\sistema_lider\bin\phantomjs');            
+            $conv->source('http://127.0.0.1/orcamento/'.$orcamento->id)
+                ->toPng($options)
+                ->download($orcamento->id.'.png');
+        }
+
     }
     
     // public function store(Request $request)
