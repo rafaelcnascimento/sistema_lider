@@ -99,6 +99,16 @@
                     </th>
                 </thead>
             </table>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="via_cliente" value="1">
+                <label class="form-check-label" for="via_cliente"><h3>Gerar imagem p/ Cliente</h3></label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="entrega" value="2">
+                <label class="form-check-label" for="entrega"><h3>Entrega</h3></label>
+            </div>
+
             <table class="table table-striped">
                 <thead class="thead-dark">
                     <th>Material</th>

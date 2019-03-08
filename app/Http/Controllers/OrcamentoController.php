@@ -7,6 +7,7 @@ use Anam\PhantomMagick\Converter;
 use DB;
 use App\Orcamento;
 use App\Produto;
+use App\Pedido;
 use App\Cliente;
 use App\Pagamento;
 use Session;
@@ -44,9 +45,58 @@ class OrcamentoController extends Controller
             $conv->setBinary('C:\xampp\htdocs\sistema_lider\bin\phantomjs');            
             $conv->source('http://127.0.0.1/orcamento/'.$orcamento->id)
                 ->toPng($options)
-                ->download($orcamento->id.'.png');
+                ->download('Orcamento'.$orcamento->id.'.png');
         }
+    }
 
+    public function gerarEntrega(Pedido $pedido) 
+    {
+        $options = [
+            'width' => 445,
+            'quality' => 100
+        ];
+
+        if ($pedido->cliente_id) 
+        {
+            $conv = new Converter();
+            $conv->setBinary('C:\xampp\htdocs\sistema_lider\bin\phantomjs');            
+            $conv->source('http://127.0.0.1/pedido-entrega/'.$pedido->id)
+                ->toPng($options)
+                ->download('Entrega '.$pedido->cliente->nome.$pedido->id.'.png');
+        } 
+        else 
+        {
+            $conv = new Converter();
+            $conv->setBinary('C:\xampp\htdocs\sistema_lider\bin\phantomjs');            
+            $conv->source('http://127.0.0.1/pedido-entrega/'.$pedido->id)
+                ->toPng($options)
+                ->download('Entrega '.$pedido->id.'.png');
+        }
+    }
+
+    public function gerarCliente(Pedido $pedido) 
+    {
+        $options = [
+            'width' => 445,
+            'quality' => 100
+        ];
+
+        if ($pedido->cliente_id) 
+        {
+            $conv = new Converter();
+            $conv->setBinary('C:\xampp\htdocs\sistema_lider\bin\phantomjs');            
+            $conv->source('http://127.0.0.1/pedido-cliente/'.$pedido->id)
+                ->toPng($options)
+                ->download('Pedido '.$pedido->cliente->nome.$pedido->id.'.png');
+        } 
+        else 
+        {
+            $conv = new Converter();
+            $conv->setBinary('C:\xampp\htdocs\sistema_lider\bin\phantomjs');            
+            $conv->source('http://127.0.0.1/pedido-cliente/'.$pedido->id)
+                ->toPng($options)
+                ->download('Pedido '.$pedido->id.'.png');
+        }
     }
     
     // public function store(Request $request)

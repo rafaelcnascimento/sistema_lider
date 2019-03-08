@@ -22,12 +22,12 @@
                 </thead>
                 <tbody class="resultado">
                 <tr>
-                    <td><a href="pedido/{{$pedido->id}}" target="_blank">{{$pedido->id}}</a></td>
+                    <td><a href="/pedido/{{$pedido->id}}" target="_blank">{{$pedido->id}}</a></td>
                     <td>
                         @if(empty($pedido->cliente->id))
 
                         @else
-                            <a href="cliente/{{$pedido->cliente->id}}" target="_blank">{{$pedido->cliente->nome}}</a>
+                            <a href="/cliente/{{$pedido->cliente->id}}" target="_blank">{{$pedido->cliente->nome}}</a>
                         @endif
                     </td>
                     <td>R${{$pedido->valor}}</td>

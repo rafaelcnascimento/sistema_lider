@@ -1,3 +1,17 @@
+{{-- @php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Session;
+
+$request = new Request;
+
+$request->session()->reflash();
+
+@endphp --}}
+
+
 <script type="text/javascript">
     var flag = {{$flag}};
     var url;

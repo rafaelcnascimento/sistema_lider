@@ -85,9 +85,14 @@ class PedidoController extends Controller
                 $produto->quantidade -= $item['quantidade'];
                 $produto->save();
             }
+
         }
 
         Session::forget('carrinho');
+
+        $soma = $request->via_cliente + $request->entrega;
+
+        if ($soma > 0) {return redirect('/redirect-pedido/'.$pedido->id.'&'.$soma);}
 
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', 'Pedido realizado com sucesso');
@@ -203,6 +208,16 @@ class PedidoController extends Controller
     public function show(Pedido $pedido)
     {
         return view('pedido.editar', compact('pedido'));
+    }
+
+    public function showCliente(Pedido $pedido)
+    {
+        return view('pedido.cliente', compact('pedido'));
+    }
+
+    public function showEntrega(Pedido $pedido)
+    {
+        return view('pedido.entrega', compact('pedido'));
     }
 
     public function redirect(Pedido $pedido, $flag)
