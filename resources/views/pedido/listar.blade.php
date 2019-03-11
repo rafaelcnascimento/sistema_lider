@@ -35,6 +35,20 @@
                 @endforeach
             </select>
 
+            <select class="form-control espaco20" id="pago"  name="pago" >
+                <option value ="">Todos</option>
+                <option value="1">Pagos</option>
+                <option value="0">Não pagos</option>
+            </select>
+
+            <div class="form-group row mb-0">
+                <div class="col-md-6 offset-md-4">
+                    <button type="submit" class="btn btn-primary">
+                        {{ __('Filtrar') }}
+                    </button>
+                </div>
+            </div>
+
         </form>
 
     </center>
@@ -95,4 +109,19 @@
         </table>
     </div>
     {{ $pedidos->links() }}
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+        var mes = {{$mes}};
+        var ano = {{$ano_busca}};
+        var pago = {{$pago}};
+
+        if (mes != 0) {$("#mes").val(mes).change();}
+        if (ano != 0) {$("#ano").val(ano).change();}
+        if (pago != 3) {$("#pago").val(pago).change();}
+        
+
+
+    </script>
 @endsection

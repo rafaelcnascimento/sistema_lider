@@ -203,12 +203,17 @@ class PedidoController extends Controller
 
     public function index()
     {
+        $mes = null;
+        $ano_busca = null;
+        $pago = null;
+
         $anos = Pedido::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
 
         $pedidos = Pedido::orderBy('id','dsc')->paginate(50);
 
-        return view('pedido.listar', compact('pedidos','anos'));
+        return view('pedido.listar', compact('pedidos','anos','ano_busca','mes','pago'));
     }
+
 
     public function show(Pedido $pedido)
     {
@@ -228,5 +233,79 @@ class PedidoController extends Controller
     public function redirect(Pedido $pedido, $flag, $fechar)
     {
         return view('pedido.gerar', compact('pedido','flag','fechar'));
+    }
+    public function filter(Request $request)
+    {
+        $mes = $request->mes;
+        $ano = $request->ano;
+        $pago = $request->pago;
+        
+        $anos = Pedido::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
+
+        if ($mes && $ano && !is_null($pago)) 
+        {
+            $pedidos = Pedido::whereRaw('MONTH(created_at) = '.$mes)
+                ->whereRaw('YEAR(created_at) = '.$ano)
+                ->where('pago',$pago)
+                ->orderBy('id','dsc')
+                ->paginate(50);
+        }
+
+        else if ($mes && $ano) 
+        {
+            $pedidos = Pedido::whereRaw('MONTH(created_at) = '.$mes)
+                ->whereRaw('YEAR(created_at) = '.$ano)
+                ->orderBy('id','dsc')
+                ->paginate(50);
+        }
+
+        else if ($mes && !is_null($pago)) 
+        {
+            $pedidos = Pedido::whereRaw('MONTH(created_at) = '.$mes)
+                ->where('pago',$pago)
+                ->orderBy('id','dsc')
+                ->paginate(50);
+        }
+
+        else if ($ano && !is_null($pago)) 
+        {
+            $pedidos = Pedido::whereRaw('YEAR(created_at) = '.$ano)
+                ->where('pago',0)
+                ->orderBy('id','dsc')
+                ->paginate(50);
+        }
+
+        else if ($mes) 
+        {
+            $pedidos = Pedido::whereRaw('MONTH(created_at) = '.$mes)
+                ->orderBy('id','dsc')
+                ->paginate(50);
+        }
+
+        else if ($ano) 
+        {
+            $pedidos = Pedido::whereRaw('YEAR(created_at) = '.$ano)
+                ->orderBy('id','dsc')
+                ->paginate(50);
+        }
+
+        else 
+        {
+            $pedidos = Pedido::where('pago',$pago)
+                ->orderBy('id','dsc')
+                ->paginate(50);
+        }
+
+        if ($request->mes ? $mes = $request->mes : $mes = 0);
+        if ($request->ano ? $ano = $request->ano : $ano = 0);
+        if ($request->pago == 0) {
+            $pago = 0;
+        } else if ($request->pago == 1) {
+            $pago = 1;
+        } else {$pago = 3;}
+        
+        $ano_busca = $ano;
+
+        return view('pedido.listar', compact('pedidos','anos','ano_busca','mes','pago'));
     }
 }
