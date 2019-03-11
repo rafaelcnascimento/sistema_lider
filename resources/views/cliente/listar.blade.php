@@ -25,7 +25,7 @@
             <tbody class="resultado">
                 @foreach ($clientes as $cliente)
                 <tr>
-                    <td><a href="cliente/{{$cliente->id}}" target="_blank">{{$cliente->nome}}</a></td>
+                    <td><a href="cliente/{{$cliente->id}}">{{$cliente->nome}}</a></td>
                     <td>{{$cliente->telefone}}</td>
                     <td>{{$cliente->documento}}</td>
                     <td>{{$cliente->logradouro}} {{$cliente->numero}}</td> 

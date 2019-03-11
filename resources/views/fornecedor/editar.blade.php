@@ -81,7 +81,7 @@
                                         </div>
                                     </div>   
                                 </div>
-                                <form method="post" action="/fornecedor/{{$fornecedor->id}}" >
+                                <form method="post" action="/fornecedor/{{$fornecedor->id}}" onSubmit="if(!confirm('Deletar fornecedor?')){return false;}">
                                     @method('delete')
                                     @csrf
                                     <div class="col-md-6 offset-md-4">

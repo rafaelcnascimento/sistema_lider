@@ -84,17 +84,10 @@ class ClienteController extends Controller
         if ($clientes) {
             foreach ($clientes as $cliente) {
                 $output.='<tr>'.
-                '<td>'.$cliente->nome.'</td>'.
+                '<td><a href="cliente/'.$cliente->id.'">'.$cliente->nome.'</a></td>'.
                 '<td>'.$cliente->telefone.'</td>'.
                 '<td>'.$cliente->documento.'</td>'.
-                '<td>'.$cliente->logradouro. $cliente->numero.'</td>'.
-                '<td>
-                    <a href="cliente/'.$cliente->id.'">
-                        <button type="submit" class="btn btn-primary custom-btn">
-                            Editar
-                        </button>
-                        </a>
-                </td>    '.
+                '<td>'.$cliente->logradouro.' '.$cliente->numero.'</td>'.
                 '</tr>';
             }
             return Response($output);

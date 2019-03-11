@@ -259,7 +259,7 @@
     </form>
     <br>   
     <div>
-        <form method="post" action="/produto/{{$produto->id}}" >
+        <form method="post" action="/produto/{{$produto->id}}" onSubmit="if(!confirm('Deletar fornecedor?')){return false;}">
             @method('delete')
             @csrf
             <div class="col-md-6 offset-md-4">

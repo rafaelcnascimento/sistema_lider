@@ -121,7 +121,7 @@ class PedidoController extends Controller
         '<td>'.$produto->nome.'</td>'.
         '<td>'.$quantidade.'</td>'.
         '<td>'.number_format($preco,2,',','.').'</td>'.
-        '<td><div id="'.$produto->id.'"style="cursor:pointer; margin-left:25px;"><i class="fas fa-minus-circle"></i></div></td>';
+        '<td><div style="cursor:pointer; margin-left:25px;"><i id="'.$produto->id.'" class="fas fa-minus-circle"></i></div></td>';
         
         return Response($output);
     }
@@ -129,16 +129,21 @@ class PedidoController extends Controller
     public function remove(Request $request)
     {
         $output="";
+        $custo;
 
         $delete =  $request->item;
        
         foreach (Session('carrinho') as $key => $val)
         {
-            if ($val['produto'] == $delete)
+            if ($val['produtoId'] == $delete)
             {
+                $custo = $val['preco'] * $val['quantidade'];
+
                 $carrinho = Session::get('carrinho');
                 unset($carrinho[$key]);
                 Session::put('carrinho', $carrinho);
+
+                $output=$custo;
             }
         }
 
@@ -220,8 +225,8 @@ class PedidoController extends Controller
         return view('pedido.entrega', compact('pedido'));
     }
 
-    public function redirect(Pedido $pedido, $flag)
+    public function redirect(Pedido $pedido, $flag, $fechar)
     {
-        return view('pedido.gerar', compact('pedido','flag'));
+        return view('pedido.gerar', compact('pedido','flag','fechar'));
     }
 }

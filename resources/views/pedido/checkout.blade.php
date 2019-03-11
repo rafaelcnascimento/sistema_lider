@@ -144,22 +144,5 @@
             $('.select-cliente').select2({ width: '275px' });
         });
 
-        $(".carrinho").on("click", ".fas", function () {
-        
-            var id = $(this).attr("id");
-            var tr = $(this).closest('tr');
-
-            alert(id);
-            // $.ajax({
-            //     type: 'get',
-            //     url: '/removerProduto',
-            //     data: {
-            //         'item': id,
-            //     },
-            //     success: function(data) {
-            //         tr.remove();
-            //     }
-            //  });
-        });
     </script>
 @endsection

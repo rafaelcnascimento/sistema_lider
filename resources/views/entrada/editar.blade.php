@@ -81,7 +81,7 @@
                                         </div>
                                     </div>   
                                 </div>
-                                <form method="post" action="/entrada/{{$entrada->id}}" >
+                                <form method="post" action="/entrada/{{$entrada->id}}" onSubmit="if(!confirm('Deletar entrada?')){return false;}">
                                     @method('delete')
                                     @csrf
                                     <div class="col-md-6 offset-md-4">

@@ -53,6 +53,8 @@
                 <th>Parcelas/Pagas</th>
                 <th>Situação</th>
                 <th>Data</th>
+                <th>Img Cliente</th>
+                <th>Img Entrega</th>
             </thead>
             <tbody class="resultado">
                 @foreach ($pedidos as $pedido)
@@ -83,7 +85,10 @@
                             Não Pago
                         </td>
                     @endif
+
                     <td>{{$pedido->created_at}}</td>
+                    <td><a href="/redirect-pedido/{{$pedido->id}}&1&1" target="_blank" class="btn btn-primary" role="button">Gerar</a></td>
+                    <td><a href="/redirect-pedido/{{$pedido->id}}&2&1" target="_blank" class="btn btn-success" role="button">Gerar</a></td>
                 </tr>
                 @endforeach    
             </tbody>

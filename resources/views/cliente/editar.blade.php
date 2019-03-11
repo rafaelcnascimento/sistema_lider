@@ -147,7 +147,7 @@
                                         </div>
                                     </div>   
                                 </div>
-                                <form method="post" action="/cliente/{{$cliente->id}}" >
+                                <form method="post" action="/cliente/{{$cliente->id}}" onSubmit="if(!confirm('Deletar cliente?')){return false;}">
                                     @method('delete')
                                     @csrf
                                     <div class="col-md-6 offset-md-4">

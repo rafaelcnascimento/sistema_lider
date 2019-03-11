@@ -73,8 +73,28 @@ $(document).on('keyup','.qtd input' ,function(event)
 });
 
  //Remove
+ $(document).on('click','.fa-minus-circle' ,function(event)
+ {
+    var id = $(this).attr("id");
+    var tr = $(this).closest('tr');
 
+    //alert(tr);
 
+    $.ajax({
+        type: 'get',
+        url: '/removerProduto',
+        data: {
+            'item': id,
+        },
+        success: function(data) {
+            var valor = $('#valor').val();
+            var custo = data;
+            var valor = valor - custo;
+            $('#valor').val(valor);
+            tr.remove();
+        }
+    });
+ });
 
 function converterPreco(valor)
 {
