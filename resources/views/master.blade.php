@@ -27,10 +27,13 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/produto-novo">Novo Produto</a>
-                        <a class="dropdown-item" href="/estoque-baixo">Produtos com pouco estoque</a>
+                        <a class="dropdown-item" href="/estoque-baixo">Produtos com pouco Estoque</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/entrada-listar">Entradas de produtos</a>
+                        <a class="dropdown-item" href="/entrada-listar">Entradas de Produtos</a>
                         <a class="dropdown-item" href="/entrada-nova">Nova Entrada</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/unidade-listar">Unidades</a>
+                        <a class="dropdown-item" href="/unidade-nova">Nova Unidade</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -51,6 +54,9 @@
                 <li class="nav-item">
                     {{-- <a class="nav-item nav-link active" href="/pedido-novo">Venda</a> --}}
                     <a href="/pedido-novo" class="btn btn-light" role="button">Vender</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link active" href="/produto-estocador">Ferramenta de Estoque</a>
                 </li>
             </ul>
         </nav>

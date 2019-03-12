@@ -236,9 +236,13 @@ class PedidoController extends Controller
     }
     public function filter(Request $request)
     {
+
         $mes = $request->mes;
         $ano = $request->ano;
-        $pago = $request->pago;
+
+        if ($request->pago == 3 ? $pago = null : $pago = $request->pago);
+
+        //dd($pago);
         
         $anos = Pedido::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
 
@@ -289,6 +293,11 @@ class PedidoController extends Controller
                 ->paginate(50);
         }
 
+        else if (!$mes && !$ano && is_null($pago)) 
+        {
+            $pedidos = Pedido::orderBy('id','dsc')->paginate(50);
+        }
+
         else 
         {
             $pedidos = Pedido::where('pago',$pago)
@@ -298,11 +307,12 @@ class PedidoController extends Controller
 
         if ($request->mes ? $mes = $request->mes : $mes = 0);
         if ($request->ano ? $ano = $request->ano : $ano = 0);
-        if ($request->pago == 0) {
-            $pago = 0;
-        } else if ($request->pago == 1) {
-            $pago = 1;
-        } else {$pago = 3;}
+        $pago = $request->pago;
+        // if ($request->pago == 0) {
+        //     $pago = 0;
+        // } else if ($request->pago == 1) {
+        //     $pago = 1;
+        // } else {$pago = 3;}
         
         $ano_busca = $ano;
 

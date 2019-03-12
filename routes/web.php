@@ -85,6 +85,20 @@ Route::get('/gerar-orcamento/{orcamento}', 'OrcamentoController@gerarImagem');
 Route::get('/gerar-cliente/{pedido}', 'OrcamentoController@gerarCliente');
 Route::get('/gerar-entrega/{pedido}', 'OrcamentoController@gerarEntrega');
 
+//Rotas Unidade
+Route::get('/unidade-listar', 'UnidadeController@index');
+Route::get('/unidade/{unidade}', 'UnidadeController@show');
+Route::get('/unidade-nova', 'UnidadeController@create');
+
+Route::post('/unidade', 'UnidadeController@store');
+Route::patch('/unidade/{unidade}', 'UnidadeController@update');
+Route::delete('/unidade/{unidade}', 'UnidadeController@delete');
+
+//Estocador
+Route::get('/produto-estocador', 'ProdutoController@estocador');
+Route::get('/estocadorAjax', 'ProdutoController@estocadorBusca');
+Route::get('/estocadorQuantidadeAjax', 'ProdutoController@quantidade');
+Route::get('/estocadorCodigoAjax', 'ProdutoController@codigo');
 
 
 

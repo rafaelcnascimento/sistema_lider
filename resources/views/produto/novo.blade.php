@@ -137,6 +137,7 @@
                                             <strong>{{ $errors->first('custo_inicial') }}</strong>
                                         </span>
                                     @endif
+                                </div>    
                             </td>
                             <td>
                                 <div style="width: 100%;">

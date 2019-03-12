@@ -241,4 +241,22 @@ class ProdutoController extends Controller
         
         return redirect('/')->with('success', 'All good!');
     }
+
+    public function estocador()
+    {
+        $produtos = Produto::orderBy('nome','asc')->paginate(50);
+
+        return view('produto.estocador', compact('produtos'));
+    }
+
+    public function quantidade(Request $request)
+    {
+        $produtos = Produto::orderBy('nome','asc')->paginate(50);
+
+        return view('produto.estocador', compact('produtos'));
+    }
+
+
+
+
 }
