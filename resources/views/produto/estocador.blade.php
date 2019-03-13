@@ -31,7 +31,20 @@
                     </td>
                     <td>{{$produto->unidade->nome}}</td>
                     <td><a href="/fornecedor/{{$produto->getFornecedorId()}}" target="_blank">{{$produto->getFornecedorNome()}}</a></td>
-                    <td>{{$produto->codigo}}</td>
+                    <td style="width: 20%">
+                        <input id="codigo{{$produto->id}}" type="text" class="form-control cb" name="codigo" >
+                    </td>
+                    <td>
+                        <form method="post" action="/produto/{{$produto->id}}" onSubmit="if(!confirm('Deletar produto?')){return false;}">
+                            @method('delete')
+                            @csrf
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-danger">
+                                    {{ __('Deletar') }}
+                                </button>
+                            </div>   
+                        </form>   
+                    </td>
                 </tr>
                 @endforeach  
             </tbody>
@@ -56,21 +69,35 @@
                 }
             });
         })
-
+        //Atualizar qtd
         $(document).on('keyup','.qtd' ,function(event)
         {
             var quantidade = $(this).val();
-            var id = $(this).attr('id');
+            var id = $(this).attr('id').replace('quantidade','');
 
             $.ajax({
                 type: 'get',
                 url: '/estocadorQuantidadeAjax',
                 data: {
-                    'quantidade': $quantidade
+                    'quantidade': quantidade,
+                    'id' : id
                 },
-                // success: function(data) {
-                //     $('.resultado').html(data);
-                // }
+            });
+        });
+
+        //Atualizar código de barras
+        $(document).on('keyup','.cb' ,function(event)
+        {
+            var codigo = $(this).val();
+            var id = $(this).attr('id').replace('codigo','');
+
+            $.ajax({
+                type: 'get',
+                url: '/estocadorCodigoAjax',
+                data: {
+                    'codigo': codigo,
+                    'id' : id
+                },
             });
         });
     </script>

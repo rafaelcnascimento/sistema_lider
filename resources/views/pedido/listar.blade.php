@@ -1,4 +1,7 @@
 @extends('master')
+@section('css')
+    <link href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" rel="stylesheet" >
+@endsection
 @section('corpo')
     <br>
     
@@ -90,7 +93,7 @@
                     
                     @if ($pedido->pago)
                     <td class="table-success">
-                        Pago
+                        Pago 
                     </td>
                     @elseif (!$pedido->pago && $pedido->parcela_paga > 1 )
                         <td class="table-warning">
@@ -98,7 +101,7 @@
                         </td>
                     @else
                         <td class="table-danger">
-                            Não Pago
+                            Não Pago <i id="pagar{{$pedido->id}}" class="fas fa-check"></i>
                         </td>
                     @endif
 
@@ -115,16 +118,36 @@
 
 @section('js')
     <script type="text/javascript">
-        var mes = {{$mes}};
+        var mes = {{$mes}}; 
         var ano = {{$ano_busca}};
         var pago = {{$pago}};
-
-        //alert(typeof(mes));
 
         if (mes != 0) {$("#mes").val(mes).change();}
         if (ano != 0) {$("#ano").val(ano).change();}
         if (pago != 3) {$("#pago").val(pago).change();}
-        
+
+        $(document).on('click','.fas' ,function(event)
+        {
+           var id = $(this).attr("id").replace('pagar','');
+           var tr = $(this).closest('tr');
+
+           alert(id);
+
+           // $.ajax({
+           //     type: 'get',
+           //     url: '/removerProduto',
+           //     data: {
+           //         'item': id,
+           //     },
+           //     success: function(data) {
+           //         var valor = $('#valor').val();
+           //         var custo = data;
+           //         var valor = valor - custo;
+           //         $('#valor').val(valor);
+           //         tr.remove();
+           //     }
+           // });
+        });        
 
 
     </script>

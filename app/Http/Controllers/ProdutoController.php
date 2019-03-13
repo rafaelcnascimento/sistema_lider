@@ -135,7 +135,9 @@ class ProdutoController extends Controller
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', 'Produto removido com sucesso');
 
-        return redirect('/produto-listar');
+        if (str_replace(url('/'), '', url()->previous()) == "/produto-estocador") { return redirect('/produto-estocador');}
+        else { return redirect('/produto-listar');}
+
     }
 
     public function busca(Request $request)
@@ -251,12 +253,82 @@ class ProdutoController extends Controller
 
     public function quantidade(Request $request)
     {
-        $produtos = Produto::orderBy('nome','asc')->paginate(50);
+        $produto = Produto::find($request->id);
 
-        return view('produto.estocador', compact('produtos'));
+        $produto->quantidade = $request->quantidade;
+        $produto->save();
+
+        return Response("");
     }
 
+    public function codigo(Request $request)
+    {
+        $produto = Produto::find($request->id);
 
+        $produto->codigo = $request->codigo;
+        $produto->save();
 
+        return Response("");
+    }
+
+    public function estocadorBusca (Request $request)
+    {
+        $output="";
+       
+        $produtos = new Produto;
+
+        if (!$request->search) 
+        {
+            $produtos = Produto::paginate(50);
+        } 
+        else
+        {
+            $term = $request->search;
+
+            $terms = explode(' ', $term);
+
+            $produtos = Produto::
+            where(function($query) use ($terms){
+                foreach($terms as $term){
+                    $query->where('produtos.nome', 'LIKE', '%'.$term.'%');
+                }
+            })
+            ->orWhere(function($query) use ($terms){
+                foreach($terms as $term){
+                    $query->where('produtos.codigo', 'LIKE', '%'.$term.'%');
+                }
+            })     
+            ->get();                 
+        }
+    
+        if ($produtos) {
+            foreach ($produtos as $produto) {
+                $output.='<tr>
+                    <td><a href="/produto/'.$produto->id.'" target="_blank">'.$produto->nome.'</a></td>
+                    <td style="width: 10%">
+                        <input id="quantidade'.$produto->id.'" type="text" class="form-control qtd" name="quantidade" >
+                    </td>
+                    <td>'.$produto->unidade->nome.'</td>
+                    <td><a href="/fornecedor/'.$produto->getFornecedorId().'" target="_blank">'.$produto->getFornecedorNome().'</a></td>
+                    <td style="width: 20%">
+                        <input id="codigo'.$produto->id.'" type="text" class="form-control cb" name="codigo" >
+                    </td>
+                    <td>
+                        <form method="post" action="/produto/'.$produto->id.'" onSubmit="if(!confirm("Deletar produto?")){return false;}">
+                            @method("delete")
+                            @csrf
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-danger">
+                                    '. __("Deletar") .'
+                                </button>
+                            </div>   
+                        </form>   
+                    </td>
+                </tr>';
+            }
+            return Response($output);
+        }
+    }
 
 }
+

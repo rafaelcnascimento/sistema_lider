@@ -100,6 +100,3 @@ Route::get('/estocadorAjax', 'ProdutoController@estocadorBusca');
 Route::get('/estocadorQuantidadeAjax', 'ProdutoController@quantidade');
 Route::get('/estocadorCodigoAjax', 'ProdutoController@codigo');
 
-
-
-

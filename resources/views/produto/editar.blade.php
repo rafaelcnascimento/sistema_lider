@@ -26,7 +26,6 @@
                             </span>
                         @endif
                     </div>
-                
                 </div>
                 <div class="form-group row">
                     <label for="codigo" class="col-md-4 col-form-label text-md-right">{{ __('Código de Barras') }}</label>
@@ -259,7 +258,7 @@
     </form>
     <br>   
     <div>
-        <form method="post" action="/produto/{{$produto->id}}" onSubmit="if(!confirm('Deletar fornecedor?')){return false;}">
+        <form method="post" action="/produto/{{$produto->id}}" onSubmit="if(!confirm('Deletar produto?')){return false;}">
             @method('delete')
             @csrf
             <div class="col-md-6 offset-md-4">

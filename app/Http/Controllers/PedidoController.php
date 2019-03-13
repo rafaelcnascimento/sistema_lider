@@ -34,13 +34,26 @@ class PedidoController extends Controller
 
         switch ($request->pagamento_id) 
         {
+            // A prazo,boleto e cheque
             case '2':
-                # parcelado...
+            case '4':
+            case '5':
+                $parcela_paga = 0;
+                $parcela_total = 1;
+                $pago = 0;
+                break;
+
+            // Parcelado
+            case '7':
+                $parcela_paga = 0;
+                $parcela_total = $request->parcelas;
+                $pago = 0;
                 break;
             
             default:
                 $parcela_paga = 1;
                 $parcela_total = 1;
+                $pago = 1;
                 break;
         }
 
@@ -68,6 +81,7 @@ class PedidoController extends Controller
         {
             $pedido = Pedido::create([
                 'valor' => $valor,
+                'pago' => $pago,
                 'desconto' => $desconto,
                 'cliente_id' => $request->cliente_id,
                 'pagamento_id' => $request->pagamento_id,
@@ -203,9 +217,9 @@ class PedidoController extends Controller
 
     public function index()
     {
-        $mes = null;
-        $ano_busca = null;
-        $pago = null;
+        $mes = 0;
+        $ano_busca = 0;
+        $pago = 0;
 
         $anos = Pedido::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
 

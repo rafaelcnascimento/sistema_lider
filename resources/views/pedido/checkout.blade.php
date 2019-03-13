@@ -21,7 +21,7 @@
                 <thead class="thead-dark">
                     <th class="w-50">Material</th>
                     <th>Unidade</th>
-                    <th>Estoque</th>
+                    <th>Quantidade</th>
                     <th class="w-25">Preço</th>
                     <th>Qtd</th>
                 </thead>
@@ -99,6 +99,14 @@
                     </th>
                 </thead>
             </table>
+            <div class="parcelas">
+                {{-- <div class="form-group row">
+                    <label for="parcelas" class="col-md-4 col-form-label text-md-right"><b>*Número de Parcelas</b></label>
+                    <div class="col-md-1">
+                        <input id="parcelas" type="text" class="form-control{{$errors->has('parcelas') ? ' is-invalid' : '' }}" name="parcelas" value="{{ $produto->parcelas }}" required autofocus>
+                    </div>
+                </div> --}}
+            </div>   
 
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" name="via_cliente" value="1">
@@ -144,5 +152,20 @@
             $('.select-cliente').select2({ width: '275px' });
         });
 
+        //Input parcelas
+        $('#pagamento_id').change(function () { 
+            var pagamento = $('#pagamento_id option:selected').val();
+            if (pagamento == 7) 
+            {
+                $('.parcelas').html('<div class="form-group row">'+
+                    '<label for="parcelas" class="col-md-4 col-form-label text-md-right"><b>*Número de Parcelas</b></label>'+
+                    '<div class="col-md-1">'+
+                        '<input id="parcelas" type="text" class="form-control" name="parcelas" required autofocus>'+
+                    '</div>'+
+                '</div>');
+            }
+            else { $('.parcelas').html('')}
+        });
+        
     </script>
 @endsection
