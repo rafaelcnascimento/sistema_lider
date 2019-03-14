@@ -64,10 +64,14 @@ Route::patch('/entrada/{entrada}', 'EntradaController@update');
 Route::delete('/entrada/{entrada}', 'EntradaController@delete');
 
 //Rotas Ajax
-Route::get('/produtoAjax', 'ProdutoController@busca');
 Route::get('/clienteAjax', 'ClienteController@busca');
+Route::get('/produtoAjax', 'ProdutoController@busca');
 Route::get('/catalogoAjax', 'ProdutoController@buscaCatalogo');
 Route::get('/checkoutAjax', 'PedidoController@buscaCheckout');
+Route::get('/pagarAjax', 'PedidoController@pago');
+Route::get('/despagarAjax', 'PedidoController@naoPago');
+Route::get('/pmaisAjax', 'PedidoController@pmais');
+Route::get('/pmenosAjax', 'PedidoController@pmenos');
 Route::get('/fornecedorAjax', 'FornecedorController@busca');
 Route::get('/entradaAjax', 'EntradaController@busca');
 

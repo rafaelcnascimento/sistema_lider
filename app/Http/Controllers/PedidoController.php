@@ -99,14 +99,13 @@ class PedidoController extends Controller
                 $produto->quantidade -= $item['quantidade'];
                 $produto->save();
             }
-
         }
 
         Session::forget('carrinho');
 
         $soma = $request->via_cliente + $request->entrega;
 
-        if ($soma > 0) {return redirect('/redirect-pedido/'.$pedido->id.'&'.$soma);}
+        if ($soma > 0) {return redirect('/redirect-pedido/'.$pedido->id.'&'.$soma.'&0');}
 
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', 'Pedido realizado com sucesso');
@@ -331,5 +330,57 @@ class PedidoController extends Controller
         $ano_busca = $ano;
 
         return view('pedido.listar', compact('pedidos','anos','ano_busca','mes','pago'));
+    }
+
+    public function pago(Request $request)
+    {
+        $pedido = Pedido::find($request->id);
+        $pedido->pago = 1;
+        $pedido->save();
+
+        return Response("");   
+    }
+
+    public function naoPago(Request $request)
+    {
+        $pedido = Pedido::find($request->id);
+        $pedido->pago = 0;
+        $pedido->save();
+
+        return Response("");   
+    }
+
+    public function pmais(Request $request)
+    {
+        $pedido = Pedido::find($request->id);
+        $pedido->parcela_paga += 1;
+        $pedido->save();
+
+        $output =   $pedido->parcela_paga.'/<b>'.$pedido->parcela_total.'</b>
+                    <table>
+                        <tbody>
+                            <td><i id="pmais'.$pedido->id.'" class="fas fa-plus"></td>
+                            <td><i id="pmenos'.$pedido->id.'" class="fas fa-minus"></td>
+                        </tbody>
+                    </table>';
+
+        return Response($output);   
+    }
+
+    public function pmenos(Request $request)
+    {
+        $pedido = Pedido::find($request->id);
+        $pedido->parcela_paga -= 1;
+        $pedido->save();
+
+        $output =   $pedido->parcela_paga.'/<b>'.$pedido->parcela_total.'</b>
+                    <table>
+                        <tbody>
+                            <td><i id="pmais'.$pedido->id.'" class="fas fa-plus"></td>
+                            <td><i id="pmenos'.$pedido->id.'" class="fas fa-minus"></td>
+                        </tbody>
+                    </table>';
+                
+        return Response($output);   
     }
 }

@@ -89,18 +89,31 @@
                     <td>R${{$pedido->valor}}</td>
                     <td>{{$pedido->desconto}}%</td>
                     <td>{{$pedido->pagamento->nome}}</td>
-                    <td>{{$pedido->parcela_paga}}/<b>{{$pedido->parcela_total}}</b></td>
+                    {{-- If doido so parcela on e parcelado --}}
+                    @if ($pedido->pagamento_id == 7)
+                        <td id="parcela{{$pedido->id}}">
+                            {{$pedido->parcela_paga}}/<b>{{$pedido->parcela_total}}</b>
+                            <table>
+                                <tbody>
+                                    <td><i id="pmais{{$pedido->id}}" class="fas fa-plus"></td>
+                                    <td><i id="pmenos{{$pedido->id}}" class="fas fa-minus"></td>
+                                </tbody>
+                            </table>
+                        </td>
+                    @else
+                        <td></td>
+                    @endif
                     
                     @if ($pedido->pago)
-                    <td class="table-success">
-                        Pago 
-                    </td>
-                    @elseif (!$pedido->pago && $pedido->parcela_paga > 1 )
+                        <td class="table-success" id="pago{{$pedido->id}}">
+                            Pago <i id="despagar{{$pedido->id}}" class="fas fa-times">
+                        </td>
+                    @elseif (!$pedido->pago && $pedido->parcela_total > 1 )
                         <td class="table-warning">
                             Em Aberto
                         </td>
                     @else
-                        <td class="table-danger">
+                        <td class="table-danger" id="npago{{$pedido->id}}">
                             Não Pago <i id="pagar{{$pedido->id}}" class="fas fa-check"></i>
                         </td>
                     @endif
@@ -126,29 +139,75 @@
         if (ano != 0) {$("#ano").val(ano).change();}
         if (pago != 3) {$("#pago").val(pago).change();}
 
-        $(document).on('click','.fas' ,function(event)
+        //Pagar
+        $(document).on('click','.fa-check' ,function(event)
         {
            var id = $(this).attr("id").replace('pagar','');
-           var tr = $(this).closest('tr');
 
-           alert(id);
-
-           // $.ajax({
-           //     type: 'get',
-           //     url: '/removerProduto',
-           //     data: {
-           //         'item': id,
-           //     },
-           //     success: function(data) {
-           //         var valor = $('#valor').val();
-           //         var custo = data;
-           //         var valor = valor - custo;
-           //         $('#valor').val(valor);
-           //         tr.remove();
-           //     }
-           // });
+           $.ajax({
+               type: 'get',
+               url: '/pagarAjax',
+               data: {
+                   'id': id,
+               },
+               success: function(data) {
+                   $('#npago'+id).toggleClass('table-danger table-success');
+                   $('#npago'+id).html('Pago');
+               }
+           });
         });        
 
+        //Despagar
+        $(document).on('click','.fa-times' ,function(event)
+        {
+           var id = $(this).attr("id").replace('despagar','');
+
+           $.ajax({
+               type: 'get',
+               url: '/despagarAjax',
+               data: {
+                   'id': id,
+               },
+               success: function(data) {
+                   $('#pago'+id).toggleClass('table-success table-danger');
+                   $('#pago'+id).html('Não Pago');
+               }
+           });
+        });      
+
+        //Parcela+
+        $(document).on('click','.fa-plus' ,function(event)
+        {
+           var id = $(this).attr("id").replace('pmais','');
+
+           $.ajax({
+               type: 'get',
+               url: '/pmaisAjax',
+               data: {
+                   'id': id,
+               },
+               success: function(data) {
+                   $('#parcela'+id).html(data);
+               }
+           });
+        });      
+
+        //Parcela-
+        $(document).on('click','.fa-minus' ,function(event)
+        {
+           var id = $(this).attr("id").replace('pmenos','');
+
+           $.ajax({
+               type: 'get',
+               url: '/pmenosAjax',
+               data: {
+                   'id': id,
+               },
+               success: function(data) {
+                   $('#parcela'+id).html(data);
+               }
+           });
+        });      
 
     </script>
 @endsection

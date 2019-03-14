@@ -40,7 +40,7 @@ $request->session()->reflash();
         win.focus();
     }
 
-    if (fechar) {close();}
+    if (fechar == 1) {close();}
 
     location.replace("/pedido-novo")  
 </script>

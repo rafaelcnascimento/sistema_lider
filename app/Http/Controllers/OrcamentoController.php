@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Anam\PhantomMagick\Converter;
 use DB;
+use App\Dado;
 use App\Orcamento;
 use App\Produto;
 use App\Pedido;
@@ -26,6 +27,8 @@ class OrcamentoController extends Controller
 
     public function gerarImagem(Orcamento $orcamento) 
     {
+        $dados = Dado::find(1);
+
         $options = [
             'width' => 445,
             'quality' => 100
@@ -34,7 +37,7 @@ class OrcamentoController extends Controller
         if ($orcamento->cliente_id) 
         {
             $conv = new Converter();
-            $conv->setBinary('C:\xampp\htdocs\sistema_lider\bin\phantomjs');            
+            $conv->setBinary($dados->executavel);            
             $conv->source('http://127.0.0.1/orcamento/'.$orcamento->id)
                 ->toPng($options)
                 ->download($orcamento->cliente->nome.$orcamento->id.'.png');
@@ -42,7 +45,7 @@ class OrcamentoController extends Controller
         else 
         {
             $conv = new Converter();
-            $conv->setBinary('C:\xampp\htdocs\sistema_lider\bin\phantomjs');            
+            $conv->setBinary($dados->executavel);            
             $conv->source('http://127.0.0.1/orcamento/'.$orcamento->id)
                 ->toPng($options)
                 ->download('Orcamento'.$orcamento->id.'.png');
@@ -51,6 +54,8 @@ class OrcamentoController extends Controller
 
     public function gerarEntrega(Pedido $pedido) 
     {
+        $dados = Dado::find(1);
+
         $options = [
             'width' => 445,
             'quality' => 100
@@ -59,7 +64,7 @@ class OrcamentoController extends Controller
         if ($pedido->cliente_id) 
         {
             $conv = new Converter();
-            $conv->setBinary('C:\xampp\htdocs\sistema_lider\bin\phantomjs');            
+            $conv->setBinary($dados->executavel);            
             $conv->source('http://127.0.0.1/pedido-entrega/'.$pedido->id)
                 ->toPng($options)
                 ->download('Entrega '.$pedido->cliente->nome.$pedido->id.'.png');
@@ -67,7 +72,7 @@ class OrcamentoController extends Controller
         else 
         {
             $conv = new Converter();
-            $conv->setBinary('C:\xampp\htdocs\sistema_lider\bin\phantomjs');            
+            $conv->setBinary($dados->executavel);            
             $conv->source('http://127.0.0.1/pedido-entrega/'.$pedido->id)
                 ->toPng($options)
                 ->download('Entrega '.$pedido->id.'.png');
@@ -76,6 +81,8 @@ class OrcamentoController extends Controller
 
     public function gerarCliente(Pedido $pedido) 
     {
+        $dados = Dado::find(1);
+
         $options = [
             'width' => 445,
             'quality' => 100
@@ -84,7 +91,7 @@ class OrcamentoController extends Controller
         if ($pedido->cliente_id) 
         {
             $conv = new Converter();
-            $conv->setBinary('C:\xampp\htdocs\sistema_lider\bin\phantomjs');            
+            $conv->setBinary($dados->executavel);            
             $conv->source('http://127.0.0.1/pedido-cliente/'.$pedido->id)
                 ->toPng($options)
                 ->download('Pedido '.$pedido->cliente->nome.$pedido->id.'.png');
@@ -92,7 +99,7 @@ class OrcamentoController extends Controller
         else 
         {
             $conv = new Converter();
-            $conv->setBinary('C:\xampp\htdocs\sistema_lider\bin\phantomjs');            
+            $conv->setBinary($dados->executavel);            
             $conv->source('http://127.0.0.1/pedido-cliente/'.$pedido->id)
                 ->toPng($options)
                 ->download('Pedido '.$pedido->id.'.png');

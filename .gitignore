@@ -10,5 +10,3 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 resources/views/calc.blade.php
-app/Http/Controllers/OrcamentoController.php
-app/Http/Controllers/OrcamentoController.php
