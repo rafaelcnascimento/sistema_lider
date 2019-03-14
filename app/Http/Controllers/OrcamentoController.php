@@ -17,8 +17,6 @@ class OrcamentoController extends Controller
     public function show(Orcamento $orcamento)
     {
         return view('orcamento.ver', compact('orcamento'));
-        //fugg
-        //Isso aqui não é pra aparecer ta ok
     }
 
     public function redirect(Orcamento $orcamento)
