@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Anam\PhantomMagick\Converter;
+use Anam\PhantomLinux\Path;
 use DB;
 use App\Dado;
 use App\Orcamento;
@@ -37,7 +38,7 @@ class OrcamentoController extends Controller
         if ($orcamento->cliente_id) 
         {
             $conv = new Converter();
-            $conv->setBinary($dados->executavel);            
+            $conv->setBinary(Path::binaryPath());            
             $conv->source('http://127.0.0.1/orcamento/'.$orcamento->id)
                 ->toPng($options)
                 ->download($orcamento->cliente->nome.$orcamento->id.'.png');
