@@ -38,7 +38,9 @@ class OrcamentoController extends Controller
         if ($orcamento->cliente_id) 
         {
             $conv = new Converter();
-            $conv->setBinary(Path::binaryPath());            
+            if (PHP_OS == "Linux") {$conv->setBinary(Path::binaryPath()); }
+            else{$conv->setBinary($dados->executavel);} 
+                       
             $conv->source('http://127.0.0.1/orcamento/'.$orcamento->id)
                 ->toPng($options)
                 ->download($orcamento->cliente->nome.$orcamento->id.'.png');
@@ -46,7 +48,8 @@ class OrcamentoController extends Controller
         else 
         {
             $conv = new Converter();
-            $conv->setBinary($dados->executavel);            
+            if (PHP_OS == "Linux") {$conv->setBinary(Path::binaryPath()); }
+            else{$conv->setBinary($dados->executavel);} 
             $conv->source('http://127.0.0.1/orcamento/'.$orcamento->id)
                 ->toPng($options)
                 ->download('Orcamento'.$orcamento->id.'.png');
@@ -65,7 +68,8 @@ class OrcamentoController extends Controller
         if ($pedido->cliente_id) 
         {
             $conv = new Converter();
-            $conv->setBinary($dados->executavel);            
+            if (PHP_OS == "Linux") {$conv->setBinary(Path::binaryPath()); }
+            else{$conv->setBinary($dados->executavel);}          
             $conv->source('http://127.0.0.1/pedido-entrega/'.$pedido->id)
                 ->toPng($options)
                 ->download('Entrega '.$pedido->cliente->nome.$pedido->id.'.png');
@@ -73,7 +77,8 @@ class OrcamentoController extends Controller
         else 
         {
             $conv = new Converter();
-            $conv->setBinary($dados->executavel);            
+            if (PHP_OS == "Linux") {$conv->setBinary(Path::binaryPath()); }
+            else{$conv->setBinary($dados->executavel);}          
             $conv->source('http://127.0.0.1/pedido-entrega/'.$pedido->id)
                 ->toPng($options)
                 ->download('Entrega '.$pedido->id.'.png');
@@ -92,7 +97,8 @@ class OrcamentoController extends Controller
         if ($pedido->cliente_id) 
         {
             $conv = new Converter();
-            $conv->setBinary($dados->executavel);            
+            if (PHP_OS == "Linux") {$conv->setBinary(Path::binaryPath()); }
+            else{$conv->setBinary($dados->executavel);}          
             $conv->source('http://127.0.0.1/pedido-cliente/'.$pedido->id)
                 ->toPng($options)
                 ->download('Pedido '.$pedido->cliente->nome.$pedido->id.'.png');
@@ -100,7 +106,8 @@ class OrcamentoController extends Controller
         else 
         {
             $conv = new Converter();
-            $conv->setBinary($dados->executavel);            
+            if (PHP_OS == "Linux") {$conv->setBinary(Path::binaryPath()); }
+            else{$conv->setBinary($dados->executavel);}          
             $conv->source('http://127.0.0.1/pedido-cliente/'.$pedido->id)
                 ->toPng($options)
                 ->download('Pedido '.$pedido->id.'.png');
