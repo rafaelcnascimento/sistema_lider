@@ -1,19 +1,25 @@
 //CSRF token
 $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-
 //Busca
-$('#busca').on('keyup', function() {
-    $value = $(this).val();
-    $.ajax({
-        type: 'get',
-        url: '/checkoutAjax',
-        data: {
-            'search': $value
-        },
-        success: function(data) {
-            $('.resultado').html(data);
-        }
-    });
+
+$('#busca').on('keyup', function(event) {
+    if(event.which === 13){
+        event.preventDefault();
+
+        $('input[name="quantidade"]').first().focus();
+    } else {
+        $value = $(this).val();
+        $.ajax({
+            type: 'get',
+            url: '/checkoutAjax',
+            data: {
+                'search': $value
+            },
+            success: function(data) {
+                $('.resultado').html(data);
+            }
+        });
+    } 
 })
 
 //Enter 
@@ -72,13 +78,11 @@ $(document).on('keyup','.qtd input' ,function(event)
     }
 });
 
- //Remove
- $(document).on('click','.fa-minus-circle' ,function(event)
- {
+//Remove
+$(document).on('click','.fa-minus-circle' ,function(event)
+{
     var id = $(this).attr("id");
     var tr = $(this).closest('tr');
-
-    //alert(tr);
 
     $.ajax({
         type: 'get',
@@ -94,6 +98,21 @@ $(document).on('keyup','.qtd input' ,function(event)
             tr.remove();
         }
     });
+ });
+
+//Input parcelas
+$('#pagamento_id').change(function () { 
+    var pagamento = $('#pagamento_id option:selected').val();
+    if (pagamento == 7) 
+    {
+        $('.parcelas').html('<div class="form-group row">'+
+            '<label for="parcelas" class="col-md-4 col-form-label text-md-right"><b>*Número de Parcelas</b></label>'+
+            '<div class="col-md-1">'+
+                '<input id="parcelas" type="text" class="form-control" name="parcelas" required autofocus>'+
+            '</div>'+
+        '</div>');
+    }
+    else { $('.parcelas').html('')}
  });
 
 function converterPreco(valor)

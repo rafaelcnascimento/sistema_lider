@@ -80,10 +80,9 @@
                                 @endforeach
                             </select> 
                         </div>
-                        <a href="/cliente-novo" target="_blank" class="btn btn-primary ml-auto " role="button" style="margin-bottom:8px;">
+                        <a href="/cliente-novo" target="_blank" class="btn btn-primary ml-auto" role="button" style="margin-bottom:8px;">
                         Novo Cliente
                         </a>
-
                         <div class="form-group mx-sm-3 mb-2">
                             <select class="form-control" id="pagamento_id"  name="pagamento_id" required>
                                 <option value="1" disabled>Dinheiro, à vista</option>
@@ -152,20 +151,9 @@
             $('.select-cliente').select2({ width: '275px' });
         });
 
-        //Input parcelas
-        $('#pagamento_id').change(function () { 
-            var pagamento = $('#pagamento_id option:selected').val();
-            if (pagamento == 7) 
-            {
-                $('.parcelas').html('<div class="form-group row">'+
-                    '<label for="parcelas" class="col-md-4 col-form-label text-md-right"><b>*Número de Parcelas</b></label>'+
-                    '<div class="col-md-1">'+
-                        '<input id="parcelas" type="text" class="form-control" name="parcelas" required autofocus>'+
-                    '</div>'+
-                '</div>');
-            }
-            else { $('.parcelas').html('')}
+        $('#cliente_id').on('select2:open', function (e) {
+          alert('lol');
         });
-        
+
     </script>
 @endsection

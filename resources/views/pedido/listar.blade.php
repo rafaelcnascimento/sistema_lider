@@ -4,62 +4,53 @@
 @endsection
 @section('corpo')
     <br>
-    
     @if(session()->has('message.level'))
         <div class="alert alert-{{ session('message.level') }}"> 
         {!! session('message.content') !!}
         </div>
     @endif
-
-        <form class="form-inline filtrar" method="POST" action="/pedido-filtrar">
-            @csrf
-            <h3>Filtrar:</h3>
-            <select class="form-control espaco20" id="mes"  name="mes" >
-                <option selected="" disabled="">Escolha o mês</option>
-                <option value="">Todos</option>
-                <option value="1">Janeiro</option>
-                <option value="2">Fevereiro</option>
-                <option value="3">Março</option>
-                <option value="4">Abril</option>
-                <option value="5">Maio</option>
-                <option value="6">Junho</option>
-                <option value="7">Julho</option>
-                <option value="8">Agosto</option>
-                <option value="9">Setembro</option>
-                <option value="10">Outubro</option>
-                <option value="11">Novembro</option>
-                <option value="12">Dezembro</option>
-            </select>
-
-            <select class="form-control espaco20" id="ano"  name="ano" >
-                <option selected="" disabled="">Escolha o ano</option>
-                <option value="">Todos</option>
-
-                @foreach ($anos as $ano)
-                    <option value="{{$ano->valor}}">{{$ano->valor}}</option>
-                @endforeach
-            </select>
-
-            <select class="form-control espaco20" id="pago"  name="pago" >
-                <option value ="3">Todos</option>
-                <option value ="1">Pagos</option>
-                <option value ="0">Não pagos</option>
-            </select>
-
-            <div class="form-group row mb-0">
-                <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
-                        {{ __('Filtrar') }}
-                    </button>
-                </div>
+    
+    <form class="form-inline filtrar" method="POST" action="/pedido-filtrar">
+    @csrf
+        <h3>Filtrar:</h3>
+        <select class="form-control espaco20" id="mes"  name="mes" >
+            <option selected="" disabled="">Escolha o mês</option>
+            <option value="">Todos</option>
+            <option value="1">Janeiro</option>
+            <option value="2">Fevereiro</option>
+            <option value="3">Março</option>
+            <option value="4">Abril</option>
+            <option value="5">Maio</option>
+            <option value="6">Junho</option>
+            <option value="7">Julho</option>
+            <option value="8">Agosto</option>
+            <option value="9">Setembro</option>
+            <option value="10">Outubro</option>
+            <option value="11">Novembro</option>
+            <option value="12">Dezembro</option>
+        </select>
+        <select class="form-control espaco20" id="ano"  name="ano" >
+            <option selected="" disabled="">Escolha o ano</option>
+            <option value="">Todos</option>
+            @foreach ($anos as $ano)
+                <option value="{{$ano->valor}}">{{$ano->valor}}</option>
+            @endforeach
+        </select>
+        <select class="form-control espaco20" id="pago"  name="pago" >
+            <option value ="3">Todos</option>
+            <option value ="1">Pagos</option>
+            <option value ="0">Não pagos</option>
+        </select>
+        <div class="form-group row mb-0">
+            <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                {{ __('Filtrar') }}
+                </button>
             </div>
-
-        </form>
-
+        </div>
+    </form>
     </center>
-
     {{-- Filtrar depois por ano e mes --}}
-
     <br>
     <div class="container-fluid">
         <table class="table table-striped">
@@ -75,60 +66,68 @@
                 <th>Img Cliente</th>
                 <th>Img Entrega</th>
             </thead>
-            <tbody class="resultado">
-                @foreach ($pedidos as $pedido)
+        <tbody class="resultado">
+            @foreach ($pedidos as $pedido)
                 <tr>
-                    <td><a href="pedido/{{$pedido->id}}" target="_blank">{{$pedido->id}}</a></td>
                     <td>
-                        @if(empty($pedido->cliente->id))
-
-                        @else
-                            <a href="cliente/{{$pedido->cliente->id}}" target="_blank">{{$pedido->cliente->nome}}</a>
-                        @endif
+                        <a href="pedido/{{$pedido->id}}" target="_blank">{{$pedido->id}}</a>
                     </td>
-                    <td>R${{$pedido->valor}}</td>
-                    <td>{{$pedido->desconto}}%</td>
-                    <td>{{$pedido->pagamento->nome}}</td>
-                    {{-- If doido so parcela on e parcelado --}}
-                    @if ($pedido->pagamento_id == 7)
-                        <td id="parcela{{$pedido->id}}">
-                            {{$pedido->parcela_paga}}/<b>{{$pedido->parcela_total}}</b>
-                            <table>
-                                <tbody>
-                                    <td><i id="pmais{{$pedido->id}}" class="fas fa-plus"></td>
-                                    <td><i id="pmenos{{$pedido->id}}" class="fas fa-minus"></td>
-                                </tbody>
-                            </table>
-                        </td>
-                    @else
-                        <td></td>
-                    @endif
-                    
-                    @if ($pedido->pago)
-                        <td class="table-success" id="pago{{$pedido->id}}">
-                            Pago <i id="despagar{{$pedido->id}}" class="fas fa-times">
-                        </td>
-                    @elseif (!$pedido->pago && $pedido->parcela_total > 1 )
-                        <td class="table-warning">
-                            Em Aberto
-                        </td>
-                    @else
-                        <td class="table-danger" id="npago{{$pedido->id}}">
-                            Não Pago <i id="pagar{{$pedido->id}}" class="fas fa-check"></i>
-                        </td>
-                    @endif
-
-                    <td>{{$pedido->created_at}}</td>
-                    <td><a href="/redirect-pedido/{{$pedido->id}}&1&1" target="_blank" class="btn btn-primary" role="button">Gerar</a></td>
-                    <td><a href="/redirect-pedido/{{$pedido->id}}&2&1" target="_blank" class="btn btn-success" role="button">Gerar</a></td>
+                <td>
+                @if(empty($pedido->cliente->id))
+                @else
+                    <a href="cliente/{{$pedido->cliente->id}}" target="_blank">{{$pedido->cliente->nome}}</a>
+                @endif
+                </td>
+                <td>R${{$pedido->valor}}</td>
+                <td>{{$pedido->desconto}}%</td>
+                <td>{{$pedido->pagamento->nome}}</td>
+                @if ($pedido->pagamento_id == 7)
+                    <td id="parcela{{$pedido->id}}">
+                        {{$pedido->parcela_paga}}/<b>{{$pedido->parcela_total}}</b>
+                        <table>
+                            <tbody>
+                                <td>
+                                    <i id="pmais{{$pedido->id}}" class="fas fa-plus">
+                                </td>
+                                <td>
+                                    <i id="pmenos{{$pedido->id}}" class="fas fa-minus">
+                                </td>
+                            </tbody>
+                        </table>
+                    </td>
+                @else
+                    <td></td>
+                @endif
+                @if ($pedido->pago)
+                    <td class="table-success" id="pago{{$pedido->id}}">
+                        Pago <i id="despagar{{$pedido->id}}" class="fas fa-times">
+                    </td>
+                @elseif (!$pedido->pago && $pedido->parcela_total > 1 )
+                    <td class="table-warning">
+                        Em Aberto
+                    </td>
+                @else
+                    <td class="table-danger" id="npago{{$pedido->id}}">
+                        Não Pago <i id="pagar{{$pedido->id}}" class="fas fa-check"></i>
+                    </td>
+                @endif
+                <td>{{$pedido->created_at}}</td>
+                <td>
+                    <a href="/redirect-pedido/{{$pedido->id}}&1&1" target="_blank" class="btn btn-primary" role="button">Gerar</a>
+                </td>
+                <td>
+                    <a href="/redirect-pedido/{{$pedido->id}}&2&1" target="_blank" class="btn btn-success" role="button">Gerar</a>
+                </td>
                 </tr>
-                @endforeach    
-            </tbody>
-        </table>
+            @endforeach    
+        </tbody>
+    </table>
     </div>
+    
     {{ $pedidos->links() }}
+    
 @endsection
-
+    
 @section('js')
     <script type="text/javascript">
         var mes = {{$mes}}; 
@@ -142,72 +141,67 @@
         //Pagar
         $(document).on('click','.fa-check' ,function(event)
         {
-           var id = $(this).attr("id").replace('pagar','');
+            var id = $(this).attr("id").replace('pagar','');
 
-           $.ajax({
-               type: 'get',
-               url: '/pagarAjax',
-               data: {
-                   'id': id,
-               },
-               success: function(data) {
-                   $('#npago'+id).toggleClass('table-danger table-success');
-                   $('#npago'+id).html('Pago');
-               }
-           });
+            $.ajax({
+                type: 'get',
+                url: '/pagarAjax',
+                data: {
+                'id': id,
+            },
+            success: function(data) {
+                $('#npago'+id).html(data);
+                $('#npago'+id).toggleClass('table-danger table-success');
+            }});
         });        
 
         //Despagar
         $(document).on('click','.fa-times' ,function(event)
         {
-           var id = $(this).attr("id").replace('despagar','');
+            var id = $(this).attr("id").replace('despagar','');
 
-           $.ajax({
-               type: 'get',
-               url: '/despagarAjax',
-               data: {
-                   'id': id,
-               },
-               success: function(data) {
-                   $('#pago'+id).toggleClass('table-success table-danger');
-                   $('#pago'+id).html('Não Pago');
-               }
-           });
+            $.ajax({
+                type: 'get',
+                url: '/despagarAjax',
+                data: {
+                'id': id,
+            },
+            success: function(data) {
+                $('#pago'+id).html(data);
+                $('#pago'+id).toggleClass('table-success table-danger');
+            }});
         });      
 
         //Parcela+
         $(document).on('click','.fa-plus' ,function(event)
         {
-           var id = $(this).attr("id").replace('pmais','');
+            var id = $(this).attr("id").replace('pmais','');
 
-           $.ajax({
-               type: 'get',
-               url: '/pmaisAjax',
-               data: {
-                   'id': id,
-               },
-               success: function(data) {
-                   $('#parcela'+id).html(data);
-               }
-           });
+            $.ajax({
+                type: 'get',
+                url: '/pmaisAjax',
+                data: {
+                'id': id,
+            },
+            success: function(data) {
+                $('#parcela'+id).html(data);
+            }});
         });      
 
-        //Parcela-
+        //Parcela
         $(document).on('click','.fa-minus' ,function(event)
         {
-           var id = $(this).attr("id").replace('pmenos','');
+            var id = $(this).attr("id").replace('pmenos','');
 
-           $.ajax({
-               type: 'get',
-               url: '/pmenosAjax',
-               data: {
-                   'id': id,
-               },
-               success: function(data) {
-                   $('#parcela'+id).html(data);
-               }
-           });
+            $.ajax({
+                type: 'get',
+                url: '/pmenosAjax',
+                data: {
+                'id': id,
+            },
+            success: function(data) {
+                $('#parcela'+id).html(data);
+            }});
         });      
-
     </script>
 @endsection

@@ -338,7 +338,9 @@ class PedidoController extends Controller
         $pedido->pago = 1;
         $pedido->save();
 
-        return Response("");   
+        $output = 'Pago <i id="despagar'.$pedido->id.'" class="fas fa-times"></i>';
+
+        return Response($output);   
     }
 
     public function naoPago(Request $request)
@@ -347,7 +349,9 @@ class PedidoController extends Controller
         $pedido->pago = 0;
         $pedido->save();
 
-        return Response("");   
+        $output = ' Não Pago <i id="pagar'.$pedido->id.'" class="fas fa-check"></i>';
+
+        return Response($output);   
     }
 
     public function pmais(Request $request)
