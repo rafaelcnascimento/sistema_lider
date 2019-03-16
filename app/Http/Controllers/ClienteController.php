@@ -66,6 +66,20 @@ class ClienteController extends Controller
         return redirect('/cliente-listar');
     }
 
+    public function clientesAjax()
+    {
+        $clientes = Cliente::orderBy('nome','asc')->paginate(50);
+
+        $output = '<option value="" >Nenhum Cliente</option>';
+        
+        foreach ($clientes as $cliente) 
+        {
+            $output.= '<option value="'.$cliente->id.'">'.$cliente->nome.'</option>';
+        }
+
+        return Response($output);
+    }
+
     public function busca(Request $request)
     {
         $output="";

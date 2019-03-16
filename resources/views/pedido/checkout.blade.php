@@ -26,7 +26,7 @@
                     <th>Qtd</th>
                 </thead>
                 <tbody class="resultado" id="lista">
-                    @foreach ($produtos as $produto)
+                    {{-- @foreach ($produtos as $produto)
                     <tr id="row{{$produto->id}}">
                         <td style="display:none;">{{$produto->id}}</td>
                         <td>{{$produto->nome}}</td>
@@ -39,7 +39,7 @@
                             </div>
                         </td>
                     </tr>
-                    @endforeach  
+                    @endforeach   --}}
                 </tbody>
             </table>
         </div>
@@ -75,9 +75,10 @@
                         <div class="form-group mx-sm-3 mb-2">
                             <select class="select-cliente form-control" id="cliente_id"  name="cliente_id" >
                                 <option value="" >Cliente</option>
+                                {{-- <option value="" >Cliente</option>
                                 @foreach ($clientes as $cliente)
                                         <option value="{{$cliente->id}}">{{$cliente->nome}}</option>
-                                @endforeach
+                                @endforeach --}}
                             </select> 
                         </div>
                         <a href="/cliente-novo" target="_blank" class="btn btn-primary ml-auto" role="button" style="margin-bottom:8px;">
@@ -148,11 +149,19 @@
     <script type="text/javascript">
         //Select cliente
         $(document).ready(function() {
-            $('.select-cliente').select2({ width: '275px' });
+            $('.select-cliente').select2({ width: '275px', placeholder: "Informe o cliente" });
         });
 
-        $('#cliente_id').on('select2:open', function (e) {
-          alert('lol');
+        //Lista clientes
+        $('#cliente_id').on('select2:open', function (e) 
+        {
+            $.ajax({
+                type: 'get',
+                url: '/clientesAjax',
+                success: function(data) {
+                    $('#cliente_id').html(data);
+                }
+            });
         });
 
     </script>
