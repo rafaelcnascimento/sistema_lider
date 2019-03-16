@@ -21,6 +21,7 @@
                 <th>Telefone</th>
                 <th>Documento</th>
                 <th>Endereço</th>
+                <th>Saldo</th>
             </thead>
             <tbody class="resultado">
                 @foreach ($clientes as $cliente)
@@ -29,6 +30,7 @@
                     <td>{{$cliente->telefone}}</td>
                     <td>{{$cliente->documento}}</td>
                     <td>{{$cliente->logradouro}} {{$cliente->numero}}</td> 
+                    <td>{{$cliente->saldo}}</td>
                 </tr>
                 @endforeach  
             </tbody>

@@ -6,13 +6,10 @@
     </head> 
     <body>
         <img src="{{ asset('img/logo.jpg') }}" style="width: 500px;">
-        <br><br>
         @if(empty($orcamento->cliente->id))
-
         @else
-            <h3>Cliente: {{$orcamento->cliente->nome}}</h3>
+            <br><br><h3>Cliente: {{$orcamento->cliente->nome}}</h3>
         @endif
-        <br>
         <table class="table table-striped" style="width: 500px;">
             <thead class="thead-dark">
                 <th>Produto</th>

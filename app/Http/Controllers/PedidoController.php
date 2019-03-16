@@ -18,11 +18,15 @@ class PedidoController extends Controller
         $produtos = Produto::orderBy('nome','asc')->get();
         $pagamentos = Pagamento::all();
         $clientes = Cliente::all();
+        $preco_carrinho = 0;
 
-        Session::forget('carrinho');
-        // Session::forget('valor');
+        if(!is_null(Session('carrinho')))
+            foreach (Session('carrinho') as $key => $carrinho)
+            {
+               $preco_carrinho += $carrinho['preco'] * $carrinho['quantidade'];
+            }
 
-        return view('pedido.checkout', compact('produtos','pagamentos','clientes'));
+        return view('pedido.checkout', compact('produtos','pagamentos','clientes','preco_carrinho'));
     }
 
     public function store(Request $request)
@@ -74,6 +78,8 @@ class PedidoController extends Controller
                     'quantidade' => $item['quantidade'], 'preco_total' => $item['preco'] * $item['quantidade']]);
             }
 
+            Session::forget('carrinho');
+
             return redirect('/redirect-orcamento/'.$orcamento->id);
         } 
 
@@ -108,7 +114,7 @@ class PedidoController extends Controller
         if ($soma > 0) {return redirect('/redirect-pedido/'.$pedido->id.'&'.$soma.'&0');}
 
         $request->session()->flash('message.level', 'success');
-        $request->session()->flash('message.content', 'Pedido realizado com sucesso');
+        $request->session()->flash('message.content', 'Venda realizada com sucesso');
 
         return redirect('/pedido-novo');
     }
@@ -218,7 +224,7 @@ class PedidoController extends Controller
     {
         $mes = 0;
         $ano_busca = 0;
-        $pago = 0;
+        $pago = 3;
 
         $anos = Pedido::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
 

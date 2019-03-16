@@ -31,7 +31,8 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nome' => 'required|regex:/^[\pL\s\-]+$/u|max:255',      
+            'nome' => 'required|regex:/^[\pL\s\-]+$/u|max:255',
+            'saldo' => 'numeric'      
         ]);
 
         Cliente::create(request()->all());
@@ -45,7 +46,8 @@ class ClienteController extends Controller
     public function update(Cliente $cliente, Request $request)
     {
         $request->validate([
-            'nome' => 'required|regex:/^[\pL\s\-]+$/u|max:255',      
+            'nome' => 'required|regex:/^[\pL\s\-]+$/u|max:255',
+            'saldo' => 'numeric'      
         ]);
 
         $cliente->update(request()->all());

@@ -31,6 +31,19 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="saldo" class="col-md-4 col-form-label text-md-right">{{ __('Saldo') }}</label>
+                            
+                                <div class="col-md-6">
+                                    <input id="saldo" type="text" class="form-control{{ $errors->has('saldo') ? ' is-invalid' : '' }}" name="saldo" value="{{ $cliente->saldo }}" >
+                            
+                                    @if ($errors->has('saldo'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('saldo') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="telefone" class="col-md-4 col-form-label text-md-right">{{ __('Telefone') }}</label>
                             
                                 <div class="col-md-6">
@@ -168,7 +181,6 @@
             <table class="table table-striped">
                 <thead class="thead-dark">
                     <th>Código</th>
-                    <th>Cliente</th>
                     <th>Valor</th>
                     <th>Desconto</th>
                     <th>Forma de Pagamento</th>
@@ -179,17 +191,17 @@
                 <tbody class="resultado">
                     @foreach ($pedidos as $pedido)
                     <tr>
-                        <td><a href="pedido/{{$pedido->id}}" target="_blank">{{$pedido->id}}</a></td>
-                        <td><a href="cliente/{{$pedido->cliente->id}}" target="_blank">{{$pedido->cliente->nome}}</a></td>
+                        <td><a href="/pedido/{{$pedido->id}}" target="_blank">{{$pedido->ano($pedido->created_at)}}_{{$pedido->id}}</a></td>
                         <td>R${{$pedido->valor}}</td>
                         <td>{{$pedido->desconto}}%</td>
                         <td>{{$pedido->pagamento->nome}}</td>
-                        <td>{{$pedido->parcela_paga}}/<b>{{$pedido->parcela_total}}</b></td>
-                        
+                        @if($pedido->pagamento_id == 7)
+                            <td>{{$pedido->parcela_paga}}/<b>{{$pedido->parcela_total}}</b></td>
+                        @else
+                            <td></td>
+                        @endif
                         @if ($pedido->pago)
-                        <td class="table-success">
-                            Pago
-                        </td>
+                            w
                         @elseif (!$pedido->pago && $pedido->parcela_paga > 1 )
                             <td class="table-warning">
                                 Em Aberto

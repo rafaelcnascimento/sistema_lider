@@ -26,7 +26,7 @@
                     <th>Qtd</th>
                 </thead>
                 <tbody class="resultado" id="lista">
-                    {{-- @foreach ($produtos as $produto)
+                    @foreach ($produtos as $produto)
                     <tr id="row{{$produto->id}}">
                         <td style="display:none;">{{$produto->id}}</td>
                         <td>{{$produto->nome}}</td>
@@ -39,7 +39,7 @@
                             </div>
                         </td>
                     </tr>
-                    @endforeach   --}}
+                    @endforeach  
                 </tbody>
             </table>
         </div>
@@ -75,10 +75,6 @@
                         <div class="form-group mx-sm-3 mb-2">
                             <select class="select-cliente form-control" id="cliente_id"  name="cliente_id" >
                                 <option value="" >Cliente</option>
-                                {{-- <option value="" >Cliente</option>
-                                @foreach ($clientes as $cliente)
-                                        <option value="{{$cliente->id}}">{{$cliente->nome}}</option>
-                                @endforeach --}}
                             </select> 
                         </div>
                         <a href="/cliente-novo" target="_blank" class="btn btn-primary ml-auto" role="button" style="margin-bottom:8px;">
@@ -99,13 +95,8 @@
                     </th>
                 </thead>
             </table>
+            {{-- Parcelas --}}
             <div class="parcelas">
-                {{-- <div class="form-group row">
-                    <label for="parcelas" class="col-md-4 col-form-label text-md-right"><b>*Número de Parcelas</b></label>
-                    <div class="col-md-1">
-                        <input id="parcelas" type="text" class="form-control{{$errors->has('parcelas') ? ' is-invalid' : '' }}" name="parcelas" value="{{ $produto->parcelas }}" required autofocus>
-                    </div>
-                </div> --}}
             </div>   
 
             <div class="form-check form-check-inline">
@@ -125,6 +116,18 @@
                     <th>Remover</th>
                 </thead>
                 <tbody class="carrinho">
+                    @if(!is_null(Session('carrinho')))
+                        @foreach (Session('carrinho') as $key => $carrinho)
+                            <tr id=row{{$carrinho['produtoId']}}>
+                                <td>{{$carrinho['produtoNome']}}</td>
+                                <td>{{$carrinho['quantidade']}}</td>
+                                <td>@moeda($carrinho['preco'] * $carrinho['quantidade'])</td>
+                                <td>
+                                    <div id="{{$carrinho['produtoId']}}" style="cursor:pointer; margin-left:25px;"><i class="fas fa-minus-circle"></i></div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                     {{-- @foreach ($produtos as $produto)
                     <tr id=row{{$produto->id}}>
                         <td>{{$produto->nome}}</td>
@@ -164,5 +167,9 @@
             });
         });
 
+        var preco_carrinho = {{$preco_carrinho}};
+        if (preco_carrinho > 0) { $('#valor').val(preco_carrinho);}
+
     </script>
+
 @endsection

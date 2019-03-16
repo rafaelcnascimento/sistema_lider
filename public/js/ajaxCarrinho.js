@@ -1,7 +1,6 @@
 //CSRF token
 $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
 //Busca
-
 $('#busca').on('keyup', function(event) {
     if(event.which === 13){
         event.preventDefault();

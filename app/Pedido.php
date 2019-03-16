@@ -34,8 +34,15 @@ class Pedido extends Model
         return $this->belongsToMany('App\Produto', 'pedido_produto', 'pedido_id', 'produto_id')->withPivot('preco_unitario', 'quantidade','preco_total');
     }
 
-    public function getCreatedAtAttribute($value) {
+    public function getCreatedAtAttribute($value) 
+    {
         return \Carbon\Carbon::parse($value)->format('d/m/Y  H:i');
     }
+
+    public function ano($data)
+    {
+        return substr($data, 6, 4);
+    }
+
 
 }

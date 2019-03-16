@@ -21,22 +21,14 @@
                 <th>Telefone</th>
                 <th>Celular</th>
                 <th>Endereço</th>
-                <th>Editar</th>
             </thead>
             <tbody class="resultado">
                 @foreach ($fornecedores as $fornecedor)
                 <tr>
-                    <td>{{$fornecedor->nome}}</td>
+                    <td><a href="fornecedor/{{$fornecedor->id}}">{{$fornecedor->nome}}</a></td>
                     <td>{{$fornecedor->telefone}}</td>
                     <td>{{$fornecedor->celular}}</td>
                     <td>{{$fornecedor->endereco}}</td>
-                    <td>
-                        <a href="fornecedor/{{$fornecedor->id}}">
-                            <button type="submit" class="btn btn-primary custom-btn">
-                                {{ __('Editar') }}
-                            </button>
-                        </a>
-                    </td>    
                 </tr>
                 @endforeach  
             </tbody>

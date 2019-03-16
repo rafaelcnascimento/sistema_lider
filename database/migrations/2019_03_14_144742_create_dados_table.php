@@ -31,7 +31,7 @@ class CreateDadosTable extends Migration
             $table->string('telefone');
             $table->string('celular')->nullable();
             $table->string('executavel');
-        });
+        });   
     }
 
 
