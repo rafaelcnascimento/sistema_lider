@@ -62,16 +62,16 @@ class ProdutosImport implements ToModel, WithCalculatedFormulas
                 $fornecedor = 14;
                 break;   
             case 'Rumatari':
-                $fornecedor = 16;
+                $fornecedor = 15;
                 break;
             case 'Security':
-                $fornecedor = 17;
+                $fornecedor = 16;
                 break;
             case 'Soprano':
-                $fornecedor = 18;
+                $fornecedor = 17;
                 break;
             case 'Zimermaq':
-                $fornecedor = 19;
+                $fornecedor = 18;
                 break;
             default:
                 $fornecedor = null;
@@ -132,7 +132,7 @@ class ProdutosImport implements ToModel, WithCalculatedFormulas
         else 
         {
             return new Produto([
-                'nome'     => $row[2],
+                'nome'     => $row[2].' '.$row[1],
                 'unidade_id'     => $unidade,
                 'fornecedor_id'  => $fornecedor,
                 'quantidade'     => $row[4],

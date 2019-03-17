@@ -10,9 +10,11 @@
         @if(empty($pedido->cliente->id))
 
         @else
-            <h3>Cliente: {{$pedido->cliente->nome}}</h3>
+            <div style="margin-left: 10px;">
+                <h3>{{$pedido->cliente->nome}}</h3>
+                <p><b>{{$pedido->created_at}}</b></p>
+            </div>    
         @endif
-        <br>
         <table class="table table-striped" style="width: 500px;">
             <thead class="thead-dark">
                 <th>Produto</th>

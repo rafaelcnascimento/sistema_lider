@@ -28,7 +28,7 @@
                 <tr>
                     <td><a href="/produto/{{$entrada->produto->id}}" target="_blank">{{$entrada->produto->nome}}</a></td>
                     <td>{{$entrada->quantidade}}</td>
-                    <td>{{$entrada->custo}}</td>
+                    <td>R${{$entrada->custo}}</td>
                     <td>{{$entrada->created_at}}</td>
                     <td>
                         <a href="entrada/{{$entrada->id}}">

@@ -14,4 +14,9 @@ class Cliente extends Model
     protected $table = 'clientes';
     public $timestamps = false;
 
+    public function pedidos()
+    {
+        return $this->hasMany('App\Pedido','cliente_id');
+    }
+
 }

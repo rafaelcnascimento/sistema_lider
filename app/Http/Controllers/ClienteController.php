@@ -23,9 +23,13 @@ class ClienteController extends Controller
 
     public function show(Cliente $cliente)
     {
-        $pedidos = Pedido::where('cliente_id',$cliente->id)->paginate(25);
+        $pedidos = Pedido::where('cliente_id',$cliente->id)->orderBy('pago','asc')->orderBy('id','dsc')->paginate(25);
 
-        return view('cliente.editar', compact('cliente','pedidos'));
+        $valor_pago = $cliente->pedidos->where('pago','1')->sum('valor');
+
+        $valor_devido = $cliente->pedidos->where('pago','0')->sum('valor');
+
+        return view('cliente.editar', compact('cliente','pedidos','valor_pago','valor_devido'));
     }
 
     public function store(Request $request)
