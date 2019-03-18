@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
         {{-- CSS extra --}}
         <link href="{{ asset('css/lider.css') }}" rel="stylesheet" type="text/css">
         @yield('css')
@@ -58,15 +58,18 @@
                 <li class="nav-item">
                     <a class="nav-item nav-link active" href="/produto-estocador">Ferramenta de Estoque</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link active" href="/orcamento-listar">Orçamentos</a>
+                </li>
             </ul>
         </nav>
 
         @yield('corpo')
       
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script src="{{ asset('js/jQuery.min.js') }}"></script>
+        <script src="{{ asset('js/popper.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         @yield('js')
     </body>
 </html>

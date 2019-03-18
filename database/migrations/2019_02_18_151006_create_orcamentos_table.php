@@ -12,6 +12,7 @@ class CreateOrcamentosTable extends Migration {
 			$table->integer('cliente_id')->unsigned()->nullable();
 			$table->float('valor');
 			$table->float('desconto')->default('0');
+			$table->timestamps();
 		});
 	}
 

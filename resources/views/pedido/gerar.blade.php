@@ -14,7 +14,7 @@ $request->session()->reflash();
 
 <script type="text/javascript">
     var flag = {{$flag}};
-    var fechar = {{$fechar}}
+    var fechar = {{$fechar}};
     var url;
     var win;
 

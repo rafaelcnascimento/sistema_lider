@@ -77,6 +77,8 @@ Route::get('/fornecedorAjax', 'FornecedorController@busca');
 Route::get('/entradaAjax', 'EntradaController@busca');
 
 //Orçamento
+Route::get('/orcamento-listar', 'OrcamentoController@index');
+Route::get('/orcamento-converter/{orcamento}', 'OrcamentoController@converter');
 Route::get('/orcamento/{orcamento}', 'OrcamentoController@show');
 Route::post('/orcamento', 'OrcamentoController@store');
 //Carrinho
@@ -84,7 +86,7 @@ Route::get('/adicionarProduto', 'PedidoController@add');
 Route::get('/removerProduto', 'PedidoController@remove');
 
 //Rotas imagens
-Route::get('/redirect-orcamento/{orcamento}', 'OrcamentoController@redirect');
+Route::get('/redirect-orcamento/{orcamento}&{fechar}', 'OrcamentoController@redirect');
 Route::get('/redirect-pedido/{pedido}&{flag}&{fechar}', 'PedidoController@redirect');
 Route::get('/gerar-orcamento/{orcamento}', 'OrcamentoController@gerarImagem');
 Route::get('/gerar-cliente/{pedido}', 'OrcamentoController@gerarCliente');

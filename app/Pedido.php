@@ -39,9 +39,9 @@ class Pedido extends Model
         return \Carbon\Carbon::parse($value)->format('d/m/Y  H:i');
     }
 
-    public function ano($data)
+    public function ano()
     {
-        return substr($data, 6, 4);
+        return substr($this->created_at, 6, 4);
     }
 
 

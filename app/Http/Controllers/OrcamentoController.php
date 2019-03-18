@@ -16,14 +16,40 @@ use Session;
 
 class OrcamentoController extends Controller 
 {
+    public function index()
+    {
+        $orcamentos = Orcamento::orderBy('id','dsc')->paginate(50);
+
+        return view('orcamento.listar', compact('orcamentos'));
+    }
+
     public function show(Orcamento $orcamento)
     {
         return view('orcamento.ver', compact('orcamento'));
     }
 
-    public function redirect(Orcamento $orcamento)
+    public function converter(Orcamento $orcamento)
     {
-        return view('orcamento.gerar', compact('orcamento'));
+        Session::forget('carrinho');
+
+        foreach ($orcamento->produtos as $produto)
+        {
+            $item = array(
+                'produtoId' => $produto->id,
+                'produtoNome' => $produto->nome,
+                'preco' => $produto->pivot->preco_unitario,
+                'quantidade' => $produto->pivot->quantidade
+            );
+
+            Session::push('carrinho', $item);
+        }
+ 
+        return redirect('/pedido-novo');
+    }
+
+    public function redirect(Orcamento $orcamento, $fechar)
+    {
+        return view('orcamento.gerar', compact('orcamento','fechar'));
     }
 
     public function gerarImagem(Orcamento $orcamento) 

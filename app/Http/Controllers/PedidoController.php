@@ -80,7 +80,7 @@ class PedidoController extends Controller
 
             Session::forget('carrinho');
 
-            return redirect('/redirect-orcamento/'.$orcamento->id);
+            return redirect('/redirect-orcamento/'.$orcamento->id.'&0');
         } 
 
         else 
@@ -232,7 +232,6 @@ class PedidoController extends Controller
 
         return view('pedido.listar', compact('pedidos','anos','ano_busca','mes','pago'));
     }
-
 
     public function show(Pedido $pedido)
     {

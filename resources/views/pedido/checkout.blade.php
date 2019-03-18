@@ -1,6 +1,6 @@
 @extends('master')
 @section('css')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" rel="stylesheet" >
 @endsection
 @section('corpo')
@@ -147,7 +147,7 @@
 @endsection
 
 @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="{{ asset('js/select2.min.js') }}"></script>
     <script src="{{ asset('js/ajaxCarrinho.js') }}"></script>
     <script type="text/javascript">
         //Select cliente
