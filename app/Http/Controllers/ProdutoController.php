@@ -95,7 +95,7 @@ class ProdutoController extends Controller
         $request->validate([
             'nome' => 'required|string|max:255',      
             'endereco' => 'nullable|string|max:255',
-            'codigo' => 'nullable|numeric|exists:produtos',
+            'codigo' => 'nullable|numeric|unique:produtos',
             'unidade_id' => 'required|numeric',
             'fornecedor_id' => 'nullable|numeric',
             'estoque_baixo' => 'nullable|numeric',
