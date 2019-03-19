@@ -57,8 +57,8 @@
             <thead class="thead-dark">
                 <th>Código</th>
                 <th>Cliente</th>
+                <th>Valor Pago</th>
                 <th>Valor</th>
-                <th>Desconto</th>
                 <th>Forma de Pagamento</th>
                 <th>Parcelas/Pagas</th>
                 <th>Situação</th>
@@ -78,8 +78,8 @@
                     <a href="cliente/{{$pedido->cliente->id}}" target="_blank">{{$pedido->cliente->nome}}</a>
                 @endif
                 </td>
+                <td>R${{$pedido->valor_pago}}</td>
                 <td>R${{$pedido->valor}}</td>
-                <td>{{$pedido->desconto}}%</td>
                 <td>{{$pedido->pagamento->nome}}</td>
                 @if ($pedido->pagamento_id == 7)
                     <td id="parcela{{$pedido->id}}">

@@ -31,20 +31,17 @@ class PedidoController extends Controller
 
     public function store(Request $request)
     {
-        if ($request->desconto ? $desconto = $request->desconto : $desconto = 0);
         //if ($request->$cliente_id ? $cliente_id = $request->$cliente_id : $cliente_id = null);
-
-        $valor = $request->valor * (1 - $desconto/100);
-
         switch ($request->pagamento_id) 
         {
             // A prazo,boleto e cheque
             case '2':
             case '4':
             case '5':
-                $parcela_paga = 0;
+                $parcela_paga = 1;
                 $parcela_total = 1;
                 $pago = 0;
+                $valor_pago = 0;
                 break;
 
             // Parcelado
@@ -52,12 +49,24 @@ class PedidoController extends Controller
                 $parcela_paga = 0;
                 $parcela_total = $request->parcelas;
                 $pago = 0;
+                $valor_pago = 0;
                 break;
             
             default:
                 $parcela_paga = 1;
                 $parcela_total = 1;
-                $pago = 1;
+                //Valor pago maior
+                if($request->valor_pago > $request->valor)
+                {
+                    $valor_pago = $request->valor;
+                    $pago = 1;
+                }
+                else
+                {
+                    $valor_pago = $request->valor_pago;
+                    $pago = 0;
+                }
+
                 break;
         }
 
@@ -66,8 +75,7 @@ class PedidoController extends Controller
         if ($request->botao == 'orcamento')
         {
             $orcamento = Orcamento::create([
-                'valor' => $valor,
-                'desconto' => $desconto,
+                'valor' => $request->valor,
                 'cliente_id' => $request->cliente_id,
            ]);
 
@@ -86,9 +94,9 @@ class PedidoController extends Controller
         else 
         {
             $pedido = Pedido::create([
-                'valor' => $valor,
+                'valor' => $request->valor,
+                'valor_pago' => $valor_pago,
                 'pago' => $pago,
-                'desconto' => $desconto,
                 'cliente_id' => $request->cliente_id,
                 'pagamento_id' => $request->pagamento_id,
                 'parcela_paga' => $parcela_paga,
@@ -362,7 +370,13 @@ class PedidoController extends Controller
     public function pmais(Request $request)
     {
         $pedido = Pedido::find($request->id);
+        $valor_parcela;
+
+        $valor_parcela = $pedido->valor / $pedido->parcela_total; 
         $pedido->parcela_paga += 1;
+        $pedido->valor_pago = $valor_parcela * $pedido->parcela_paga;
+        
+        if ($pedido->parcela_paga == $pedido->parcela_total) {$pedido->pago = 1;}
         $pedido->save();
 
         $output =   $pedido->parcela_paga.'/<b>'.$pedido->parcela_total.'</b>

@@ -14,7 +14,6 @@
                     <th>Código</th>
                     <th>Cliente</th>
                     <th>Valor</th>
-                    <th>Desconto</th>
                     <th>Forma de Pagamento</th>
                     <th>Parcelas/Pagas</th>
                     <th>Situação</th>
@@ -31,7 +30,6 @@
                         @endif
                     </td>
                     <td>R${{$pedido->valor}}</td>
-                    <td>{{$pedido->desconto}}%</td>
                     <td>{{$pedido->pagamento->nome}}</td>
                     <td>{{$pedido->parcela_paga}}/<b>{{$pedido->parcela_total}}</b></td>
                     

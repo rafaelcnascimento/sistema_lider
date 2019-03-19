@@ -21,6 +21,26 @@ $('#busca').on('keyup', function(event) {
     } 
 })
 
+//Troco
+$('#valor_pago').on('keyup', function(event) {
+    var $troco;
+    var $pago = +$(this).val();
+    var $valor = +$('#valor').val();
+    
+    if ($pago > $valor) {$troco = $pago - $valor; }
+
+    $('#troco').val($troco);
+      
+})
+//Disable enter
+$('.valores').on('keydown', function(event)
+{
+    if (event.which === 13) {
+        event.preventDefault();
+    }
+ });
+
+
 //Enter 
 $(document).on('keyup','.qtd input' ,function(event)
 {

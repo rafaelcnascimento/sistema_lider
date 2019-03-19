@@ -186,7 +186,6 @@
                             <thead class="thead-dark">
                                 <th>Código</th>
                                 <th>Valor</th>
-                                <th>Desconto</th>
                                 <th>Forma de Pagamento</th>
                                 <th>Parcelas/Pagas</th>
                                 <th>Situação</th>
@@ -197,7 +196,6 @@
                                 <tr>
                                     <td><a href="/pedido/{{$pedido->id}}" target="_blank">{{$pedido->ano($pedido->created_at)}}_{{$pedido->id}}</a></td>
                                     <td>R${{$pedido->valor}}</td>
-                                    <td>{{$pedido->desconto}}%</td>
                                     <td>{{$pedido->pagamento->nome}}</td>
                                     @if($pedido->pagamento_id == 7)
                                         <td>{{$pedido->parcela_paga}}/<b>{{$pedido->parcela_total}}</b></td>
