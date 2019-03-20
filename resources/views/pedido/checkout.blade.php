@@ -14,7 +14,7 @@
         <div class="col-6">
             <center>
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" name="busca" id="busca" onclick="this.select()" placeholder="Buscar">
+                    <input type="text" class="form-control" autofocus name="busca" id="busca" onclick="this.select()" placeholder="Buscar">
                 </div>
             </center>
             <table class="table table-striped">
@@ -52,10 +52,10 @@
                         <label for="valor" class="col-md-4 col-form-label text-md-left">{{ __('Total: R$') }}</label>
                     
                         <div class="col-md-4">
-                            <input id="valor" type="text" style="margin-left: -165px;" class="form-control no-border valor" name="valor" required>
+                            <input id="valor" type="text" style="margin-left: -20%;" class="form-control no-border valor" name="valor" required>
                         </div>
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-6 offset-md-4 ">
                                 <button type="submit" name="botao" value="orcamento" class="btn btn-success">
                                     {{ __('Orcamento') }}
                                 </button>
@@ -74,7 +74,7 @@
                         <label for="valor_pago" class="col-md-4 col-form-label text-md-left">{{ __('Pago: R$') }}</label>
                     
                         <div class="col-md-4">
-                            <input id="valor_pago" type="text" style="margin-left: -165px;" class="form-control no-border valor" name="valor_pago" >
+                            <input id="valor_pago" type="text" style="margin-left: -20%;" class="form-control no-border valor" name="valor_pago" >
                         </div>
                     </div>
                     {{-- Troco --}}
@@ -82,7 +82,7 @@
                         <label for="troco" class="col-md-4 col-form-label text-md-left">{{ __('Troco:R$') }}</label>
                     
                         <div class="col-md-4">
-                            <input id="troco" type="text" style="margin-left: -165px;" class="form-control no-border valor" name="troco" >
+                            <input id="troco" type="text" style="margin-left: -20%;" class="form-control no-border valor" name="troco" >
                         </div>
                     </div>      
                     {{-- listagem --}}
