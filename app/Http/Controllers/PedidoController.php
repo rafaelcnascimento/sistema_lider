@@ -55,8 +55,16 @@ class PedidoController extends Controller
             default:
                 $parcela_paga = 1;
                 $parcela_total = 1;
+                
+                if($request->saldo) { Cliente::saldo($request->cliente_id, $request->valor);}
+                
+                if (!$request->valor_pago) 
+                {
+                    $valor_pago =0;
+                    $pago = 0;
+                }
                 //Valor pago maior
-                if($request->valor_pago > $request->valor)
+                else if($request->valor_pago >= $request->valor)
                 {
                     $valor_pago = $request->valor;
                     $pago = 1;

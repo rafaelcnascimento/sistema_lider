@@ -23,13 +23,13 @@ $('#busca').on('keyup', function(event) {
 
 //Troco
 $('#valor_pago').on('keyup', function(event) {
-    var $troco;
-    var $pago = +$(this).val();
-    var $valor = +$('#valor').val();
+    var troco;
+    var pago = +$(this).val();
+    var valor = +$('#valor').val();
     
-    if ($pago > $valor) {$troco = $pago - $valor; }
+    if (pago > valor) {troco = pago - valor; }
 
-    $('#troco').val($troco);
+    $('#troco').val(troco);
       
 })
 //Disable enter
@@ -39,7 +39,6 @@ $('.valores').on('keydown', function(event)
         event.preventDefault();
     }
  });
-
 
 //Enter 
 $(document).on('keyup','.qtd input' ,function(event)

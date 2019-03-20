@@ -52,7 +52,7 @@
                         <label for="valor" class="col-md-4 col-form-label text-md-left">{{ __('Total: R$') }}</label>
                     
                         <div class="col-md-4">
-                            <input id="valor" type="text" style="margin-left: -20%;" class="form-control no-border valor" name="valor" required>
+                            <input id="valor" type="text" style="margin-left: -45%;" class="form-control no-border valor" name="valor" required>
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4 ">
@@ -74,7 +74,7 @@
                         <label for="valor_pago" class="col-md-4 col-form-label text-md-left">{{ __('Pago: R$') }}</label>
                     
                         <div class="col-md-4">
-                            <input id="valor_pago" type="text" style="margin-left: -20%;" class="form-control no-border valor" name="valor_pago" >
+                            <input id="valor_pago" type="text" style="margin-left: -45%;" class="form-control no-border valor" name="valor_pago" >
                         </div>
                     </div>
                     {{-- Troco --}}
@@ -82,7 +82,7 @@
                         <label for="troco" class="col-md-4 col-form-label text-md-left">{{ __('Troco:R$') }}</label>
                     
                         <div class="col-md-4">
-                            <input id="troco" type="text" style="margin-left: -20%;" class="form-control no-border valor" name="troco" >
+                            <input id="troco" type="text" style="margin-left: -45%;" class="form-control no-border valor" name="troco" >
                         </div>
                     </div>      
                     {{-- listagem --}}
@@ -105,6 +105,11 @@
                                         @endforeach
                                     </select> 
                                 </div>
+                                {{-- Saldo --}}
+                                <div class="saldo">
+                                </div>
+                                
+                                <br>
                             </th>
                         </thead>
                     </table>
@@ -168,6 +173,7 @@
         $(document).ready(function() {
             $('.select-cliente').select2({ width: '275px', placeholder: "Informe o cliente" });
         });
+
         //Lista clientes
         $('#cliente_id').on('select2:open', function (e) 
         {
@@ -180,8 +186,27 @@
             });
         });
 
+        $("#cliente_id").change(function() 
+        { 
+            id = $(this).val();
+            
+            $.ajax({
+                type: 'get',
+                url: '/saldoAjax',
+                data: {
+                    'id': id
+                },
+                success: function(data) {
+                    $('.saldo').html(data);
+                }
+            });
+        });
+
+
         var preco_carrinho = {{$preco_carrinho}};
         if (preco_carrinho > 0) { $('#valor').val(preco_carrinho);}
+
+
 
     </script>
 

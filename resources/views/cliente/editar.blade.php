@@ -185,6 +185,7 @@
                         <table class="table table-striped">
                             <thead class="thead-dark">
                                 <th>Código</th>
+                                <th>Valor Pago</th>
                                 <th>Valor</th>
                                 <th>Forma de Pagamento</th>
                                 <th>Parcelas/Pagas</th>
@@ -195,6 +196,7 @@
                                 @foreach ($pedidos as $pedido)
                                 <tr>
                                     <td><a href="/pedido/{{$pedido->id}}" target="_blank">{{$pedido->ano($pedido->created_at)}}_{{$pedido->id}}</a></td>
+                                    <td>R${{$pedido->valor_pago}}</td>
                                     <td>R${{$pedido->valor}}</td>
                                     <td>{{$pedido->pagamento->nome}}</td>
                                     @if($pedido->pagamento_id == 7)

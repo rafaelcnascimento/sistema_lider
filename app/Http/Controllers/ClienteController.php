@@ -27,7 +27,10 @@ class ClienteController extends Controller
 
         $valor_pago = $cliente->pedidos->where('pago','1')->sum('valor');
 
-        $valor_devido = $cliente->pedidos->where('pago','0')->sum('valor');
+        $valor_devido_total = $cliente->pedidos->where('pago','0')->sum('valor');
+        $valor_devido_pago = $cliente->pedidos->where('pago','0')->sum('valor_pago');
+
+        $valor_devido = $valor_devido_total - $valor_devido_pago;
 
         return view('cliente.editar', compact('cliente','pedidos','valor_pago','valor_devido'));
     }
@@ -81,6 +84,29 @@ class ClienteController extends Controller
         foreach ($clientes as $cliente) 
         {
             $output.= '<option value="'.$cliente->id.'">'.$cliente->nome.'</option>';
+        }
+
+        return Response($output);
+    }
+
+    public function saldoAjax(Request $request)
+    {
+        $output ='';
+        if (!$request->id) {  return Response($output); }
+       
+        $cliente = Cliente::find($request->id);
+       
+        if($cliente->saldo > 0) 
+        {
+            $output .= 'Saldo disponível: R$ '.$cliente->saldo.'
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="saldo" id="saldo" value="'.$cliente->saldo.'">
+                <label class="form-check-label" for="saldo">Usar saldo</label>
+            </div>';
+        }
+        else
+        {
+            $output .= '';
         }
 
         return Response($output);
