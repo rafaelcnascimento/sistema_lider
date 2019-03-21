@@ -19,7 +19,6 @@ Route::get('/produto/{produto}', 'ProdutoController@show');
 Route::get('/produto-novo', 'ProdutoController@create');
 Route::get('/produto-catalogo', 'ProdutoController@catalogo');
 Route::get('/estoque-baixo', 'ProdutoController@estoqueBaixo');
-
 Route::post('/produto', 'ProdutoController@store');
 Route::patch('/produto/{produto}', 'ProdutoController@update');
 Route::delete('/produto/{produto}', 'ProdutoController@delete');

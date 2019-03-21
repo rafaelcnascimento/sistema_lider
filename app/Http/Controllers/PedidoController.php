@@ -161,6 +161,23 @@ class PedidoController extends Controller
         return Response($output);
     }
 
+    public function delete(Pedido $pedido, Request $request)
+    {
+        foreach ($pedido->produtos as $item) 
+        {
+            $produto = Produto::find($item->id);
+            $produto->quantidade += $item->pivot->quantidade;
+            $produto->save();
+        }
+
+        $pedido->delete();
+
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Pedido removido com sucesso');
+
+        return redirect('/pedido-listar');
+    }
+
     public function remove(Request $request)
     {
         $output="";
@@ -251,7 +268,30 @@ class PedidoController extends Controller
 
     public function show(Pedido $pedido)
     {
-        return view('pedido.editar', compact('pedido'));
+        $pagamentos = Pagamento::all();
+
+        return view('pedido.editar', compact('pedido','pagamentos'));
+    }
+
+    public function update(Pedido $pedido, Request $request)
+    {
+        if ($request->valor_pago != $pedido->valor_pago && $request->valor_pago >= $pedido->valor)
+        {
+            $pedido->pago = 1;
+            $pedido->valor_pago = $pedido->valor;   
+    	} 
+        else 
+        {
+            $pedido->valor_pago = $request->valor_pago;
+        }
+
+        $pedido->pagamento_id = $request->pagamento_id;
+        $pedido->save();
+
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Pedido modificado com sucesso');
+
+        return redirect('/pedido/'.$pedido->id);
     }
 
     public function showCliente(Pedido $pedido)
@@ -357,6 +397,7 @@ class PedidoController extends Controller
     {
         $pedido = Pedido::find($request->id);
         $pedido->pago = 1;
+        $pedido->valor_pago = $pedido->valor;
         $pedido->save();
 
         $output = 'Pago <i id="despagar'.$pedido->id.'" class="fas fa-times"></i>';
@@ -368,6 +409,7 @@ class PedidoController extends Controller
     {
         $pedido = Pedido::find($request->id);
         $pedido->pago = 0;
+        $pedido->valor_pago = 0;
         $pedido->save();
 
         $output = ' Não Pago <i id="pagar'.$pedido->id.'" class="fas fa-check"></i>';

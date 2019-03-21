@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 <hr>
-                <center><p>Entrada do novo produto</p></center>
+                <center><p>Entrada de produto</p></center>
                 <div class="form-group row">
                     <label for="quantidade" class="col-md-4 col-form-label text-md-right">{{ __('Quantidade nova') }}</label>
                     
