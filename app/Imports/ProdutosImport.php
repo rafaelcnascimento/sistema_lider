@@ -136,6 +136,7 @@ class ProdutosImport implements ToModel, WithCalculatedFormulas
             if ($produto)
             {
                $produto->update([
+                    'nome' => $row[2].' '.$row[1],
                     'custo_inicial' => $row[5],
                     'ipi' => $row[6],
                     'icms' => $row[8],

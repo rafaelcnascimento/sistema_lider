@@ -21,6 +21,46 @@ $('#busca').on('keyup', function(event) {
     } 
 })
 
+//Saldo
+$("#cliente_id").change(function() 
+{ 
+    id = $(this).val();
+    
+    $.ajax({
+        type: 'get',
+        url: '/saldoAjax',
+        data: {
+            'id': id
+        },
+        success: function(data) {
+            $('.saldo').html(data);
+        }
+    });
+});
+
+//Jogar saldo no valor
+$(document).on('change','#saldo', function(event) {
+    var valor_pago = +$('#valor_pago').val();
+    var saldo = +$(this).val();
+
+    if(this.checked) {
+        valor_pago += saldo;
+        $('#valor_pago').val(valor_pago);
+    } 
+    else
+    {
+        valor_pago -= saldo;
+        $('#valor_pago').val(valor_pago);
+    }
+
+    var troco;
+    var valor = +$('#valor').val();
+    
+    if (valor_pago > valor) {troco = valor_pago - valor; }
+
+    $('#troco').val(troco);
+})
+
 //Troco
 $('#valor_pago').on('keyup', function(event) {
     var troco;

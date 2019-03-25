@@ -32,7 +32,9 @@ Route::get('/pedido-cliente/{pedido}', 'PedidoController@showCliente');
 
 Route::post('/pedido-filtrar', 'PedidoController@filter');
 Route::post('/pedido', 'PedidoController@store');
+Route::patch('/pedido_quantidade/{pedido}&{produto}&{quantidade}&{preco}', 'PedidoController@updateProduto');
 Route::patch('/pedido/{pedido}', 'PedidoController@update');
+Route::delete('/pedido_remover/{pedido}&{produto}', 'PedidoController@removerProduto');
 Route::delete('/pedido/{pedido}', 'PedidoController@delete');
 
 //Rotas Cliente
@@ -107,4 +109,4 @@ Route::get('/estocadorAjax', 'ProdutoController@estocadorBusca');
 Route::get('/estocadorQuantidadeAjax', 'ProdutoController@quantidade');
 Route::get('/estocadorCodigoAjax', 'ProdutoController@codigo');
 
-//Route::get('/importar', 'ProdutoController@import');
+Route::get('/importar', 'ProdutoController@import');

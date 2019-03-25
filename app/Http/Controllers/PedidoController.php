@@ -456,4 +456,62 @@ class PedidoController extends Controller
                 
         return Response($output);   
     }
+
+    public function updateProduto(Pedido $pedido, Produto $produto, $quantidade, $preco, Request $request)
+    {
+        $pedido->produtos()->updateExistingPivot($produto,[
+            'quantidade' => $request->quantidade,
+            'preco_total' => $request->quantidade * $preco
+        ]);
+
+        $preco_final = 0;
+
+        foreach ($pedido->produtos as $produto)
+        {
+            $preco_final += $produto->pivot->preco_total; 
+        }
+
+        $pedido->valor = $preco_final;
+        $pedido->save();
+
+        if ($request->quantidade > $quantidade) 
+        {
+        	$diferenca = $request->quantidade - $quantidade;
+            $produto->quantidade += $diferenca;
+        }
+
+        else
+        {
+            $diferenca = $quantidade - $request->quantidade;
+            $produto->quantidade -= $diferenca;
+        }
+
+        $produto->save();
+       
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Quantidade alterada com sucesso');
+
+        return redirect('/pedido/'.$pedido->id);
+    }
+
+    public function removerProduto(Pedido $pedido, Produto $produto , Request $request)
+    {
+        $pedido->produtos()->detach($produto);
+
+        $preco_final = 0;
+
+        foreach ($pedido->produtos as $produto)
+        {
+            $preco_final += $produto->pivot->preco_total; 
+        }
+
+        $pedido->valor = $preco_final;
+        $pedido->save();
+ 
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Produto removido com sucesso');
+
+        return redirect('/pedido/'.$pedido->id);
+    }
 }
+    

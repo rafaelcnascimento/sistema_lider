@@ -11,6 +11,8 @@
             </div>
         @endif
     <form method="post" action="/pedido/{{$pedido->id}}">
+        @method('patch')
+        @csrf
     <div class="container-fluid">
        <table class="table table-striped">
            <thead class="thead-dark">
@@ -86,8 +88,6 @@
    </div>
 
     <div class="form-inline">
-            @method('patch')
-            @csrf
             <div style="margin-left: 20px;">
                 <button type="submit" class="btn btn-success">
                     {{ __('Salvar') }}
@@ -111,14 +111,36 @@
                <th>Quantidade</th>
                <th>Preço Unitário</th>
                <th>Preço Total</th>
+               <th>Salvar</th>
+               <th>Remover</th>
            </thead>
            <tbody>
                @foreach ($pedido->produtos as $produto)
-                   <tr>
-                       <td><a href="/produto/{{$produto->id}}" target="_blank">{{$produto->nome}}</a></td>
-                       <td>{{$produto->pivot->quantidade}}</td>
+                    <form method="POST" action="/pedido_quantidade/{{$pedido->id}}&{{$produto->id}}&{{$produto->pivot->quantidade}}&{{$produto->pivot->preco_unitario}}">
+                        @method('patch')
+                        @csrf
+                    <tr>
+                       <td><a href="/produto/{{$produto->id}}" target="_blank">{{$produto->nome}} {{$produto->id}}</a></td>
+                       <td style="width: 10%">
+                           <input onclick="this.select()" type="text" class="form-control" name="quantidade" value="{{$produto->pivot->quantidade}}">
+                       </td>
                        <td>R${{$produto->pivot->preco_unitario}}</td>
                        <td>R${{$produto->pivot->preco_total}}</td>
+                       <td>
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Salvar') }}
+                            </button>
+                       </td>
+                    </form>
+                       <td>
+                           <form method="post" action="/pedido_remover/{{$pedido->id}}&{{$produto->id}}" onSubmit="if(!confirm('Deletar produto?')){return false;}">
+                               @method('delete')
+                               @csrf
+                                    <button type="submit" class="btn btn-danger">
+                                        {{ __('Deletar') }}
+                                    </button>
+                           </form>  
+                       </td>
                    </tr>
                 @endforeach   
            </tbody>

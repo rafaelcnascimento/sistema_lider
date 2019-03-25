@@ -74,7 +74,7 @@
                         <label for="valor_pago" class="col-md-4 col-form-label text-md-left">{{ __('Pago: R$') }}</label>
                     
                         <div class="col-md-4">
-                            <input id="valor_pago" type="text" style="margin-left: -45%;" class="form-control no-border valor" name="valor_pago" >
+                            <input id="valor_pago" type="text" style="margin-left: -45%;" class="form-control no-border valor" name="valor_pago"  onclick="this.select()" value="0">
                         </div>
                     </div>
                     {{-- Troco --}}
@@ -186,27 +186,8 @@
             });
         });
 
-        $("#cliente_id").change(function() 
-        { 
-            id = $(this).val();
-            
-            $.ajax({
-                type: 'get',
-                url: '/saldoAjax',
-                data: {
-                    'id': id
-                },
-                success: function(data) {
-                    $('.saldo').html(data);
-                }
-            });
-        });
-
-
         var preco_carrinho = {{$preco_carrinho}};
         if (preco_carrinho > 0) { $('#valor').val(preco_carrinho);}
-
-
 
     </script>
 
