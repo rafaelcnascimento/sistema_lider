@@ -125,6 +125,12 @@
                         <input class="form-check-input" type="checkbox" name="entrega" id="entrega" value="2">
                         <label class="form-check-label" for="entrega"><h3>Entrega</h3></label>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="obs"><b>Observação</b></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="obs" id="obs">
+                        </div>
+                    </div>
                 </form>
             </div>    
             <table class="table table-striped">
@@ -137,14 +143,16 @@
                 <tbody class="carrinho">
                     @if(!is_null(Session('carrinho')))
                         @foreach (Session('carrinho') as $key => $carrinho)
-                            <tr id=row{{$carrinho['produtoId']}}>
+                            <tr>
                                 <td>{{$carrinho['produtoNome']}}</td>
-                                <td>{{$carrinho['quantidade']}}</td>
-                                <td>@moeda($carrinho['preco'] * $carrinho['quantidade'])</td>
                                 <td>
-                                    <div id="{{$carrinho['produtoId']}}" style="cursor:pointer; margin-left:25px;"><i class="fas fa-minus-circle"></i></div>
+                                    <div class="qtd_cart" style="width: 60px;">
+                                        <input id="q{{$carrinho['produtoId']}}" type="text" class="form-control" value="{{$carrinho['quantidade']}}">
+                                    </div>
                                 </td>
-                            </tr>
+                                <td>@moeda($carrinho['preco'] * $carrinho['quantidade'])</td>
+                                <td><div style="cursor:pointer; margin-left:25px;"><i id="{{$carrinho['produtoId']}}" class="fas fa-minus-circle"></i></div></td>
+                                </tr>
                         @endforeach
                     @endif
                     {{-- @foreach ($produtos as $produto)
@@ -188,6 +196,65 @@
 
         var preco_carrinho = {{$preco_carrinho}};
         if (preco_carrinho > 0) { $('#valor').val(preco_carrinho);}
+
+        //Adicionar 
+        $(document).on('keydown','.qtd_cart input' ,function(event)
+        {
+            // var tecla = event.which;
+            
+            // if (tecla === 13) {
+            //     event.preventDefault();
+            // }
+
+            alert('Ta ok');
+
+                // var value = $(this).attr('id');
+                // var row = $('#row' + value).closest("tr");
+                // var columns = row.find('td');
+                // var valores = [];
+                   
+                // $.each(columns, function(i, item) {
+                //     valores[i] = item.innerHTML;
+                // });
+
+                // var id = valores[0]; 
+                // var estoque = +valores[3];
+                // var preco = converterPreco(valores[4]);
+
+                // var quantidade = +$('#'+valores[0]).val();
+                
+                if (quantidade == '') {
+                    alert("Informe a quantidade");
+                    return false;
+                }
+
+                if (isNaN(quantidade)) {
+                    alert("Use apenas numeros");
+                    return false;
+                }
+
+                if (quantidade > estoque) {
+                    alert("Quantidade maior que o estoque");
+                }
+                
+                // $.ajax({
+                //     type: 'get',
+                //     url: '/adicionarProduto',
+                //     data: {
+                //         'item': id,
+                //         'quantidade':quantidade
+                //     },
+                //     success: function(data) {
+                //         $('.carrinho').append(data);
+                        
+                //         var valor = $('#valor').val();
+                //         valor = +valor;
+                //         valor = valor + (preco * quantidade);
+                //         $('#valor').val(valor);
+                //     }
+                // });
+            
+        });
 
     </script>
 

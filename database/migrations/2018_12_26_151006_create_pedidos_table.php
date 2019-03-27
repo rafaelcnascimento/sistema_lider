@@ -16,6 +16,7 @@ class CreatePedidosTable extends Migration {
 			$table->integer('pagamento_id');
 			$table->integer('parcela_paga')->default(1);
 			$table->integer('parcela_total')->default(1);
+			$table->text('obs')->nullable();
 			$table->softDeletes();
 			$table->timestamps();
 		});

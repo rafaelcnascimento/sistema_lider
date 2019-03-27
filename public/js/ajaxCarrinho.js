@@ -80,7 +80,7 @@ $('.valores').on('keydown', function(event)
     }
  });
 
-//Enter 
+//Adicionar 
 $(document).on('keyup','.qtd input' ,function(event)
 {
     var tecla = event.which;

@@ -10,10 +10,11 @@ use App\Produto;
 use App\Cliente;
 use App\Pagamento;
 use Session;
+use Log;
 
 class PedidoController extends Controller 
 {
-    public function create()
+    public function create(Request $request)
     {
         $produtos = Produto::orderBy('nome','asc')->get();
         $pagamentos = Pagamento::all();
@@ -106,6 +107,7 @@ class PedidoController extends Controller
                 'valor_pago' => $valor_pago,
                 'pago' => $pago,
                 'cliente_id' => $request->cliente_id,
+                'obs' => $request->obs,
                 'pagamento_id' => $request->pagamento_id,
                 'parcela_paga' => $parcela_paga,
                 'parcela_total' => $parcela_total
@@ -154,11 +156,21 @@ class PedidoController extends Controller
 
         $output.='<tr>'.
         '<td>'.$produto->nome.'</td>'.
-        '<td>'.$quantidade.'</td>'.
-        '<td>'.number_format($preco,2,',','.').'</td>'.
-        '<td><div style="cursor:pointer; margin-left:25px;"><i id="'.$produto->id.'" class="fas fa-minus-circle"></i></div></td>';
+        '<td>
+            <div class="qtd_cart" style="width: 60px;">
+                <input id="q'.$produto->id.'" type="text" class="form-control" value="'.$quantidade.'" >
+            </div>
+        </td>
+        <td>'.number_format($preco,2,',','.').'</td>'.
+        '<td><div style="cursor:pointer; margin-left:25px;"><i id="'.$produto->id.'" class="fas fa-minus-circle"></i></div></td>
+        </tr>';
         
         return Response($output);
+    }
+
+    public function alterar(Request $request)
+    {
+        
     }
 
     public function delete(Pedido $pedido, Request $request)

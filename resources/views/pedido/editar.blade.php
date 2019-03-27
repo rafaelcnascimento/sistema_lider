@@ -104,6 +104,9 @@
                     </div>   
         </form>  
     </div>
+        <div style="margin-left: 20px;">
+            <br><p><b>Observação: </b>{{$pedido->obs}}</p>
+        </div>    
         
         <table class="table table-borderless">
            <thead>
