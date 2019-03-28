@@ -83,8 +83,10 @@ Route::get('/orcamento-listar', 'OrcamentoController@index');
 Route::get('/orcamento-converter/{orcamento}', 'OrcamentoController@converter');
 Route::get('/orcamento/{orcamento}', 'OrcamentoController@show');
 Route::post('/orcamento', 'OrcamentoController@store');
+
 //Carrinho
 Route::get('/adicionarProduto', 'PedidoController@add');
+Route::get('/alterarProduto', 'PedidoController@alterar');
 Route::get('/removerProduto', 'PedidoController@remove');
 
 //Rotas imagens

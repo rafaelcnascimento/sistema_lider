@@ -170,7 +170,36 @@ class PedidoController extends Controller
 
     public function alterar(Request $request)
     {
+        $output="";
+
+        $item = $request->id;
+
+        foreach (Session('carrinho') as $key => $val)
+        {
+            if ($val['produtoId'] == $item)
+            {
+                $custo = $val['preco'] * $val['quantidade'];
+
+                $carrinho = Session::get('carrinho');
+                unset($carrinho[$key]);
+                Session::put('carrinho', $carrinho);
+
+                $quantidade = $request->quantidade;
+                $produto = Produto::find($request->id);
+                $preco = $produto->preco * $quantidade;
+
+                $item = array(
+                    'produtoId' => $produto->id,
+                    'produtoNome' => $produto->nome,
+                    'preco' => $produto->preco,
+                    'quantidade' => $quantidade
+                );
+
+                Session::push('carrinho', $item);
+            }
+        }
         
+        return Response($output);
     }
 
     public function delete(Pedido $pedido, Request $request)

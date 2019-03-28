@@ -198,64 +198,32 @@
         if (preco_carrinho > 0) { $('#valor').val(preco_carrinho);}
 
         //Adicionar 
-        $(document).on('keydown','.qtd_cart input' ,function(event)
+        $(document).on('keyup','.qtd_cart input' ,function(event)
         {
-            // var tecla = event.which;
-            
-            // if (tecla === 13) {
-            //     event.preventDefault();
+            var id_completo = $(this).attr('id');
+            var id = id_completo.replace('q','');
+            var quantidade = +$('#'+id_completo).val();
+
+            // if (event.which === 13) 
+            // { 
             // }
 
-            alert('Ta ok');
+            if (isNaN(quantidade)) {
+                alert("Use apenas numeros");
+                return false;
+            }
 
-                // var value = $(this).attr('id');
-                // var row = $('#row' + value).closest("tr");
-                // var columns = row.find('td');
-                // var valores = [];
-                   
-                // $.each(columns, function(i, item) {
-                //     valores[i] = item.innerHTML;
-                // });
-
-                // var id = valores[0]; 
-                // var estoque = +valores[3];
-                // var preco = converterPreco(valores[4]);
-
-                // var quantidade = +$('#'+valores[0]).val();
-                
-                if (quantidade == '') {
-                    alert("Informe a quantidade");
-                    return false;
+            $.ajax({
+                type: 'get',
+                url: '/alterarProduto',
+                data: {
+                    'id': id,
+                    'quantidade':quantidade
+                },
+                success: function(data) {
+                    
                 }
-
-                if (isNaN(quantidade)) {
-                    alert("Use apenas numeros");
-                    return false;
-                }
-
-                if (quantidade > estoque) {
-                    alert("Quantidade maior que o estoque");
-                }
-                
-                // $.ajax({
-                //     type: 'get',
-                //     url: '/adicionarProduto',
-                //     data: {
-                //         'item': id,
-                //         'quantidade':quantidade
-                //     },
-                //     success: function(data) {
-                //         $('.carrinho').append(data);
-                        
-                //         var valor = $('#valor').val();
-                //         valor = +valor;
-                //         valor = valor + (preco * quantidade);
-                //         $('#valor').val(valor);
-                //     }
-                // });
-            
+            });
         });
-
     </script>
-
 @endsection
