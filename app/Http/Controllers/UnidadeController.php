@@ -64,5 +64,4 @@ class UnidadeController extends Controller
 
         return redirect('/unidade-listar');
     }
-
 }

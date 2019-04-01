@@ -105,6 +105,15 @@ Route::post('/unidade', 'UnidadeController@store');
 Route::patch('/unidade/{unidade}', 'UnidadeController@update');
 Route::delete('/unidade/{unidade}', 'UnidadeController@delete');
 
+//Rotas Despesa
+Route::get('/despesa-listar', 'DespesaController@index');
+Route::get('/despesa/{despesa}', 'DespesaController@show');
+Route::get('/despesa-nova', 'DespesaController@create');
+
+Route::post('/despesa', 'DespesaController@store');
+Route::patch('/despesa/{despesa}', 'DespesaController@update');
+Route::delete('/despesa/{despesa}', 'DespesaController@delete');
+
 //Estocador
 Route::get('/produto-estocador', 'ProdutoController@estocador');
 Route::get('/estocadorAjax', 'ProdutoController@estocadorBusca');
