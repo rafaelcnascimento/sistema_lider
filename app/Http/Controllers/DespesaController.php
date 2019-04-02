@@ -30,7 +30,7 @@ class DespesaController extends Controller
 
     public function show(Despesa $despesa)
     {
-        $produtos = Produto::where('despesa_id',$despesa->id)->paginate(50);
+        $tipos = TipoDespesa::orderBy('id','asc')->get();
 
         return view('despesa.editar', compact('despesa','produtos'));
     }
@@ -51,10 +51,6 @@ class DespesaController extends Controller
 
     public function update(Despesa $despesa, Request $request)
     {
-        $request->validate([
-           'nome' => 'required|unique:despesas|max:255',      
-        ]);
-
         $despesa->update(request()->all());
 
         $request->session()->flash('message.level', 'success');

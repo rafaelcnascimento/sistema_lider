@@ -52,7 +52,7 @@
                             @endif
                             @foreach ($fornecedores as $fornecedor)
                                 @if($fornecedor->id == $produto->fornecedor_id)
-                                    <option  selected="" value="{{$fornecedor->id}}" {{ (old('fornecedor_id') == $fornecedor->id ? "selec    ted":"") }}>{{$fornecedor->nome}}</option>
+                                    <option  selected="" value="{{$fornecedor->id}}" {{ (old('fornecedor_id') == $fornecedor->id ? "selected":"") }}>{{$fornecedor->nome}}</option>
                                 @else
                                     <option value="{{$fornecedor->id}}" {{ (old('fornecedor_id') == $fornecedor->id ? "selec    ted":"") }}>{{$fornecedor->nome}}</option>
                                 @endif
@@ -103,37 +103,14 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="quantidade_atual" class="col-md-4 col-form-label text-md-right">{{ __('Quantidade atual') }}</label>
+                    <label for="quantidade" class="col-md-4 col-form-label text-md-right">{{ __('*Quantidade') }}</label>
                     
                     <div class="col-md-6">
-                        <input id="quantidade_atual" type="text" class="form-control{{ $errors->has('quantidade') ? ' is-invalid' : '' }}" name="quantidade_atual" value="{{ $produto->quantidade }}" readonly= >
-                    </div>
-                </div>
-                <hr>
-                <center><p>Entrada de produto</p></center>
-                <div class="form-group row">
-                    <label for="quantidade" class="col-md-4 col-form-label text-md-right">{{ __('Quantidade nova') }}</label>
-                    
-                    <div class="col-md-6">
-                        <input id="quantidade" type="text" class="form-control{{ $errors->has('quantidade') ? ' is-invalid' : '' }}" name="quantidade" >
+                        <input id="quantidade" type="text" class="form-control{{ $errors->has('quantidade') ? ' is-invalid' : '' }}" name="quantidade" value="{{ $produto->quantidade }}" required >
                     
                         @if ($errors->has('quantidade'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('quantidade') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-    
-                <div class="form-group row">
-                    <label for="custo" class="col-md-4 col-form-label text-md-right">{{ __('Custo total') }}</label>
-                
-                    <div class="col-md-6">
-                        <input id="custo" type="text" class="form-control{{ $errors->has('custo') ? ' is-invalid' : '' }}" name="custo" value="{{ old('custo') }}">
-                
-                        @if ($errors->has('custo'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('custo') }}</strong>
                             </span>
                         @endif
                     </div>

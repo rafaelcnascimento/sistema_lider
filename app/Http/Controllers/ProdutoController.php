@@ -60,8 +60,7 @@ class ProdutoController extends Controller
             'codigo' => 'nullable|numeric|unique:produtos',
             'unidade_id' => 'required|numeric',
             'fornecedor_id' => 'nullable|numeric',
-            'quantidade' => 'nullable|required_with:custo|numeric',
-            'custo' => 'nullable|required_with:quantidade|numeric',
+            'quantidade' => 'nullable|required|numeric',
             'estoque_baixo' => 'nullable|numeric',
             'custo_inicial' => 'nullable|numeric',
             'ipi' => 'nullable|numeric',
@@ -73,16 +72,7 @@ class ProdutoController extends Controller
             'preco' => 'required|numeric',
         ]);
 
-        $produto = Produto::create(request()->except('custo'));
-
-        if ($request->quantidade) 
-        {
-            $entrada = new Entrada();
-            $entrada->produto_id = $produto->id;
-            $entrada->quantidade = $request->quantidade;
-            $entrada->custo = $request->custo;
-            $entrada->save();
-        }
+        $produto = Produto::create(request()->all());
 
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', 'Produto adicionado com sucesso');
@@ -95,7 +85,7 @@ class ProdutoController extends Controller
         $request->validate([
             'nome' => 'required|string|max:255',      
             'endereco' => 'nullable|string|max:255',
-            'codigo' => 'nullable|numeric|unique:produtos',
+            'codigo' => 'nullable|numeric|unique:produtos,codigo,'.$produto->id,
             'unidade_id' => 'required|numeric',
             'fornecedor_id' => 'nullable|numeric',
             'estoque_baixo' => 'nullable|numeric',
@@ -107,23 +97,10 @@ class ProdutoController extends Controller
             'margem' => 'nullable|numeric',
             'custo_final' => 'nullable|numeric',
             'preco' => 'required|numeric',
-            'quantidade' => 'nullable|required_with:custo|numeric',
-            'custo' => 'nullable|required_with:quantidade|numeric',
+            'quantidade' => 'nullable|required|numeric',
         ]);
 
-        $produto->update(request()->except('custo','quantidade','quantidade_atual'));
-
-        if ($request->quantidade) 
-        {
-            $entrada = new Entrada();
-            $entrada->produto_id = $produto->id;
-            $entrada->quantidade = $request->quantidade;
-            $entrada->custo = $request->custo;
-            $entrada->save();
-
-            $produto->quantidade += $request->quantidade;
-            $produto->save();
-        }
+        $produto->update(request()->all());
 
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', 'Produto modificado com sucesso');

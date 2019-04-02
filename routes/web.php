@@ -55,15 +55,6 @@ Route::post('/fornecedor', 'FornecedorController@store');
 Route::patch('/fornecedor/{fornecedor}', 'FornecedorController@update');
 Route::delete('/fornecedor/{fornecedor}', 'FornecedorController@delete');
 
-//Rotas Entrada
-Route::get('/entrada-listar', 'EntradaController@index');
-Route::get('/entrada/{entrada}', 'EntradaController@show');
-Route::get('/entrada-nova', 'EntradaController@create');
-
-Route::post('/entrada', 'EntradaController@store');
-Route::patch('/entrada/{entrada}', 'EntradaController@update');
-Route::delete('/entrada/{entrada}', 'EntradaController@delete');
-
 //Rotas Ajax
 Route::get('/clienteAjax', 'ClienteController@busca');
 Route::get('/clientesAjax', 'ClienteController@clientesAjax');
