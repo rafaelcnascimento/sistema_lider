@@ -19,6 +19,7 @@ class CreateDespesasTable extends Migration
             $table->text('descricao')->nullable();
             $table->string('destinatario');
             $table->float('valor');
+            $table->float('valor_pago')->nullable();
             $table->boolean('pago')->default(0);
             $table->softDeletes();
             $table->timestamps();

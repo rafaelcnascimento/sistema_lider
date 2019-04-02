@@ -70,7 +70,7 @@
             @foreach ($pedidos as $pedido)
                 <tr>
                     <td>
-                        <a href="pedido/{{$pedido->id}}" target="_blank">{{$pedido->ano()}}_{{$pedido->id}}</a>
+                        <a href="pedido/{{$pedido->id}}">{{$pedido->ano()}}_{{$pedido->id}}</a>
                     </td>
                 <td>
                 @if(empty($pedido->cliente->id))

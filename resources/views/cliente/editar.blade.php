@@ -195,7 +195,7 @@
                             <tbody class="resultado">
                                 @foreach ($pedidos as $pedido)
                                 <tr>
-                                    <td><a href="/pedido/{{$pedido->id}}" target="_blank">{{$pedido->ano($pedido->created_at)}}_{{$pedido->id}}</a></td>
+                                    <td><a href="/pedido/{{$pedido->id}}">{{$pedido->ano($pedido->created_at)}}_{{$pedido->id}}</a></td>
                                     <td>R${{$pedido->valor_pago}}</td>
                                     <td>R${{$pedido->valor}}</td>
                                     <td>{{$pedido->pagamento->nome}}</td>

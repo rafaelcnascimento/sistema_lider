@@ -66,6 +66,8 @@ Route::get('/pagarAjax', 'PedidoController@pago');
 Route::get('/despagarAjax', 'PedidoController@naoPago');
 Route::get('/pmaisAjax', 'PedidoController@pmais');
 Route::get('/pmenosAjax', 'PedidoController@pmenos');
+Route::get('/pagarDespesaAjax', 'DespesaController@pago');
+Route::get('/despagarDespesaAjax', 'DespesaController@naoPago');
 Route::get('/fornecedorAjax', 'FornecedorController@busca');
 Route::get('/entradaAjax', 'EntradaController@busca');
 

@@ -226,7 +226,7 @@ class ProdutoController extends Controller
 
     public function estocador()
     {
-        $produtos = Produto::orderBy('nome','asc')->paginate(50);
+        $produtos = Produto::where('quantidade',0)->where('codigo',null)->orderBy('nome','asc')->paginate(50);
 
         return view('produto.estocador', compact('produtos'));
     }

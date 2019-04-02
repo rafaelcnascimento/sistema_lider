@@ -24,7 +24,7 @@
             @foreach ($orcamentos as $orcamento)
                 <tr>
                     <td>
-                        <a href="orcamento/{{$orcamento->id}}" target="_blank">{{$orcamento->ano()}}_{{$orcamento->id}}</a>
+                        <a href="orcamento/{{$orcamento->id}}">{{$orcamento->ano()}}_{{$orcamento->id}}</a>
                     </td>
                 <td>
                 @if(empty($orcamento->cliente->id))

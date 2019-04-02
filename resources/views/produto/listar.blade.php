@@ -31,7 +31,7 @@
             <tbody class="resultado">
                 @foreach ($produtos as $produto)
                 <tr>
-                    <td><a href="/produto/{{$produto->id}}" target="_blank">{{$produto->nome}}</a></td>
+                    <td><a href="/produto/{{$produto->id}}">{{$produto->nome}}</a></td>
                     <td>{{$produto->quantidade}}</td>
                     <td>{{$produto->unidade->nome}}</td>
                     <td><a href="/fornecedor/{{$produto->getFornecedorId()}}" target="_blank">{{$produto->getFornecedorNome()}}</a></td>

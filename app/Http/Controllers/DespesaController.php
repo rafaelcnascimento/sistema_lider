@@ -32,16 +32,22 @@ class DespesaController extends Controller
     {
         $tipos = TipoDespesa::orderBy('id','asc')->get();
 
-        return view('despesa.editar', compact('despesa','produtos'));
+        return view('despesa.editar', compact('despesa','tipos'));
     }
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'nome' => 'required|unique:despesas|max:255',      
-        // ]);
+        $request->validate([
+            'arquivo.*' => 'mimes:pdf|max:10000',
+        ]);
 
-        Despesa::create(request()->all());
+        $despesa = Despesa::create(request()->except('arquivo'));
+        if ($request->pago) { $despesa->valor_pago = $despesa->valor; $despesa->save(); }
+        if ($request->arquivo) 
+        {
+            $despesa->arquivo = base64_encode($request->arquivo);
+            $despesa->save();
+        }
 
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', 'Despesa adicionada com sucesso');
@@ -68,4 +74,29 @@ class DespesaController extends Controller
 
         return redirect('/despesa-listar');
     }
+
+    public function pago(Request $request)
+    {
+        $despesa = Despesa::find($request->id);
+        $despesa->pago = 1;
+        $despesa->valor_pago = $despesa->valor;
+        $despesa->save();
+
+        $output = 'Pago <i id="despagar'.$despesa->id.'" class="fas fa-times"></i>';
+
+        return Response($output);   
+    }
+
+    public function naoPago(Request $request)
+    {
+        $despesa = Despesa::find($request->id);
+        $despesa->pago = 0;
+        $despesa->valor_pago = 0;
+        $despesa->save();
+
+        $output = ' Não Pago <i id="pagar'.$despesa->id.'" class="fas fa-check"></i>';
+
+        return Response($output);   
+    }
+
 }
