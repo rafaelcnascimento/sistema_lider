@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        //
+        $this->mapPainelRoutes();
     }
 
     /**
@@ -70,4 +70,19 @@ class RouteServiceProvider extends ServiceProvider
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
     }
+
+    /**
+         * Define routes for painel routes
+         *
+         * These routes are typically stateless.
+         *
+         * @return void
+         */
+        protected function mapPainelRoutes()
+        {
+            Route::prefix('painel')
+                 ->middleware('web')
+                 ->namespace($this->namespace)
+                 ->group(base_path('routes/painel.php'));
+        }
 }

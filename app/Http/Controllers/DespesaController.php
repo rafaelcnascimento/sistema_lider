@@ -37,9 +37,14 @@ class DespesaController extends Controller
 
     public function showArquivo(Despesa $despesa)
     {
-        $pdf = $despesa->arquivo;        
+        $pdf = $despesa->arquivo;      
+
+        dd($pdf);  
+
+        return response()->file($pdf, ['Content-Type' =>'pdf']);
 
         return response($pdf)
+            ->view()
             ->header('Cache-Control', 'no-cache private')
             ->header('Content-Description', 'File Transfer')
             ->header('Content-Type', 'pdf')
