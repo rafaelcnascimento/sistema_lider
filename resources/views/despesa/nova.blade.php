@@ -7,14 +7,14 @@
                     <div class="card-header">{{ __('Nova Despesa') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="/despesa">
+                        <form method="POST" action="/despesa" enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group row">
-                                <label for="tipo_despesa_id" class="col-md-4 col-form-label text-md-right">{{ __('Tipo') }}</label>
+                                <label for="tipo_despesa_id" class="col-md-4 col-form-label text-md-right">{{ __('*Tipo') }}</label>
                                 
                                 <div class="col-md-6">
-                                    <select class="form-control{{ $errors->has('tipo_despesa_id') ? ' is-invalid' : '' }}" id="tipo_despesa_id"  name="tipo_despesa_id" >
+                                    <select class="form-control{{ $errors->has('tipo_despesa_id') ? ' is-invalid' : '' }}" id="tipo_despesa_id"  name="tipo_despesa_id" required >
                                 
                                         <option selected="" disabled="">Selecione</option>
                                             @foreach ($tipos as $tipo)
@@ -104,7 +104,7 @@
                                 <label for="arquivo" class="col-md-4 col-form-label text-md-right">{{ __('Arquivo') }}</label>
                                 
                                 <div class="col-md-6">
-                                    <input id="arquivo" type="file" class="form-control{{$errors->has('arquivo') ? ' is-invalid' : '' }}" name="arquivo" value="{{ old('arquivo') }}">
+                                    <input type="file"  id="arquivo" class="form-control{{$errors->has('arquivo') ? ' is-invalid' : '' }}" name="arquivo" value="{{ old('arquivo') }}">
                                 
                                     @if ($errors->has('arquivo'))
                                         <span class="invalid-feedback" role="alert">

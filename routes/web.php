@@ -102,6 +102,7 @@ Route::delete('/unidade/{unidade}', 'UnidadeController@delete');
 Route::get('/despesa-listar', 'DespesaController@index');
 Route::get('/despesa/{despesa}', 'DespesaController@show');
 Route::get('/despesa-nova', 'DespesaController@create');
+Route::get('/arquivo/{despesa}', 'DespesaController@showArquivo');
 
 Route::post('/despesa', 'DespesaController@store');
 Route::patch('/despesa/{despesa}', 'DespesaController@update');

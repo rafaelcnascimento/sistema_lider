@@ -44,7 +44,12 @@
                             Não Pago <i id="pagar{{$despesa->id}}" class="fas fa-check"></i>
                         </td>
                     @endif
-                    <td></td>
+                    <td>
+                        @if ($despesa->arquivo)
+                            <a href="/arquivo/{{$despesa->id}}" target="_blank" class="btn btn-primary" role="button">Visualizar</a>
+                        @else
+                        @endif
+                    </td>
                     <td>{{$despesa->created_at}}</td>
                 </tr>
 

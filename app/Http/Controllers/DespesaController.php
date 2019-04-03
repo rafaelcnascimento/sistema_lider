@@ -35,6 +35,19 @@ class DespesaController extends Controller
         return view('despesa.editar', compact('despesa','tipos'));
     }
 
+    public function showArquivo(Despesa $despesa)
+    {
+        $pdf = $despesa->arquivo;        
+
+        return response($pdf)
+            ->header('Cache-Control', 'no-cache private')
+            ->header('Content-Description', 'File Transfer')
+            ->header('Content-Type', 'pdf')
+            ->header('Content-length', strlen($pdf))
+            ->header('Content-Disposition', 'attachment; filename=test.pdf' )
+            ->header('Content-Transfer-Encoding', 'binary');
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -42,12 +55,9 @@ class DespesaController extends Controller
         ]);
 
         $despesa = Despesa::create(request()->except('arquivo'));
+        
         if ($request->pago) { $despesa->valor_pago = $despesa->valor; $despesa->save(); }
-        if ($request->arquivo) 
-        {
-            $despesa->arquivo = base64_encode($request->arquivo);
-            $despesa->save();
-        }
+        if ($request->file('arquivo')) { $despesa->arquivo = file_get_contents($request->file('arquivo')); $despesa->save(); }
 
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', 'Despesa adicionada com sucesso');
