@@ -302,7 +302,7 @@ class PedidoController extends Controller
 
         $anos = Pedido::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
 
-        $pedidos = Pedido::orderBy('id','dsc')->paginate(50);
+        $pedidos = Pedido::orderBy('id','desc')->paginate(50);
 
         return view('pedido.listar', compact('pedidos','anos','ano_busca','mes','pago'));
     }
@@ -366,7 +366,7 @@ class PedidoController extends Controller
             $pedidos = Pedido::whereRaw('MONTH(created_at) = '.$mes)
                 ->whereRaw('YEAR(created_at) = '.$ano)
                 ->where('pago',$pago)
-                ->orderBy('id','dsc')
+                ->orderBy('id','desc')
                 ->paginate(50);
         }
 
@@ -374,7 +374,7 @@ class PedidoController extends Controller
         {
             $pedidos = Pedido::whereRaw('MONTH(created_at) = '.$mes)
                 ->whereRaw('YEAR(created_at) = '.$ano)
-                ->orderBy('id','dsc')
+                ->orderBy('id','desc')
                 ->paginate(50);
         }
 
@@ -382,7 +382,7 @@ class PedidoController extends Controller
         {
             $pedidos = Pedido::whereRaw('MONTH(created_at) = '.$mes)
                 ->where('pago',$pago)
-                ->orderBy('id','dsc')
+                ->orderBy('id','desc')
                 ->paginate(50);
         }
 
@@ -390,33 +390,33 @@ class PedidoController extends Controller
         {
             $pedidos = Pedido::whereRaw('YEAR(created_at) = '.$ano)
                 ->where('pago',0)
-                ->orderBy('id','dsc')
+                ->orderBy('id','desc')
                 ->paginate(50);
         }
 
         else if ($mes) 
         {
             $pedidos = Pedido::whereRaw('MONTH(created_at) = '.$mes)
-                ->orderBy('id','dsc')
+                ->orderBy('id','desc')
                 ->paginate(50);
         }
 
         else if ($ano) 
         {
             $pedidos = Pedido::whereRaw('YEAR(created_at) = '.$ano)
-                ->orderBy('id','dsc')
+                ->orderBy('id','desc')
                 ->paginate(50);
         }
 
         else if (!$mes && !$ano && is_null($pago)) 
         {
-            $pedidos = Pedido::orderBy('id','dsc')->paginate(50);
+            $pedidos = Pedido::orderBy('id','desc')->paginate(50);
         }
 
         else 
         {
             $pedidos = Pedido::where('pago',$pago)
-                ->orderBy('id','dsc')
+                ->orderBy('id','desc')
                 ->paginate(50);
         }
 

@@ -12,7 +12,7 @@
         "anam/phantomjs-linux-x86-binary": "^2.1",
         "anam/phantommagick": "^2.0",
         "fideloper/proxy": "^4.0",
-        "laravel/framework": "5.7.*",
+        "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.1"
     },

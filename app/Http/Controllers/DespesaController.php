@@ -16,7 +16,7 @@ class DespesaController extends Controller
 {
     public function index()
     {
-        $despesas = Despesa::orderBy('id','dsc')->paginate(50);
+        $despesas = Despesa::orderBy('id','desc')->paginate(50);
 
         return view('despesa.listar', compact('despesas'));
     }
@@ -38,10 +38,6 @@ class DespesaController extends Controller
     public function showArquivo(Despesa $despesa)
     {
         $pdf = $despesa->arquivo;      
-
-        dd($pdf);  
-
-        return response()->file($pdf, ['Content-Type' =>'pdf']);
 
         return response($pdf)
             ->view()

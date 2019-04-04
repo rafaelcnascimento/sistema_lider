@@ -23,7 +23,7 @@ class ClienteController extends Controller
 
     public function show(Cliente $cliente)
     {
-        $pedidos = Pedido::where('cliente_id',$cliente->id)->orderBy('pago','asc')->orderBy('id','dsc')->paginate(25);
+        $pedidos = Pedido::where('cliente_id',$cliente->id)->orderBy('pago','asc')->orderBy('id','desc')->paginate(25);
 
         $valor_pago = $cliente->pedidos->where('pago','1')->sum('valor');
 
