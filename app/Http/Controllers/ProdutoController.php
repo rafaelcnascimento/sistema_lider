@@ -270,12 +270,12 @@ class ProdutoController extends Controller
             $produtos = Produto::
             where(function($query) use ($terms){
                 foreach($terms as $term){
-                    $query->where('produtos.nome', 'LIKE', '%'.$term.'%');
+                    $query->where('produtos.nome', 'LIKE', '%'.$term.'%')->where('quantidade',0)->where('codigo',null);
                 }
             })
             ->orWhere(function($query) use ($terms){
                 foreach($terms as $term){
-                    $query->where('produtos.codigo', 'LIKE', '%'.$term.'%');
+                    $query->where('produtos.codigo', 'LIKE', '%'.$term.'%')->where('quantidade',0)->where('codigo',null);
                 }
             })     
             ->get();                 
@@ -286,12 +286,12 @@ class ProdutoController extends Controller
                 $output.='<tr>
                             <td><a href="/produto/'.$produto->id.'" target="_blank">'.$produto->nome.'</a></td>
                                 <td style="width: 10%">
-                                    <input id="quantidade'.$produto->id.'" type="text" class="form-control qtd" name="quantidade" >
+                                    <input id="quantidade'.$produto->id.'" type="text" class="form-control qtd" name="quantidade" value="'.$produto->quantidade.'">
                                 </td>
                                 <td>'.$produto->unidade->nome.'</td>
                                 <td><a href="/fornecedor/'.$produto->getFornecedorId().'" target="_blank">'.$produto->getFornecedorNome().'</a></td>
                                 <td style="width: 20%">
-                                    <input id="codigo'.$produto->id.'" type="text" class="form-control cb" name="codigo" >
+                                    <input id="codigo'.$produto->id.'" type="text" class="form-control cb" name="codigo" value="'.$produto->codigo.'">
                                 </td>
                                 <td>
                                     <form method="post" action="/produto/'.$produto->id.'" onSubmit="if(!confirm(Deletar produto?)){return false;}">

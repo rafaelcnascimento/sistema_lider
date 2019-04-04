@@ -65,6 +65,8 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/despesa-listar">Listar Despesas</a>
                         <a class="dropdown-item" href="/despesa-nova">Lançar Despesa</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/tipoDespesa-listar">Tipos de Despesa</a>
                     </div>
                 </li>
             </ul>

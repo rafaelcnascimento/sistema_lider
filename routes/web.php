@@ -114,4 +114,14 @@ Route::get('/estocadorAjax', 'ProdutoController@estocadorBusca');
 Route::get('/estocadorQuantidadeAjax', 'ProdutoController@quantidade');
 Route::get('/estocadorCodigoAjax', 'ProdutoController@codigo');
 
+//Excel 
 Route::get('/importar', 'ProdutoController@import');
+
+//Rotas Tipo Despesa
+Route::get('/tipoDespesa-listar', 'TipoDespesaController@index');
+Route::get('/tipoDespesa/{tipoDespesa}', 'TipoDespesaController@show');
+Route::get('/tipoDespesa-nova', 'TipoDespesaController@create');
+
+Route::post('/tipoDespesa', 'TipoDespesaController@store');
+Route::patch('/tipoDespesa/{tipoDespesa}', 'TipoDespesaController@update');
+Route::delete('/tipoDespesa/{tipoDespesa}', 'TipoDespesaController@delete');

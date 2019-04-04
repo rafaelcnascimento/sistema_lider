@@ -1,16 +1,18 @@
 @extends('master')
 @section('corpo')
     <br>
-    @if(session()->has('message.level'))
-        <div class="alert alert-{{ session('message.level') }}"> 
-        {!! session('message.content') !!}
-        </div>
-    @endif
     
     </center>
     {{-- Filtrar depois por ano e mes --}}
     <br>
     <div class="container-fluid">
+
+        @if(session()->has('message.level'))
+            <div class="alert alert-{{ session('message.level') }}"> 
+            {!! session('message.content') !!}
+            </div>
+        @endif
+        
         <table class="table table-striped">
             <thead class="thead-dark">
                 <th>Código</th>

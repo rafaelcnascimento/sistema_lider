@@ -17,7 +17,7 @@ class UnidadeController extends Controller
 
     public function create()
     {
-        return view('unidade.novo');
+        return view('unidade.nova');
     }
 
     public function show(Unidade $unidade)

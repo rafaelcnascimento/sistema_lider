@@ -16,7 +16,7 @@ class DespesaController extends Controller
 {
     public function index()
     {
-        $despesas = Despesa::orderBy('id','desc')->paginate(50);
+        $despesas = Despesa::orderBy('pago','asc')->orderBy('id','desc')->paginate(50);
 
         return view('despesa.listar', compact('despesas'));
     }
@@ -39,14 +39,11 @@ class DespesaController extends Controller
     {
         $pdf = $despesa->arquivo;      
 
-        return response($pdf)
-            ->view()
-            ->header('Cache-Control', 'no-cache private')
-            ->header('Content-Description', 'File Transfer')
-            ->header('Content-Type', 'pdf')
-            ->header('Content-length', strlen($pdf))
-            ->header('Content-Disposition', 'attachment; filename=test.pdf' )
-            ->header('Content-Transfer-Encoding', 'binary');
+        header('Content-type: application/pdf');
+        header("Cache-Control: no-cache");
+        header("Pragma: no-cache");
+        header("Content-length: ".strlen($pdf));
+        die($pdf);
     }
 
     public function store(Request $request)
