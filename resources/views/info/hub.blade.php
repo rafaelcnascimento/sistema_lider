@@ -7,3 +7,9 @@
 @else
     <h1 style="color: red;">Balanço: R$ {{$balanco}}</h1>
 @endif
+
+<h1>Produtos mais vendidos:</h1>
+
+@foreach ($mais_vendidos as $mais_vendido)
+    <p>{{$mais_vendido->nome}}: <b>{{$mais_vendido->quantidade}}</b></p>
+@endforeach

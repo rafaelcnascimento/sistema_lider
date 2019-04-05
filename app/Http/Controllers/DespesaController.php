@@ -16,9 +16,11 @@ class DespesaController extends Controller
 {
     public function index()
     {
+        $anos = Despesa::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
+        
         $despesas = Despesa::orderBy('pago','asc')->orderBy('id','desc')->paginate(50);
 
-        return view('despesa.listar', compact('despesas'));
+        return view('despesa.listar', compact('despesas','anos'));
     }
 
     public function create()
@@ -107,4 +109,74 @@ class DespesaController extends Controller
         return Response($output);   
     }
 
+    public function filter(Request $request)
+    {
+        $mes = $request->mes;
+        $ano = $request->ano;
+
+        if ($request->pago == 3 ? $pago = null : $pago = $request->pago);
+        
+        $anos = Despesa::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
+
+        if ($mes && $ano && !is_null($pago)) 
+        {
+            $despesas = Despesa::whereRaw('MONTH(created_at) = '.$mes)
+                ->whereRaw('YEAR(created_at) = '.$ano)
+                ->where('pago',$pago)
+                ->orderBy('id','desc')
+                ->paginate(50);
+        }
+
+        else if ($mes && $ano) 
+        {
+            $despesas = Despesa::whereRaw('MONTH(created_at) = '.$mes)
+                ->whereRaw('YEAR(created_at) = '.$ano)
+                ->orderBy('id','desc')
+                ->paginate(50);
+        }
+
+        else if ($mes && !is_null($pago)) 
+        {
+            $despesas = Despesa::whereRaw('MONTH(created_at) = '.$mes)
+                ->where('pago',$pago)
+                ->orderBy('id','desc')
+                ->paginate(50);
+        }
+
+        else if ($ano && !is_null($pago)) 
+        {
+            $despesas = Despesa::whereRaw('YEAR(created_at) = '.$ano)
+                ->where('pago',0)
+                ->orderBy('id','desc')
+                ->paginate(50);
+        }
+
+        else if ($mes) 
+        {
+            $despesas = Despesa::whereRaw('MONTH(created_at) = '.$mes)
+                ->orderBy('id','desc')
+                ->paginate(50);
+        }
+
+        else if ($ano) 
+        {
+            $despesas = Despesa::whereRaw('YEAR(created_at) = '.$ano)
+                ->orderBy('id','desc')
+                ->paginate(50);
+        }
+
+        else if (!$mes && !$ano && is_null($pago)) 
+        {
+            $despesas = Despesa::orderBy('id','desc')->paginate(50);
+        }
+
+        else 
+        {
+            $despesas = Despesa::where('pago',$pago)
+                ->orderBy('id','desc')
+                ->paginate(50);
+        }
+
+        return view('Despesa.listar', compact('despesas','anos'));
+    }
 }

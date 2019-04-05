@@ -33,14 +33,13 @@ class DadoController extends Controller
         // $mais_vendidos =  Vendas::orderByRaw('SUM(quantidade) DESC')->groupBy('produto_id')->get();
 
         $mais_vendidos = DB::select( DB::raw('
-                                        SELECT produto_id, SUM(quantidade) AS TotalQuantity
-                                        FROM pedido_produto
-                                        GROUP BY produto_id
-                                        ORDER BY SUM(quantidade) DESC
-                                        LIMIT 5'));
+                            SELECT v.produto_id, p.nome, SUM(v.quantidade) AS quantidade
+                            FROM pedido_produto v, produtos p
+                            WHERE v.produto_id = p.id
+                            GROUP BY produto_id
+                            ORDER BY SUM(v.quantidade) DESC
+                            LIMIT 5'));
 
-        dd($mais_vendidos);
-
-        return view('info.hub', compact('passivo','estoque_custo','itens','estoque_venda','balanco'));
+        return view('info.hub', compact('passivo','estoque_custo','itens','estoque_venda','balanco','mais_vendidos'));
     }
 }

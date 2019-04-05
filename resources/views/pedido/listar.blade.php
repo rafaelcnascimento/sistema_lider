@@ -44,8 +44,7 @@
             </div>
         </div>
     </form>
-    </center>
-    {{-- Filtrar depois por ano e mes --}}
+
     <br>
     <div class="container-fluid">
 

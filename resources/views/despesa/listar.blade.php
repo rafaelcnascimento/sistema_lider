@@ -12,7 +12,48 @@
             {!! session('message.content') !!}
             </div>
         @endif
-        
+
+        <form class="form-inline filtrar" method="POST" action="/despesa-filtrar">
+            @csrf
+            <h3>Filtrar:</h3>
+            <select class="form-control espaco20" id="mes"  name="mes" >
+                <option selected="" disabled="">Escolha o mês</option>
+                <option value="">Todos</option>
+                <option value="1">Janeiro</option>
+                <option value="2">Fevereiro</option>
+                <option value="3">Março</option>
+                <option value="4">Abril</option>
+                <option value="5">Maio</option>
+                <option value="6">Junho</option>
+                <option value="7">Julho</option>
+                <option value="8">Agosto</option>
+                <option value="9">Setembro</option>
+                <option value="10">Outubro</option>
+                <option value="11">Novembro</option>
+                <option value="12">Dezembro</option>
+            </select>
+            <select class="form-control espaco20" id="ano"  name="ano" >
+                <option selected="" disabled="">Escolha o ano</option>
+                <option value="">Todos</option>
+                @foreach ($anos as $ano)
+                    <option value="{{$ano->valor}}">{{$ano->valor}}</option>
+                @endforeach
+            </select>
+            <select class="form-control espaco20" id="pago"  name="pago" >
+                <option value ="3">Todos</option>
+                <option value ="1">Pagos</option>
+                <option value ="0">Não pagos</option>
+            </select>
+            <div class="form-group row mb-0">
+                <div class="col-md-6 offset-md-4">
+                    <button type="submit" class="btn btn-primary">
+                    {{ __('Filtrar') }}
+                    </button>
+                </div>
+            </div>
+        </form>
+        <br>
+
         <table class="table table-striped">
             <thead class="thead-dark">
                 <th>Código</th>

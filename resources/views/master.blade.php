@@ -69,6 +69,9 @@
                         <a class="dropdown-item" href="/tipoDespesa-listar">Tipos de Despesa</a>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link active" href="/painel">Painel financeiro</a>
+                </li>
             </ul>
         </nav>
 
