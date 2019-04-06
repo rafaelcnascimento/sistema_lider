@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Produto;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
+use Log;
 
 class ProdutosImport implements ToModel, WithCalculatedFormulas
 {
@@ -18,6 +19,12 @@ class ProdutosImport implements ToModel, WithCalculatedFormulas
 
     public function model(array $row)
     {
+        if (!$row[4]) {
+            $quantidade = 0;
+        } else {
+            $quantidade = $row[4];
+        }
+
         switch ($row[0]) {
             case 'Acasel':
                 $fornecedor = 1;
@@ -119,6 +126,7 @@ class ProdutosImport implements ToModel, WithCalculatedFormulas
                 $unidade = 13;
                 break;
             case 'Unidade':
+            case 'unidade':
                 $unidade = 14;
                 break;    
             default:
@@ -135,7 +143,7 @@ class ProdutosImport implements ToModel, WithCalculatedFormulas
 
             if ($produto)
             {
-               $produto->update([
+                $produto->update([
                     'nome' => $row[2].' '.$row[1],
                     'custo_inicial' => $row[5],
                     'ipi' => $row[6],
@@ -149,11 +157,11 @@ class ProdutosImport implements ToModel, WithCalculatedFormulas
             } 
             else 
             {
-                new Produto([
+                Produto::create([
                     'nome'     => $row[2].' '.$row[1],
                     'unidade_id'     => $unidade,
                     'fornecedor_id'  => $fornecedor,
-                    'quantidade'     => $row[4],
+                    'quantidade'     => $quantidade,
                     'custo_inicial'     => $row[5],
                     'ipi'     => $row[6],
                     'icms'     => $row[8],
