@@ -217,11 +217,14 @@ class ProdutoController extends Controller
         }
     }
 
-    public function import() 
+    public function import(Request $request) 
     {
         Excel::import(new ProdutosImport, 'public/produtos.xlsx');
         
-        return redirect('/')->with('success', 'All good!');
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Estoque importado com sucesso');
+
+        return redirect('/painel/importar');
     }
 
     public function estocador()

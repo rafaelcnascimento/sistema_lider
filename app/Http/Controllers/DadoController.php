@@ -42,4 +42,9 @@ class DadoController extends Controller
 
         return view('info.hub', compact('passivo','estoque_custo','itens','estoque_venda','balanco','mais_vendidos'));
     }
+
+    public function importacao()
+    {
+        return view('info.importar');
+    }
 }

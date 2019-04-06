@@ -30,6 +30,9 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-item nav-link active" href="/painel/importar">Importar</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-item nav-link active" href="/produto-listar">Vendas</a>
                 </li>
             </ul>
