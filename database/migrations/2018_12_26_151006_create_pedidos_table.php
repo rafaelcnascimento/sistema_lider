@@ -11,7 +11,7 @@ class CreatePedidosTable extends Migration {
 			$table->increments('id');
 			$table->integer('cliente_id')->unsigned()->nullable();
 			$table->float('valor');
-			$table->float('desconto')->default('0');
+			$table->float('valor_pago')->nullable();
 			$table->boolean('pago')->default(0);
 			$table->integer('pagamento_id');
 			$table->integer('parcela_paga')->default(1);

@@ -1,4 +1,4 @@
-@extends('master')
+@extends('painel')
 @section('corpo')
     
     <div class="container">

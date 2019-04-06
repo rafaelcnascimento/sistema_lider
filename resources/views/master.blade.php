@@ -58,19 +58,8 @@
                 <li class="nav-item">
                     <a class="nav-item nav-link active" href="/orcamento-listar">Orçamentos</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                        Despesas
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/despesa-listar">Listar Despesas</a>
-                        <a class="dropdown-item" href="/despesa-nova">Lançar Despesa</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/tipoDespesa-listar">Tipos de Despesa</a>
-                    </div>
-                </li>
                 <li class="nav-item">
-                    <a class="nav-item nav-link active" href="/painel">Painel financeiro</a>
+                    <a class="nav-item nav-link active" href="/painel">Financeiro</a>
                 </li>
             </ul>
         </nav>
