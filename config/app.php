@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'pt',
+    'locale' => 'pt-BR',
 
     /*
     |--------------------------------------------------------------------------
@@ -162,6 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Anam\PhantomMagick\ConverterServiceProvider::class,
+        Jenssegers\Date\DateServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -224,7 +225,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Converter' => Anam\PhantomMagick\Facades\Converter::class,
-
+        'Date' => Jenssegers\Date\Date::class,
     ],
 
 ];
