@@ -22,7 +22,7 @@ class Dado extends Model
     public static function estoque_custo()
     {
         $estoque_custo =  Produto::all()->sum(function($t){ 
-            abs($t->quantidade) * $t->custo_inicial; 
+            return abs($t->quantidade) * $t->custo_inicial; 
         });
 
         return $estoque_custo;
@@ -32,7 +32,7 @@ class Dado extends Model
     public static function estoque_venda()
     {
         $estoque_venda =  Produto::all()->sum(function($t){ 
-            abs($t->quantidade) * $t->preco; 
+            return abs($t->quantidade) * $t->preco; 
         });
 
         return $estoque_venda;
