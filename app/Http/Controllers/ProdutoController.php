@@ -313,5 +313,52 @@ class ProdutoController extends Controller
         }
     }
 
+    public function entrada()
+    {
+        $produtos = Produto::orderBy('nome','asc')->get();
+
+        return view('produto.entrada', compact('produtos'));
+    }
+
+    public function storeEntrada(Request $request)
+    {
+        for ($i=0; $i < count($request->produto_id); $i++) 
+        { 
+            $produto = Produto::find( $request->produto_id[$i]);
+            $produto->quantidade += $request->quantidade[$i];
+            $produto->save();
+        }
+
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Entrada adicionada com sucesso');
+
+        return redirect('/produto-entrada');
+    }
+
+    public function entradaAjax(Request $request)
+    {
+        $produtos = Produto::orderBy('nome','asc')->get();
+
+        $output =   '<div class="form-group row">
+                    <label for="produto_id" class="col-md-4 col-form-label text-md-right">*Produto</label>
+                    <div class="col-md-6">
+                    <select class="select-produto form-control" id="produto_id'.$request->num.'" name="produto_id[]" required>';
+                                
+        foreach ($produtos as $produto)
+        {
+            $output.= '<option value="'.$produto->id.'">'.$produto->codigo.' - '.$produto->nome.'</option';
+        }
+                           
+        $output.= ' </select>'.
+                    '</div>'.
+                    '</div>'.
+                    '<div class="form-group row">'.
+                    '<label for="quantidade" class="col-md-4 col-form-label text-md-right">*Quantidade</label>'.
+                    '<div class="col-md-6">'.
+                    '<input id="quantidade" type="number" class="form-control" name="quantidade[]" required>'.
+                    '</div>'.
+                    '</div>';
+        return Response($output);
+    }
 }
 

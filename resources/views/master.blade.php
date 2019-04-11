@@ -29,6 +29,8 @@
                         <a class="dropdown-item" href="/produto-novo">Novo Produto</a>
                         <a class="dropdown-item" href="/estoque-baixo">Produtos com pouco Estoque</a>
                         <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/produto-entrada">Entrada produtos</a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/unidade-listar">Unidades</a>
                         <a class="dropdown-item" href="/unidade-nova">Nova Unidade</a>
                     </div>

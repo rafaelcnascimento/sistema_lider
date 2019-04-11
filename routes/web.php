@@ -19,7 +19,9 @@ Route::get('/produto/{produto}', 'ProdutoController@show');
 Route::get('/produto-novo', 'ProdutoController@create');
 Route::get('/produto-catalogo', 'ProdutoController@catalogo');
 Route::get('/estoque-baixo', 'ProdutoController@estoqueBaixo');
+Route::get('/produto-entrada', 'ProdutoController@entrada');
 Route::post('/produto', 'ProdutoController@store');
+Route::post('/entrada', 'ProdutoController@storeEntrada');
 Route::patch('/produto/{produto}', 'ProdutoController@update');
 Route::delete('/produto/{produto}', 'ProdutoController@delete');
 
@@ -69,7 +71,7 @@ Route::get('/pmenosAjax', 'PedidoController@pmenos');
 Route::get('/pagarDespesaAjax', 'DespesaController@pago');
 Route::get('/despagarDespesaAjax', 'DespesaController@naoPago');
 Route::get('/fornecedorAjax', 'FornecedorController@busca');
-Route::get('/entradaAjax', 'EntradaController@busca');
+Route::get('/entradaAjax', 'ProdutoController@entradaAjax');
 
 //Orçamento
 Route::get('/orcamento-listar', 'OrcamentoController@index');
