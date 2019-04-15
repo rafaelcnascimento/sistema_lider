@@ -80,6 +80,35 @@ $('.valores').on('keydown', function(event)
     }
  });
 
+//Alterar quantidade
+$(document).on('keyup','.qtd_cart input' ,function(event)
+{
+    var id_completo = $(this).attr('id');
+    var id = id_completo.replace('q','');
+    var quantidade = +$('#'+id_completo).val();
+
+    // if (event.which === 13) 
+    // { 
+    // }
+
+    if (isNaN(quantidade)) {
+        alert("Use apenas numeros");
+        return false;
+    }
+
+    $.ajax({
+        type: 'get',
+        url: '/alterarProduto',
+        data: {
+            'id': id,
+            'quantidade':quantidade
+        },
+        success: function(data) {
+            
+        }
+    });
+});
+
 //Adicionar 
 $(document).on('keyup','.qtd input' ,function(event)
 {

@@ -275,7 +275,8 @@ class PedidoController extends Controller
     
         if ($produtos) {
             foreach ($produtos as $produto) {
-                $output.='<tr id="row'.$produto->id.'">'.
+                $output.=
+                '<tr id="row'.$produto->id.'">'.
                 '<td style="display:none;">'.$produto->id.'</td>'.
                 '<td>
                     <a href="produto/'.$produto->id.'"target="_blank">'.$produto->nome.'</a>
@@ -290,8 +291,9 @@ class PedidoController extends Controller
                 </td>
                 </tr>';
             }
-            return Response($output);
         }
+
+        return Response($output);
     }
 
     public function index()

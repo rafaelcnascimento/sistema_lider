@@ -8,6 +8,7 @@ class Orcamento extends Model
 {
     protected $table = 'orcamentos';
     protected $guarded = [];
+    public $timestamps = false;
     
     public function cliente()
     {
