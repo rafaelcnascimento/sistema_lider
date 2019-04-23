@@ -17,3 +17,7 @@
 .espaco20 {
     margin-left: 20px;
 }
+
+.tableFixHead    { overflow-y: auto; height: 250px; }
+.tableFixHead th { position: sticky; top: 0; }
+
