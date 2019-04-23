@@ -1,4 +1,7 @@
 @extends('painel')
+@section('css')
+    <link href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" rel="stylesheet" >
+@endsection
 @section('corpo')
     <div class="container">
         <div class="row justify-content-center">
@@ -71,7 +74,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                           {{--  <div class="form-group row">
                                 <label for="valor_pago" class="col-md-4 col-form-label text-md-right">{{ __('Valor Pago') }}</label>
                             
                                 <div class="col-md-6">
@@ -83,7 +86,7 @@
                                         </span>
                                     @endif
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group row">
                                 <label for="pago" class="col-md-4 col-form-label text-md-right">Situação  </label>
@@ -100,20 +103,40 @@
                                    </div>    
                             </div>
                             {{-- Filé aqui --}}
-                            <div class="form-group row">
-                                <label for="arquivo" class="col-md-4 col-form-label text-md-right">{{ __('Arquivo') }}</label>
-                                
-                                <div class="col-md-6">
-                                    <input type="file"  id="arquivo" class="form-control{{$errors->has('arquivo') ? ' is-invalid' : '' }}" name="arquivo" value="{{ old('arquivo') }}">
-                                
-                                    @if ($errors->has('arquivo'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('arquivo') }}</strong>
-                                        </span>
-                                    @endif
+                            <div class="add">
+                                <div class="form-group row">
+                                    <label for="arquivo" class="col-md-4 col-form-label text-md-right">{{ __('Arquivo') }}</label>
+                                    
+                                    <div class="col-md-6">
+                                        <input type="file"  id="arquivo" class="form-control{{$errors->has('arquivo') ? ' is-invalid' : '' }}" name="arquivo[]" value="{{ old('arquivo') }}">
+                                    
+                                        @if ($errors->has('arquivo'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('arquivo') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                           
+
+                                <div class="form-group row">
+                                    <label for="vence_em" class="col-md-4 col-form-label text-md-right">{{ __('Data de vencimento') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="vence_em" type="text" class="form-control{{$errors->has('vence_em') ? ' is-invalid' : '' }}" name="vence_em[]" value="{{ old('vence_em') }}" >
+
+                                        @if ($errors->has('vence_em'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('vence_em') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>    
+                            
+                           <center>
+                               <i class="fas fa-plus-square fa-4x"></i>
+                           </center>
+
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-success">
@@ -129,4 +152,19 @@
         </div>
     </div>
 @endsection
-
+@section('js') 
+    <script>
+        $(document).on('click','.fa-plus-square' ,function(event)
+        {
+            $.ajax({
+                type: 'get',
+                url: '/arquivoAjax',
+                data: {
+                },
+                success: function(data) {
+                    $('.add').append(data);
+                }
+            });  
+        });
+    </script>
+@endsection

@@ -72,6 +72,7 @@ Route::get('/pagarDespesaAjax', 'DespesaController@pago');
 Route::get('/despagarDespesaAjax', 'DespesaController@naoPago');
 Route::get('/fornecedorAjax', 'FornecedorController@busca');
 Route::get('/entradaAjax', 'ProdutoController@entradaAjax');
+Route::get('/arquivoAjax', 'ArquivoController@arquivoAjax');
 
 //Orçamento
 Route::get('/orcamento-listar', 'OrcamentoController@index');

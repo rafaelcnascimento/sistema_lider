@@ -24,8 +24,6 @@ class CreateDespesasTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-
-        DB::statement("ALTER TABLE despesas ADD arquivo LONGBLOB AFTER pago");
     }
 
     /**

@@ -112,9 +112,27 @@
                                         </button>
                                     </div>   
                                 </form>  
-                                </div>                 
+                            </div>   
                     </div>
                 </div>
+                <hr>
+                <h3>Arquivos</h3>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                       <th>Arquivo</th>
+                       <th class="text-right">Vence em</th>
+                    </thead>
+                    <tbody>
+                        @foreach ($despesa->arquivos as $arquivo)
+                            <tr>
+                                <td>
+                                    <a href="/arquivo/{{$arquivo->id}}" target="_blank">Arquivo {{$arquivo->id}}</a>
+                                </td>
+                                <td class="text-right">{{$arquivo->vence_em}}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

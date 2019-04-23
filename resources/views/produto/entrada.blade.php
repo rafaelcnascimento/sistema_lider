@@ -104,7 +104,4 @@
             $('.selectjs').append("<script>$('#produto_id"+$num+"').select2();<\/script>");
         });
     </script>
-    
-
-    
 @endsection
