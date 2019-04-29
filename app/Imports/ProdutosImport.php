@@ -143,34 +143,36 @@ class ProdutosImport implements ToModel, WithCalculatedFormulas
 
             if ($produto)
             {
-                $produto->update([
-                    'nome' => $row[2].' '.$row[1],
-                    'custo_inicial' => $row[5],
-                    'ipi' => $row[6],
-                    'icms' => $row[8],
-                    'frete' => $row[10],
-                    'custo_unitario' => $row[12],
-                    'margem' => $row[14],
-                    'custo_final' => $row[16],
-                    'preco' => $row[17],                       
-                ]);
+                Log::info('Existe:'.$row[2]);
+                // $produto->update([
+                //     'nome' => $row[2].' '.$row[1],
+                //     'custo_inicial' => $row[5],
+                //     'ipi' => $row[6],
+                //     'icms' => $row[8],
+                //     'frete' => $row[10],
+                //     'custo_unitario' => $row[12],
+                //     'margem' => $row[14],
+                //     'custo_final' => $row[16],
+                //     'preco' => $row[17],                       
+                // ]);
             } 
             else 
             {
-                Produto::create([
-                    'nome'     => $row[2].' '.$row[1],
-                    'unidade_id'     => $unidade,
-                    'fornecedor_id'  => $fornecedor,
-                    'quantidade'     => $quantidade,
-                    'custo_inicial'     => $row[5],
-                    'ipi'     => $row[6],
-                    'icms'     => $row[8],
-                    'frete'     => $row[10],
-                    'custo_unitario' => $row[12],
-                    'margem'     => $row[14],
-                    'custo_final'     => $row[16],
-                    'preco'     => $row[17],                       
-                ]);
+                Log::info('Não existe:'.$row[2]);
+                // Produto::create([
+                //     'nome'     => $row[2].' '.$row[1],
+                //     'unidade_id'     => $unidade,
+                //     'fornecedor_id'  => $fornecedor,
+                //     'quantidade'     => $quantidade,
+                //     'custo_inicial'     => $row[5],
+                //     'ipi'     => $row[6],
+                //     'icms'     => $row[8],
+                //     'frete'     => $row[10],
+                //     'custo_unitario' => $row[12],
+                //     'margem'     => $row[14],
+                //     'custo_final'     => $row[16],
+                //     'preco'     => $row[17],                       
+                // ]);
             }
         }
     }
