@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'ProdutoController@index');
+Route::get('/', 'PedidoController@create');
 
 //Rotas Produto
 Route::get('/produto-listar', 'ProdutoController@index');
