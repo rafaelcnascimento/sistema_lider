@@ -158,7 +158,7 @@ class PedidoController extends Controller
         '<td>'.$produto->nome.'</td>'.
         '<td>
             <div class="qtd_cart" style="width: 60px;">
-                <input id="q'.$produto->id.'" type="text" class="form-control" value="'.$quantidade.'" >
+                <input id="q'.$produto->id.'" type="number" step="1" class="form-control" value="'.$quantidade.'" >
             </div>
         </td>
         <td>'.number_format($preco,2,',','.').'</td>'.
@@ -286,7 +286,7 @@ class PedidoController extends Controller
                 '<td>R$ '.number_format($produto->preco,2,',','.').'</td>'.
                 '<td>
                     <div class="qtd" style="width: 60px;">
-                        <input id="'.$produto->id.'" type="text" class="form-control" name="quantidade" >
+                        <input id="'.$produto->id.'" type="number" step="1" class="form-control" name="quantidade" >
                     </div>
                 </td>
                 </tr>';
@@ -311,9 +311,11 @@ class PedidoController extends Controller
 
     public function show(Pedido $pedido)
     {
+        $clientes = Cliente::all();
+
         $pagamentos = Pagamento::all();
 
-        return view('pedido.editar', compact('pedido','pagamentos'));
+        return view('pedido.editar', compact('pedido','pagamentos','clientes'));
     }
 
     public function update(Pedido $pedido, Request $request)
@@ -328,7 +330,9 @@ class PedidoController extends Controller
             $pedido->valor_pago = $request->valor_pago;
         }
 
+        $pedido->cliente_id = $request->cliente_id;
         $pedido->pagamento_id = $request->pagamento_id;
+        
         $pedido->save();
 
         $request->session()->flash('message.level', 'success');

@@ -27,7 +27,7 @@
                                 <label for="saldo" class="col-md-4 col-form-label text-md-right">{{ __('Saldo') }}</label>
                             
                                 <div class="col-md-6">
-                                    <input id="saldo" type="text" class="form-control{{ $errors->has('saldo') ? ' is-invalid' : '' }}" name="saldo" value="{{ old('saldo') }}" required>
+                                    <input id="saldo" type="number" step="0.01" class="form-control{{ $errors->has('saldo') ? ' is-invalid' : '' }}" name="saldo" value="{{ old('saldo') }}" required>
                             
                                     @if ($errors->has('saldo'))
                                         <span class="invalid-feedback" role="alert">

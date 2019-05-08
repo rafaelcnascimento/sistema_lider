@@ -35,7 +35,7 @@
                                 <td>@moeda($produto->preco)</td>
                                 <td>
                                     <div class="qtd" style="width: 60px;">
-                                        <input id="{{$produto->id}}" type="text" class="form-control" name="quantidade" >
+                                        <input id="{{$produto->id}}" type="number" step="1" class="form-control" name="quantidade" >
                                     </div>
                                 </td>
                             </tr>
@@ -53,19 +53,19 @@
                         <div class="input-group-prepend">
                         <div class="input-group-text">Total R$</div>
                     </div>
-                        <input type="text" style="color: green;" class="form-control form-control-lg" id="valor" name="valor" required>
+                        <input type="number" step="0.01" style="color: green;" class="form-control form-control-lg" id="valor" name="valor" required>
                     </div>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                         <div class="input-group-text">Pago R$</div>
                     </div>
-                        <input type="text"class="form-control form-control-lg" id="valor_pago" name="valor_pago" required>
+                        <input type="number" step="0.01" class="form-control form-control-lg" id="valor_pago" name="valor_pago" required>
                     </div>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                         <div class="input-group-text">Troco R$</div>
                     </div>
-                        <input type="text" style="color: red;" class="form-control form-control-lg" id="troco" name="troco">
+                        <input type="number" step="0.01" style="color: red;" class="form-control form-control-lg" id="troco" name="troco">
                     </div>
                     <div class="container">
                         <div class="row">
@@ -99,7 +99,7 @@
                                     <td>{{$carrinho['produtoNome']}}</td>
                                     <td>
                                         <div class="qtd_cart" style="width: 60px;">
-                                            <input id="q{{$carrinho['produtoId']}}" type="text" class="form-control" value="{{$carrinho['quantidade']}}">
+                                            <input id="q{{$carrinho['produtoId']}}" type="number" step="1" class="form-control" value="{{$carrinho['quantidade']}}">
                                         </div>
                                     </td>
                                     <td>@moeda($carrinho['preco'] * $carrinho['quantidade'])</td>

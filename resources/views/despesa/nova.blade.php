@@ -64,7 +64,7 @@
                                 <label for="valor" class="col-md-4 col-form-label text-md-right">{{ __('*Valor') }}</label>
                             
                                 <div class="col-md-6">
-                                    <input id="valor" type="text" class="form-control{{$errors->has('valor') ? ' is-invalid' : '' }}" name="valor" value="{{ old('valor') }}" required>
+                                    <input id="valor" type="number" step="0.01" class="form-control{{$errors->has('valor') ? ' is-invalid' : '' }}" name="valor" value="{{ old('valor') }}" required>
                             
                                     @if ($errors->has('valor'))
                                         <span class="invalid-feedback" role="alert">

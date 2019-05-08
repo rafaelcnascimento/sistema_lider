@@ -30,14 +30,22 @@
                 <td>
                    <a href="pedido/{{$pedido->id}}" target="_blank">{{$pedido->id}}</a>
                 </td>
-            <td>
-                @if(empty($pedido->cliente->id))
-                @else
-                   <a href="cliente/{{$pedido->cliente->id}}" target="_blank">{{$pedido->cliente->nome}}</a>
-                @endif
+            <td style="width:20%">
+                <select class="form-control" id="cliente_id"  name="cliente_id" required>
+                    @if(!$pedido->cliente_id)
+                        <option selected="" disabled="">Selecione</option>
+                    @endif
+                    @foreach ($clientes as $cliente)
+                        @if ($pedido->cliente_id == $cliente->id)
+                            <option selected value="{{$cliente->id}}">{{$cliente->nome}}</option>
+                        @else
+                            <option value="{{$cliente->id}}">{{$cliente->nome}}</option>
+                        @endif
+                    @endforeach
+                </select> 
             </td>
             <td style="width: 10%">
-                <input onclick="this.select()" type="text" class="form-control" name="valor_pago" value="{{$pedido->valor_pago}}">
+                <input onclick="this.select()" type="number" step="0.01" class="form-control" name="valor_pago" value="{{$pedido->valor_pago}}">
             </td>
             <td>R${{$pedido->valor}}</td>
             <td>
@@ -125,7 +133,7 @@
                     <tr>
                        <td><a href="/produto/{{$produto->id}}" target="_blank">{{$produto->nome}} {{$produto->id}}</a></td>
                        <td style="width: 10%">
-                           <input onclick="this.select()" type="text" class="form-control" name="quantidade" value="{{$produto->pivot->quantidade}}">
+                           <input onclick="this.select()" type="number" step="1"  class="form-control" name="quantidade" value="{{$produto->pivot->quantidade}}">
                        </td>
                        <td>R${{$produto->pivot->preco_unitario}}</td>
                        <td>R${{$produto->pivot->preco_total}}</td>

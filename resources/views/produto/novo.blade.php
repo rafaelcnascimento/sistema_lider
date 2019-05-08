@@ -114,7 +114,7 @@
                         <tr>
                             <td>
                                 <div style="width: 100%;">
-                                    <input id="custo_inicial" type="text" class="form-control{{ $errors->has('custo_inicial') ? ' is-invalid' : '' }}" name="custo_inicial" value="{{ old('custo_inicial') }}" >
+                                    <input id="custo_inicial" type="number" step="0.01" class="form-control{{ $errors->has('custo_inicial') ? ' is-invalid' : '' }}" name="custo_inicial" value="{{ old('custo_inicial') }}" >
                             
                                     @if ($errors->has('custo_inicial'))
                                         <span class="invalid-feedback" role="alert">
@@ -125,7 +125,7 @@
                             </td>
                             <td>
                                 <div style="width: 100%;">
-                                    <input id="ipi" type="text" class="form-control{{ $errors->has('ipi') ? ' is-invalid' : '' }}" name="ipi" value="{{ old('ipi') }}" >
+                                    <input id="ipi" type="number" step="0.01" class="form-control{{ $errors->has('ipi') ? ' is-invalid' : '' }}" name="ipi" value="{{ old('ipi') }}" >
                             
                                     @if ($errors->has('ipi'))
                                         <span class="invalid-feedback" role="alert">
@@ -136,7 +136,7 @@
                             </td>
                             <td>
                                 <div style="width: 100%;">
-                                    <input id="icms" type="text" class="form-control{{ $errors->has('icms') ? ' is-invalid' : '' }}" name="icms" value="{{ old('icms') }}" >
+                                    <input id="icms" type="number" step="0.01" class="form-control{{ $errors->has('icms') ? ' is-invalid' : '' }}" name="icms" value="{{ old('icms') }}" >
                             
                                     @if ($errors->has('icms'))
                                         <span class="invalid-feedback" role="alert">
@@ -147,7 +147,7 @@
                             </td>
                             <td>
                                 <div style="width: 100%;">
-                                    <input id="frete" type="text" class="form-control{{ $errors->has('frete') ? ' is-invalid' : '' }}" name="frete" value="{{ old('frete') }}" >
+                                    <input id="frete" type="number" step="0.01" class="form-control{{ $errors->has('frete') ? ' is-invalid' : '' }}" name="frete" value="{{ old('frete') }}" >
                             
                                     @if ($errors->has('frete'))
                                         <span class="invalid-feedback" role="alert">
@@ -158,7 +158,7 @@
                             </td>
                             <td>
                                 <div style="width: 100%;">
-                                    <input id="custo_unitario" type="text" class="form-control{{ $errors->has('custo_unitario') ? ' is-invalid' : '' }}" name="custo_unitario" value="{{ old('custo_unitario') }}" readonly="" >
+                                    <input id="custo_unitario" type="number" step="0.01" class="form-control{{ $errors->has('custo_unitario') ? ' is-invalid' : '' }}" name="custo_unitario" value="{{ old('custo_unitario') }}" readonly="" >
                             
                                     @if ($errors->has('custo_unitario'))
                                         <span class="invalid-feedback" role="alert">
@@ -169,7 +169,7 @@
                             </td>
                             <td>
                                 <div style="width: 100%;">
-                                    <input id="margem" type="text" class="form-control{{ $errors->has('margem') ? ' is-invalid' : '' }}" name="margem" value="{{ old('margem') }}" >
+                                    <input id="margem" type="number" step="0.01" class="form-control{{ $errors->has('margem') ? ' is-invalid' : '' }}" name="margem" value="{{ old('margem') }}" >
                             
                                     @if ($errors->has('margem'))
                                         <span class="invalid-feedback" role="alert">
@@ -180,7 +180,7 @@
                             </td>
                             <td>
                                 <div style="width: 100%;">
-                                    <input id="custo_final" type="text" class="form-control{{ $errors->has('custo_final') ? ' is-invalid' : '' }}" name="custo_final" value="{{ old('custo_final') }}" readonly="">
+                                    <input id="custo_final" type="number" step="0.01" class="form-control{{ $errors->has('custo_final') ? ' is-invalid' : '' }}" name="custo_final" value="{{ old('custo_final') }}" readonly="">
                             
                                     @if ($errors->has('custo_final'))
                                         <span class="invalid-feedback" role="alert">
