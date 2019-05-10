@@ -11,8 +11,8 @@
             </div>
         @endif
         <div class="row">
-            <div class="col-2"></div>
-            <div class="col-7">
+            <div class="col-1"></div>
+            <div class="col-8">
                 <div class="form-group has-feedback">
                     <input type="text" class="form-control" autofocus name="busca" id="busca" onclick="this.select()" placeholder="Buscar">
                 </div>

@@ -33,6 +33,9 @@
                     <a class="nav-item nav-link active" href="/painel/importar">Importar</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-item nav-link active" href="/painel/dados">Dados</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-item nav-link active" href="/painel/despesa-proximas">Próximas despesas</a>
                 </li>
                 <li class="nav-item">

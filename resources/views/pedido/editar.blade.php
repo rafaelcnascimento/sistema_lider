@@ -31,9 +31,11 @@
                    <a href="pedido/{{$pedido->id}}" target="_blank">{{$pedido->id}}</a>
                 </td>
             <td style="width:20%">
-                <select class="form-control" id="cliente_id"  name="cliente_id" required>
+                <select class="form-control" id="cliente_id"  name="cliente_id">
                     @if(!$pedido->cliente_id)
                         <option selected="" disabled="">Selecione</option>
+                    @else
+                        <option value="">Ninguém</option>
                     @endif
                     @foreach ($clientes as $cliente)
                         @if ($pedido->cliente_id == $cliente->id)

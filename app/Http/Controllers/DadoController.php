@@ -16,6 +16,23 @@ use App\Dado;
 
 class DadoController extends Controller
 {
+    public function show()
+    {
+        $dados = Dado::find(1);
+
+        return view('dados.editar', compact('dados'));
+    }
+
+    public function update(Dado $dado,Request $request)
+    {
+        $dado->update(request()->all());
+
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Dados modificados com sucesso');
+
+        return redirect('/painel/dados');
+    }
+
     public function index()
     {
         //Infos
