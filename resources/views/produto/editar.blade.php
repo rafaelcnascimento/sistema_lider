@@ -5,6 +5,7 @@
     <form method="POST" action="/produto/{{$produto->id}}">
         @method('patch')
         @csrf
+
         <div class="row">
             <div class="col">
                 {{-- Lado esquerdo    --}}
@@ -102,6 +103,7 @@
                         @endif
                     </div>
                 </div>
+
                 <div class="form-group row">
                     <label for="quantidade" class="col-md-4 col-form-label text-md-right">{{ __('*Quantidade') }}</label>
                     
@@ -115,7 +117,16 @@
                         @endif
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    <label for="vendidos" class="col-md-4 col-form-label text-md-right">{{ __('Quantidade vendida') }}</label>
+                    
+                    <div class="col-md-6">
+                        <input id="vendidos" type="text" class="form-control" name="vendidos" value="{{ $produto->vendidos }}" disabled>
+                    </div>
+                </div>
             </div>
+
             <div class="col">
                 <div class="tabela">  
                 {{-- Lado Direiro --}}

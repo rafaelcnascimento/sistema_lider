@@ -12,7 +12,7 @@
         </div>
     </center>
     <br>
-    <div class="container-fluid">
+    <div class="container">
         <table class="table table-striped">
             <thead class="thead-dark">
                 <th>Material</th>
@@ -24,7 +24,7 @@
                 <tr>
                     <td>{{$produto->nome}}</td>
                     <td>{{$produto->unidade->nome}}</td>
-                    <td>@moeda($produto->preco)</td>
+                    <td><b>@moeda($produto->preco)</b></td>
                 </tr>
                 @endforeach  
             </tbody>

@@ -25,11 +25,6 @@ class Despesa extends Model
         return \Carbon\Carbon::parse($value)->format('d/m/Y');
     }
 
-    public function getVenceEmAttribute($value) 
-    {
-        return \Carbon\Carbon::parse($value)->format('d/m/Y');
-    }
-
     public function ano()
     {
         return substr($this->created_at, 6, 4);

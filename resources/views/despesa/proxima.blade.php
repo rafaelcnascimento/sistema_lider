@@ -13,7 +13,7 @@
                 <th>Destinatário</th>
                 <th>Descrição</th>
                 <th>Valor pago</th>
-                <th>Valor total</th>
+                <th>Valor</th>
                 <th>Pago</th>
                 <th>Parcelas</th>
                 <th>Vencimento</th>
@@ -22,7 +22,7 @@
                 @foreach ($hoje as $despesa)
                 <tr>
                     <td>
-                        <a href="despesa/{{$despesa->id}}">{{$despesa->ano()}}_{{$despesa->id}}</a>
+                        <a href="/despesa/{{$despesa->id}}">{{$despesa->ano()}}_{{$despesa->id}}</a>
                     </td>
                     <td>{{$despesa->tipo->nome}}</td>
                     <td>{{$despesa->destinatario}}</td>
@@ -72,7 +72,7 @@
                 @foreach ($amanha as $despesa)
                 <tr>
                     <td>
-                        <a href="despesa/{{$despesa->id}}">{{$despesa->ano()}}_{{$despesa->id}}</a>
+                        <a href="/despesa/{{$despesa->id}}">{{$despesa->ano()}}_{{$despesa->id}}</a>
                     </td>
                     <td>{{$despesa->tipo->nome}}</td>
                     <td>{{$despesa->destinatario}}</td>
@@ -122,7 +122,7 @@
                 @foreach ($semana as $despesa)
                 <tr>
                     <td>
-                        <a href="despesa/{{$despesa->id}}">{{$despesa->ano()}}_{{$despesa->id}}</a>
+                        <a href="/despesa/{{$despesa->id}}">{{$despesa->ano()}}_{{$despesa->id}}</a>
                     </td>
                     <td>{{$despesa->tipo->nome}}</td>
                     <td>{{$despesa->destinatario}}</td>
@@ -172,7 +172,7 @@
                 @foreach ($mes as $despesa)
                 <tr>
                     <td>
-                        <a href="despesa/{{$despesa->id}}">{{$despesa->ano()}}_{{$despesa->id}}</a>
+                        <a href="/despesa/{{$despesa->id}}">{{$despesa->ano()}}_{{$despesa->id}}</a>
                     </td>
                     <td>{{$despesa->tipo->nome}}</td>
                     <td>{{$despesa->destinatario}}</td>

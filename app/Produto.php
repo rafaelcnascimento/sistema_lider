@@ -58,4 +58,8 @@ class Produto extends Model
         }
     }
 
+    public function getVendidosAttribute() 
+    {
+        return Vendas::where('produto_id',$this->id)->sum('quantidade');
+    }
 }

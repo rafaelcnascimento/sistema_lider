@@ -29,7 +29,7 @@ class ProdutoController extends Controller
 
     public function estoqueBaixo()
     {
-        $produtos = Produto::whereRaw('quantidade < estoque_baixo')->get();
+        $produtos = Produto::where('estoque_baixo','>',1)->whereRaw('quantidade < estoque_baixo')->get();
 
         return view('produto.estoque_baixo', compact('produtos'));
     }

@@ -61,7 +61,7 @@
                 <th>Destinatário</th>
                 <th>Descrição</th>
                 <th>Valor pago</th>
-                <th>Valor total</th>
+                <th>Valor</th>
                 <th>Pago</th>
                 <th>Parcelas</th>
                 <th>Vencimento</th>
@@ -95,7 +95,7 @@
                             {{$despesa->parcela_atual}}/{{$despesa->parcela_total}}
                         @endif
                     </td>
-                    <td>{{$despesa->vence_em}}</td>
+                    <td>{{Carbon\Carbon::parse($despesa->vence_em)->format('d/m/Y')}}</td>
                 </tr>
                 @endforeach  
             </tbody>

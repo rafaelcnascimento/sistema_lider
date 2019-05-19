@@ -38,7 +38,9 @@ class DespesaController extends Controller
     {
         $tipos = TipoDespesa::orderBy('id','asc')->get();
 
-        return view('despesa.editar', compact('despesa','tipos'));
+        $pagamentos = Pagamento::where('id','<>',7)->get();
+
+        return view('despesa.editar', compact('despesa','tipos','pagamentos'));
     }
 
     public function proximas()
@@ -59,7 +61,7 @@ class DespesaController extends Controller
             'parcelas' => 'required_unless:parcelado,0'
         ]);        
 
-        if ($request->parcelado == 0) 
+        if (!$request->parcelas) 
         {
             $despesa = Despesa::create(request()->except('valor_pago','vence_em','parcelas','parcelado'));
             
@@ -70,7 +72,7 @@ class DespesaController extends Controller
         } 
         else 
         {
-            for ($i=1; $i <= $request->parcelas; $i++) 
+            for ($i=0; $i < $request->parcelas; $i++) 
             { 
                 $despesa = Despesa::create([
                     'tipo_despesa_id' => $request->tipo_despesa_id,
@@ -80,9 +82,9 @@ class DespesaController extends Controller
                     'valor' => $request->valor / $request->parcelas,
                     'valor_pago' => 0,
                     'pago' => 0,
-                    'parcela_atual' => $i,
+                    'parcela_atual' => $i + 1,
                     'parcela_total' => $request->parcelas,
-                    'vence_em' => $request->vence_em
+                    'vence_em' => Carbon::parse($request->vence_em)->addMonths($i)
                 ]);
             }
         }
