@@ -43,11 +43,12 @@ class DespesaController extends Controller
 
     public function proximas()
     {
-    	$hoje = Despesa::where('vence_em', Carbon::today())->get();
-        $amanha = Despesa::where('vence_em', Carbon::tomorrow())->get();
-        $semana = Despesa::whereBetween('vence_em', [Carbon::today(),Carbon::today()->addWeek()])->get();
-        $mes = Despesa::whereRaw('MONTH(vence_em) = '.Carbon::today()->month)->get();
-        
+    	$hoje = Despesa::where('pago',0)->where('vence_em', Carbon::today())->get();
+        $amanha = Despesa::where('pago',0)->where('vence_em', Carbon::tomorrow())->get();
+        $semana = Despesa::where('pago',0)->whereBetween('vence_em', [Carbon::tomorrow(),Carbon::today()->addWeek()])->get();
+        $mes = Despesa::where('pago',0)->whereBetween('vence_em', [Carbon::today()->addWeek(),Carbon::today()->addMonth()])->get();
+        // $mes = Despesa::whereRaw('MONTH(vence_em) = '.Carbon::today()->month)->get();
+
         return view('despesa.proxima', compact('hoje','amanha','semana','mes'));
     }
 
