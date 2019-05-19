@@ -63,7 +63,8 @@
                 <th>Valor pago</th>
                 <th>Valor total</th>
                 <th>Pago</th>
-                <th>Data</th>
+                <th>Parcelas</th>
+                <th>Vencimento</th>
             </thead>
             <tbody class="resultado">
                 @foreach ($despesas as $despesa)
@@ -74,7 +75,11 @@
                     <td>{{$despesa->tipo->nome}}</td>
                     <td>{{$despesa->destinatario}}</td>
                     <td>{{$despesa->descricao}}</td>
-                    <td>R${{$despesa->valor_pago}}</td>
+                    <td>
+                        @if ($despesa->valor_pago)
+                            R${{$despesa->valor_pago}}
+                        @endif
+                    </td>
                     <td><b>R${{$despesa->valor}}</b></td>
                     @if ($despesa->pago)
                         <td class="table-success" id="pago{{$despesa->id}}">
@@ -85,7 +90,12 @@
                             Não Pago <i id="pagar{{$despesa->id}}" class="fas fa-check"></i>
                         </td>
                     @endif
-                    <td>{{$despesa->created_at}}</td>
+                    <td>
+                        @if ($despesa->parcela_atual)
+                            {{$despesa->parcela_atual}}/{{$despesa->parcela_total}}
+                        @endif
+                    </td>
+                    <td>{{$despesa->vence_em}}</td>
                 </tr>
                 @endforeach  
             </tbody>

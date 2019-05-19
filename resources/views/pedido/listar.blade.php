@@ -79,7 +79,11 @@
                     <a href="cliente/{{$pedido->cliente->id}}" target="_blank">{{$pedido->cliente->nome}}</a>
                 @endif
                 </td>
-                <td>R${{$pedido->valor_pago}}</td>
+                <td>
+                    @if ($pedido->valor_pago)
+                        R${{$pedido->valor_pago}}
+                    @endif
+                </td>
                 <td>R${{$pedido->valor}}</td>
                 <td>{{$pedido->pagamento->nome}}</td>
                 @if ($pedido->pagamento_id == 7)

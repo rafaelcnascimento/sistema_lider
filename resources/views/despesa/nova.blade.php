@@ -10,7 +10,7 @@
                     <div class="card-header">{{ __('Nova Despesa') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="/despesa" enctype="multipart/form-data">
+                        <form method="POST" action="/despesa">
                             @csrf
 
                             <div class="form-group row">
@@ -61,10 +61,27 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="valor" class="col-md-4 col-form-label text-md-right">{{ __('*Valor') }}</label>
+                                <label for="pagamento_id" class="col-md-4 col-form-label text-md-right">{{ __('*Forma de pagamento') }}</label>
+                                <div class="col-md-6">
+                                    <select class="form-control{{ $errors->has('pagamento_id') ? ' is-invalid' : '' }}" id="pagamento_id"  name="pagamento_id" required >
+                                        <option selected="" disabled="">Selecione</option>
+                                            @foreach ($pagamentos as $pagamento)
+                                                <option value="{{$pagamento->id}}" {{ (old('pagamento_id') == $pagamento->id ? "selected":"") }}>{{$pagamento->nome}}</option>
+                                            @endforeach
+                                    </select>
+                                    @if ($errors->has('pagamento_id'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('pagamento_id') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="valor" class="col-md-4 col-form-label text-md-right">{{ __('*Valor total') }}</label>
                             
                                 <div class="col-md-6">
-                                    <input id="valor" type="number" step="0.01" class="form-control{{$errors->has('valor') ? ' is-invalid' : '' }}" name="valor" value="{{ old('valor') }}" required>
+                                    <input id="valor" type="number" step="0.01" class="form-control{{$errors->has('valor') ? ' is-invalid' : '' }}" name="valor" value="{{ old('valor') }}" placeholder="Total a vista ou de cada parcela" required>
                             
                                     @if ($errors->has('valor'))
                                         <span class="invalid-feedback" role="alert">
@@ -74,19 +91,47 @@
                                 </div>
                             </div>
 
-                           {{--  <div class="form-group row">
-                                <label for="valor_pago" class="col-md-4 col-form-label text-md-right">{{ __('Valor Pago') }}</label>
-                            
+                             <div class="form-group row">
+                                 <label for="valor_pago" class="col-md-4 col-form-label text-md-right">{{ __('Valor Pago') }}</label>
+                             
+                                 <div class="col-md-6">
+                                     <input id="valor_pago" type="text" class="form-control{{$errors->has('valor_pago') ? ' is-invalid' : '' }}" name="valor_pago" value="{{ old('valor_pago')  }}" placeholder="Preencher se não foi pago integralmente" >
+                             
+                                     @if ($errors->has('valor_pago'))
+                                         <span class="invalid-feedback" role="alert">
+                                             <strong>{{ $errors->first('valor_pago') }}</strong>
+                                         </span>
+                                     @endif
+                                 </div>
+                             </div>
+
+                            <div class="form-group row">
+                                <label for="parcelas" class="col-md-4 col-form-label text-md-right">{{ __('Numero de parcelas') }}</label>
+
                                 <div class="col-md-6">
-                                    <input id="valor_pago" type="text" class="form-control{{$errors->has('valor_pago') ? ' is-invalid' : '' }}" name="valor_pago" value="{{ old('valor_pago')  }}" >
-                            
-                                    @if ($errors->has('valor_pago'))
+                                    <input id="parcelas" type="number" step="1" class="form-control{{$errors->has('parcelas') ? ' is-invalid' : '' }}" name="parcelas" value="{{ old('parcelas') }}" >
+
+                                    @if ($errors->has('parcelas'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('valor_pago') }}</strong>
+                                            <strong>{{ $errors->first('parcelas') }}</strong>
                                         </span>
                                     @endif
                                 </div>
-                            </div> --}}
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="vence_em" class="col-md-4 col-form-label text-md-right">{{ __('Data vencimento') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="vence_em" type="date" class="form-control{{$errors->has('vence_em') ? ' is-invalid' : '' }}" name="vence_em" value="{{ old('vence_em') }}" >
+
+                                    @if ($errors->has('vence_em'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('vence_em') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
 
                             <div class="form-group row">
                                 <label for="pago" class="col-md-4 col-form-label text-md-right">Situação  </label>
@@ -102,40 +147,25 @@
                                        </div>
                                    </div>    
                             </div>
-                            {{-- Filé aqui --}}
-                            <div class="add">
-                                <div class="form-group row">
-                                    <label for="arquivo" class="col-md-4 col-form-label text-md-right">{{ __('Arquivo') }}</label>
-                                    
-                                    <div class="col-md-6">
-                                        <input type="file"  id="arquivo" class="form-control{{$errors->has('arquivo') ? ' is-invalid' : '' }}" name="arquivo[]" value="{{ old('arquivo') }}">
-                                    
-                                        @if ($errors->has('arquivo'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('arquivo') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
 
-                                <div class="form-group row">
-                                    <label for="vence_em" class="col-md-4 col-form-label text-md-right">{{ __('Data de vencimento') }}</label>
+                            <div class="form-group row">
+                                <label for="parcelado" class="col-md-4 col-form-label text-md-right">Parcelado? </label>
 
-                                    <div class="col-md-6">
-                                        <input id="vence_em" type="text" class="form-control{{$errors->has('vence_em') ? ' is-invalid' : '' }}" name="vence_em[]" value="{{ old('vence_em') }}" >
+                                   <div style="margin-left: 20px; font-size: 30px;">
+                                        <div class="form-check form-check-inline ">
+                                           <input class="form-check-input" type="radio" name="parcelado" id="p1" value="1" required>
+                                           <label class="form-check-label" for="p1">Sim </label>
+                                       </div>
+                                       <div class="form-check form-check-inline">
+                                           <input class="form-check-input" type="radio" name="parcelado" id="p2" value="0" checked>
+                                           <label class="form-check-label" for="p2">Não</label>
+                                       </div>
+                                   </div>    
+                            </div>
 
-                                        @if ($errors->has('vence_em'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('vence_em') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>    
-                            
-                           <center>
-                               <i class="fas fa-plus-square fa-4x"></i>
-                           </center>
+                            {{-- Parcelas --}}
+                            <div class="parcelas">
+                            </div>   
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
@@ -151,20 +181,4 @@
             </div>
         </div>
     </div>
-@endsection
-@section('js') 
-    <script>
-        $(document).on('click','.fa-plus-square' ,function(event)
-        {
-            $.ajax({
-                type: 'get',
-                url: '/arquivoAjax',
-                data: {
-                },
-                success: function(data) {
-                    $('.add').append(data);
-                }
-            });  
-        });
-    </script>
 @endsection

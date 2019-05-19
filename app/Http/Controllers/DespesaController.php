@@ -20,7 +20,7 @@ class DespesaController extends Controller
     {
         $anos = Despesa::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
         
-        $despesas = Despesa::orderBy('pago','asc')->orderBy('id','desc')->paginate(50);
+        $despesas = Despesa::orderBy('id','desc')->paginate(50);
 
         return view('despesa.listar', compact('despesas','anos'));
     }
@@ -29,7 +29,9 @@ class DespesaController extends Controller
     {
         $tipos = TipoDespesa::orderBy('id','asc')->get();
 
-        return view('despesa.nova', compact('tipos'));
+        $pagamentos = Pagamento::where('id','<>',7)->get();
+
+        return view('despesa.nova', compact('tipos','pagamentos'));
     }
 
     public function show(Despesa $despesa)
@@ -41,52 +43,49 @@ class DespesaController extends Controller
 
     public function proximas()
     {
-    	$hoje = Arquivo::where('vence_em', Carbon::today())->get();
-        $amanha = Arquivo::where('vence_em', Carbon::tomorrow())->get();
-        $semana = Arquivo::whereBetween('vence_em', [Carbon::today(),Carbon::today()->addWeek()])->get();
-        $mes = Arquivo::whereRaw('MONTH(vence_em) = '.Carbon::today()->month)->get();
+    	$hoje = Despesa::where('vence_em', Carbon::today())->get();
+        $amanha = Despesa::where('vence_em', Carbon::tomorrow())->get();
+        $semana = Despesa::whereBetween('vence_em', [Carbon::today(),Carbon::today()->addWeek()])->get();
+        $mes = Despesa::whereRaw('MONTH(vence_em) = '.Carbon::today()->month)->get();
         
         return view('despesa.proxima', compact('hoje','amanha','semana','mes'));
     }
 
-    public function showArquivo(Arquivo $arquivo)
-    {
-        $pdf = base64_decode($arquivo->pdf);    
-
-        header('Content-type: application/pdf');
-        header("Cache-Control: no-cache");
-        header("Pragma: no-cache");
-        header("Content-length: ".strlen($pdf));
-        exit($pdf);
-    }
-
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'arquivo.*' => 'mimes:pdf|max:10000|required_with:vence_em',
-        //     'vence_em' => 'required_with:arquivo'
-        // ]);
+        $request->validate([
+            'vence_em' => 'required_unless:parcelado,0',
+            'parcelas' => 'required_unless:parcelado,0'
+        ]);        
 
-        //dd($request->file('arquivo'));
+        if ($request->parcelado == 0) 
+        {
+            $despesa = Despesa::create(request()->except('valor_pago','vence_em','parcelas','parcelado'));
+            
+            $request->pago == 1 ? $despesa->valor_pago = $request->valor : $despesa->valor_pago = $request->valor_pago;
+            $request->vence_em ? $despesa->vence_em = $request->vence_em : $despesa->vence_em = Carbon::today();
 
-        $despesa = Despesa::create(request()->except('arquivo','vence_em'));
-        
-        if ($request->pago) { $despesa->valor_pago = $despesa->valor; $despesa->save(); }
-        if ($request->file('arquivo'))
-        { 
-            for ($i=0; $i < count($request->arquivo); $i++) 
-            {
-                $pdf = file_get_contents($request->file('arquivo')[$i]); 
-                $pdf = base64_encode($pdf);
-                
-                Arquivo::create([
-                    'despesa_id' => $despesa->id,
-                    'pdf' => $pdf,
-                    'vence_em' => $request->vence_em[$i]
+            $despesa->save();
+        } 
+        else 
+        {
+            for ($i=1; $i <= $request->parcelas; $i++) 
+            { 
+                $despesa = Despesa::create([
+                    'tipo_despesa_id' => $request->tipo_despesa_id,
+                    'descricao' => $request->descricao,
+                    'destinatario' => $request->destinatario,
+                    'pagamento_id' => $request->pagamento_id,
+                    'valor' => $request->valor / $request->parcelas,
+                    'valor_pago' => 0,
+                    'pago' => 0,
+                    'parcela_atual' => $i,
+                    'parcela_total' => $request->parcelas,
+                    'vence_em' => $request->vence_em
                 ]);
             }
         }
-
+        
         $request->session()->flash('message.level', 'success');
         $request->session()->flash('message.content', 'Despesa adicionada com sucesso');
 

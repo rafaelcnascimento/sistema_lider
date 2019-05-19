@@ -15,12 +15,17 @@ class Despesa extends Model
         return $this->belongsTo('App\TipoDespesa', 'tipo_despesa_id');
     }
 
-    public function arquivos()
+    public function pagamento()
     {
-        return $this->hasMany('App\Arquivo');
+        return $this->belongsTo('App\Pagamento', 'pagamento_id');
     }
 
     public function getCreatedAtAttribute($value) 
+    {
+        return \Carbon\Carbon::parse($value)->format('d/m/Y');
+    }
+
+    public function getVenceEmAttribute($value) 
     {
         return \Carbon\Carbon::parse($value)->format('d/m/Y');
     }
