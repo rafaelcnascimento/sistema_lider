@@ -147,4 +147,5 @@ class Dado extends Model
                
         return $venda_aberta_ano;
     }
+
 }

@@ -85,4 +85,31 @@ class DadoController extends Controller
     { 
         return view('info.importar');
     }
+
+    public function grafico_anos()
+    {
+        $resultados = array();
+        $anos = Pedido::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
+        
+        foreach ($anos as $ano) 
+        {
+            $resultados[$ano] = Dado::venda_paga_ano($i,$ano) - Dado::despesa_paga_ano($i,$ano);
+        }
+        
+        return view('info.anual',compact('anos','resultados'));
+    }
+
+    public function grafico_meses()
+    {
+        $resultados = array();
+        $ano = $ano = Date::now()->format('Y');
+        
+        for ($i=1; $i < 13; $i++) 
+        { 
+            $resultados[$i] = Dado::venda_paga_mes($i,$ano) - Dado::despesa_paga_mes($i,$ano);
+        }
+
+        return view('info.mensal',compact('resultados'));
+    }
+
 }
