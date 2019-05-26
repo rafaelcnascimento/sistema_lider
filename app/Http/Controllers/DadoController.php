@@ -102,14 +102,43 @@ class DadoController extends Controller
     public function grafico_meses($ano)
     {
         $resultados = array();
+        $anos = Pedido::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
         $meses = Dado::meses();
+
+        $despesa_total_mes = array();
+        $despesa_paga_mes = array();
+        $despesa_aberta_mes = array();
+        $venda_total_mes = array();
+        $venda_paga_mes = array();
+        $venda_aberta_mes = array();
+        $balanco_total_mes = array();
+        $balanco_pago_mes = array();
+        $balanco_aberto_mes = array();
 
         foreach ($meses as $mes)
         { 
             $resultados[$mes['num']] = Dado::venda_paga_mes($mes['num'],$ano) - Dado::despesa_paga_mes($mes['num'],$ano);
+
+            $despesa_total_mes[$mes['num']] = Dado::despesa_total_mes($mes['num'],$ano);
+            $despesa_paga_mes[$mes['num']] = Dado::despesa_paga_mes($mes['num'],$ano);
+            $despesa_aberta_mes[$mes['num']] = Dado::despesa_aberta_mes($mes['num'],$ano);
+
+            $venda_total_mes[$mes['num']] = Dado::venda_total_mes($mes['num'],$ano);
+            $venda_paga_mes[$mes['num']] = Dado::venda_paga_mes($mes['num'],$ano);
+            $venda_aberta_mes[$mes['num']] = Dado::venda_aberta_mes($mes['num'],$ano);
+
+            $balanco_total_mes[$mes['num']] = $venda_total_mes[$mes['num']] - $despesa_total_mes[$mes['num']];
+            $balanco_pago_mes[$mes['num']] = $venda_paga_mes[$mes['num']] - $despesa_paga_mes[$mes['num']];
+            $balanco_aberto_mes[$mes['num']] = $venda_aberta_mes[$mes['num']] - $despesa_aberta_mes[$mes['num']];
         }
 
-        return view('info.mensal',compact('resultados','meses'));
+        return view('info.mensal',compact('resultados','meses','anos',
+                                'despesa_total_mes','despesa_paga_mes','despesa_aberta_mes',
+                                'venda_total_mes','venda_paga_mes','venda_aberta_mes',
+                                'balanco_total_mes','balanco_pago_mes','balanco_aberto_mes',
+                                'despesa_total_ano','despesa_paga_ano','despesa_aberta_ano',
+                                'venda_total_ano','venda_paga_ano','venda_aberta_ano',
+                                'balanco_total_ano','balanco_pago_ano','balanco_aberto_ano'));
     }
 
 }

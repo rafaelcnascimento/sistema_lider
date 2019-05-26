@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Cliente;
 use App\Pedido;
-
+use App\Imports\ClientesImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClienteController extends Controller
 {
@@ -138,5 +139,15 @@ class ClienteController extends Controller
             }
             return Response($output);
         }
+    }
+
+    public function import(Request $request) 
+    {
+        Excel::import(new ClientesImport, 'public/clientes.xls');
+        
+        $request->session()->flash('message.level', 'success');
+        $request->session()->flash('message.content', 'Clientes importados com sucesso');
+
+        return redirect('/painel/importar');
     }
 }

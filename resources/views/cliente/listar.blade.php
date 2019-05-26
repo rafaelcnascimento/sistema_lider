@@ -19,6 +19,7 @@
             <thead class="thead-dark">
                 <th>Nome</th>
                 <th>Telefone</th>
+                <th>Celular</th>
                 <th>Documento</th>
                 <th>Endereço</th>
                 <th>Saldo</th>
@@ -28,6 +29,7 @@
                 <tr>
                     <td><a href="cliente/{{$cliente->id}}">{{$cliente->nome}}</a></td>
                     <td>{{$cliente->telefone}}</td>
+                    <td>{{$cliente->celular}}</td>
                     <td>{{$cliente->documento}}</td>
                     <td>{{$cliente->logradouro}} {{$cliente->numero}}</td> 
                     <td>{{$cliente->saldo}}</td>

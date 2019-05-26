@@ -55,7 +55,19 @@
                                             @endif
                                         </div>
                                     </div>
-                                    
+                                    <div class="form-group row">
+                                        <label for="celular" class="col-md-4 col-form-label text-md-right">{{ __('Celular') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="celular" type="text" class="form-control{{$errors->has('celular') ? ' is-invalid' : '' }}" name="celular" value="{{ $cliente->celular }}">
+
+                                            @if ($errors->has('celular'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('celular') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <label for="documento" class="col-md-4 col-form-label text-md-right">{{ __('CPF/CNPJ') }}</label>
                                     

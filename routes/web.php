@@ -120,6 +120,7 @@ Route::get('/estocadorCodigoAjax', 'ProdutoController@codigo');
 
 //Excel 
 Route::get('/importar', 'ProdutoController@import');
+Route::get('/importar-cliente', 'ClienteController@import');
 
 //Rotas Tipo Despesa
 Route::get('/tipoDespesa-listar', 'TipoDespesaController@index');
