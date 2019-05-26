@@ -93,23 +93,23 @@ class DadoController extends Controller
         
         foreach ($anos as $ano) 
         {
-            $resultados[$ano] = Dado::venda_paga_ano($i,$ano) - Dado::despesa_paga_ano($i,$ano);
+            $resultados[$ano->valor] = Dado::venda_paga_ano($ano->valor) - Dado::despesa_paga_ano($ano->valor);
         }
         
         return view('info.anual',compact('anos','resultados'));
     }
 
-    public function grafico_meses()
+    public function grafico_meses($ano)
     {
         $resultados = array();
-        $ano = $ano = Date::now()->format('Y');
-        
-        for ($i=1; $i < 13; $i++) 
+        $meses = Dado::meses();
+
+        foreach ($meses as $mes)
         { 
-            $resultados[$i] = Dado::venda_paga_mes($i,$ano) - Dado::despesa_paga_mes($i,$ano);
+            $resultados[$mes['num']] = Dado::venda_paga_mes($mes['num'],$ano) - Dado::despesa_paga_mes($mes['num'],$ano);
         }
 
-        return view('info.mensal',compact('resultados'));
+        return view('info.mensal',compact('resultados','meses'));
     }
 
 }

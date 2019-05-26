@@ -38,8 +38,17 @@
                 <li class="nav-item">
                     <a class="nav-item nav-link active" href="/painel/despesa-proximas">Próximas despesas</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                        Balanços
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/painel/balanco-anual">Por ano</a>
+                        <a class="dropdown-item" href="/painel/balanco-mensal/{{Date::now()->format('Y')}}">Por mês</a>
+                    </div>
+                </li>
                 <li class="nav-item">
-                    <a class="nav-item nav-link active" href="/produto-listar">Vendas</a>
+                    <a href="/produto-listar" class="btn btn-light" role="button">Vendas</a>
                 </li>
             </ul>
         </nav>

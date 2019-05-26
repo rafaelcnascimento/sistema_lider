@@ -45,14 +45,6 @@
             <div class="col-sm-4">
                 <div class="card bg-light">
                     <div class="card-body">
-                    <h5 class="card-title">Despesas totais</h5>
-                        <p>R$ {{$despesa_total_mes}}</p>
-                    </div>
-                </div>
-            </div>  
-            <div class="col-sm-4">
-                <div class="card bg-light">
-                    <div class="card-body">
                     <h5 class="card-title">Despesas pagas</h5>
                         <p>R$ {{$despesa_paga_mes}}</p>
                     </div>
@@ -66,17 +58,17 @@
                     </div>
                 </div>
             </div>
-        </div>      
-        <br>
-        <div class="row">
             <div class="col-sm-4">
                 <div class="card bg-light">
                     <div class="card-body">
-                    <h5 class="card-title">Vendas totais</h5>
-                        <p>R$ {{$venda_total_mes}}</p>
+                    <h5 class="card-title">Despesas totais</h5>
+                        <p>R$ {{$despesa_total_mes}}</p>
                     </div>
                 </div>
             </div>  
+        </div>      
+        <br>
+        <div class="row">
             <div class="col-sm-4">
                 <div class="card bg-light">
                     <div class="card-body">
@@ -93,17 +85,17 @@
                     </div>
                 </div>
             </div>
-        </div>  
-        <br>
-        <div class="row">
             <div class="col-sm-4">
                 <div class="card bg-light">
                     <div class="card-body">
-                    <h5 class="card-title">Balanço totais</h5>
-                        <p>R$ {{$balanco_total_mes}}</p>
+                    <h5 class="card-title">Vendas totais</h5>
+                        <p>R$ {{$venda_total_mes}}</p>
                     </div>
                 </div>
             </div>  
+        </div>  
+        <br>
+        <div class="row">
             <div class="col-sm-4">
                 <div class="card bg-light">
                     <div class="card-body">
@@ -120,19 +112,19 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-4">
+                <div class="card bg-light">
+                    <div class="card-body">
+                    <h5 class="card-title">Balanço total</h5>
+                        <p>R$ {{$balanco_total_mes}}</p>
+                    </div>
+                </div>
+            </div>  
         </div>
         <br>
         
         <h1>Ano: {{ ucfirst( Date::now()->locale('pt-BR')->format('Y')) }}</h1>
         <div class="row">
-            <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-body">
-                    <h5 class="card-title">Despesas totais</h5>
-                        <p>R$ {{$despesa_total_ano}}</p>
-                    </div>
-                </div>
-            </div>  
             <div class="col-sm-4">
                 <div class="card">
                     <div class="card-body">
@@ -149,17 +141,17 @@
                     </div>
                 </div>
             </div>
-        </div>      
-        <br>
-        <div class="row">
             <div class="col-sm-4">
                 <div class="card">
                     <div class="card-body">
-                    <h5 class="card-title">Vendas totais</h5>
-                        <p>R$ {{$venda_total_ano}}</p>
+                    <h5 class="card-title">Despesas totais</h5>
+                        <p>R$ {{$despesa_total_ano}}</p>
                     </div>
                 </div>
             </div>  
+        </div>      
+        <br>
+        <div class="row">
             <div class="col-sm-4">
                 <div class="card">
                     <div class="card-body">
@@ -176,17 +168,17 @@
                     </div>
                 </div>
             </div>
-        </div>  
-        <br>
-        <div class="row">
             <div class="col-sm-4">
                 <div class="card">
                     <div class="card-body">
-                    <h5 class="card-title">Balanço totais</h5>
-                        <p>R$ {{$balanco_total_ano}}</p>
+                    <h5 class="card-title">Vendas totais</h5>
+                        <p>R$ {{$venda_total_ano}}</p>
                     </div>
                 </div>
             </div>  
+        </div>  
+        <br>
+        <div class="row">
             <div class="col-sm-4">
                 <div class="card">
                     <div class="card-body">
@@ -203,6 +195,14 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                    <h5 class="card-title">Balanço total</h5>
+                        <p>R$ {{$balanco_total_ano}}</p>
+                    </div>
+                </div>
+            </div>  
         </div>
         <br>
         

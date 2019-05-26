@@ -1,4 +1,10 @@
 @extends('painel')
 @section('corpo')
-    {{$resultados[2]}}
+    <div class="container">
+        
+
+        @foreach ($meses as $mes)
+        <p><b>{{$mes['nome']}}</b>: {{$resultados[$mes['num']]}}</p><br>
+        @endforeach
+    </div>    
 @endsection

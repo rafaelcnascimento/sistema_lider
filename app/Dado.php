@@ -148,4 +148,24 @@ class Dado extends Model
         return $venda_aberta_ano;
     }
 
+    public static function meses()
+    {
+        $meses = [
+            ['nome' => 'Janeiro', 'num' => 1],
+            ['nome' => 'Fevereiro', 'num' => 2],
+            ['nome' => 'Março', 'num' => 3],
+            ['nome' => 'Abril', 'num' => 4],
+            ['nome' => 'Maio', 'num' => 5],
+            ['nome' => 'Junho', 'num' => 6],
+            ['nome' => 'Julho', 'num' => 7],
+            ['nome' => 'Agosto', 'num' => 8],
+            ['nome' => 'Setembro', 'num' => 9],
+            ['nome' => 'Outubro', 'num' => 10],
+            ['nome' => 'Novembro', 'num' => 11],
+            ['nome' => 'Dezembro', 'num' => 12]
+        ];
+
+        return $meses;
+    }
+
 }
