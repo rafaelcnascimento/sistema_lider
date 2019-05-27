@@ -15,7 +15,7 @@
             <div class="col-sm-3">
                 <div class="card bg-success text-white">
                     <div class="card-body">
-                    <h5 class="card-title">Estoque custo inicial</h5>
+                    <h5 class="card-title">Estoque Custo Final</h5>
                         <p>R$ {{$estoque_custo}}</p>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
             <div class="col-sm-3">
                 <div class="card bg-success text-white">
                     <div class="card-body">
-                    <h5 class="card-title">Estoque venda</h5>
+                    <h5 class="card-title">Estoque Venda</h5>
                         <p>R$ {{$estoque_venda}}</p>
                     </div>
                 </div>
