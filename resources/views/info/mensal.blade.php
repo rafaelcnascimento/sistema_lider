@@ -49,12 +49,40 @@
                             <td class="table-success">@moeda($balanco_total_mes[$mes['num']])</td>
                         @endif
                     </tr>
-                        
-                @endforeach
+                @endforeach 
                 {{-- <p><b>{{$mes['nome']}}</b>: {{$resultados[$mes['num']]}}</p><br> --}}
             </tbody>
         </table>
-
-       
+        <div style="width: 80%; height: 200px;">
+            <canvas id="myChart"></canvas>
+        </div> 
     </div>    
+@endsection
+
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js" ></script>
+    <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: @json($mes_array),
+            datasets: [{
+                label: 'Balanço realizado por mês',
+                data: @json($balanco),
+                backgroundColor: @json($cores), 
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    </script>
 @endsection

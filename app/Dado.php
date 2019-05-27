@@ -168,4 +168,24 @@ class Dado extends Model
         return $meses;
     }
 
+    public static function colorir($qtd)
+    {
+        $cores = array();
+
+        for ($i=1; $i <= $qtd; $i++) 
+        { 
+            switch ($i) {
+                case $i%3==0:
+                    array_push($cores,'green');
+                    break;
+                case $i%2==0:
+                    array_push($cores,'blue');
+                    break;
+                default:
+                    array_push($cores,'teal');
+                    break;
+            }
+        }
+        return $cores;
+    }
 }

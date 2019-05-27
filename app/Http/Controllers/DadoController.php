@@ -89,22 +89,30 @@ class DadoController extends Controller
     public function grafico_anos()
     {
         $resultados = array();
+        $resultados_array = array();
+        $anos_array = array();
         $anos = Pedido::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
+        $cores = Dado::colorir(count($anos));
         
         foreach ($anos as $ano) 
         {
             $resultados[$ano->valor] = Dado::venda_paga_ano($ano->valor) - Dado::despesa_paga_ano($ano->valor);
+            array_push($anos_array, $ano->valor);
+            array_push($resultados_array, $resultados[$ano->valor]);
         }
-        
-        return view('info.anual',compact('anos','resultados'));
+
+        return view('info.anual',compact('anos','resultados','anos_array','cores','resultados_array'));
     }
 
     public function grafico_meses($ano)
     {
         $resultados = array();
+        $mes_array = array();
         $anos = Pedido::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
         $meses = Dado::meses();
+        $cores = Dado::colorir(count(Dado::meses()));
 
+        $balanco = array();
         $despesa_total_mes = array();
         $despesa_paga_mes = array();
         $despesa_aberta_mes = array();
@@ -130,9 +138,12 @@ class DadoController extends Controller
             $balanco_total_mes[$mes['num']] = $venda_total_mes[$mes['num']] - $despesa_total_mes[$mes['num']];
             $balanco_pago_mes[$mes['num']] = $venda_paga_mes[$mes['num']] - $despesa_paga_mes[$mes['num']];
             $balanco_aberto_mes[$mes['num']] = $venda_aberta_mes[$mes['num']] - $despesa_aberta_mes[$mes['num']];
+
+            array_push($mes_array, $mes['nome']);
+            array_push($balanco, $balanco_pago_mes[$mes['num']] );
         }
 
-        return view('info.mensal',compact('resultados','meses','anos',
+        return view('info.mensal',compact('resultados','meses','anos','cores','mes_array','balanco',
                                 'despesa_total_mes','despesa_paga_mes','despesa_aberta_mes',
                                 'venda_total_mes','venda_paga_mes','venda_aberta_mes',
                                 'balanco_total_mes','balanco_pago_mes','balanco_aberto_mes',
@@ -140,5 +151,4 @@ class DadoController extends Controller
                                 'venda_total_ano','venda_paga_ano','venda_aberta_ano',
                                 'balanco_total_ano','balanco_pago_ano','balanco_aberto_ano'));
     }
-
 }
