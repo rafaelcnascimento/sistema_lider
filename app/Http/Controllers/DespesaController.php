@@ -57,8 +57,7 @@ class DespesaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'vence_em' => 'required_unless:parcelado,0',
-            'parcelas' => 'required_unless:parcelado,0'
+            'vence_em' => 'required_with:parcelas',
         ]);        
 
         if (!$request->parcelas) 
@@ -207,6 +206,33 @@ class DespesaController extends Controller
                 ->paginate(50);
         }
 
-        return view('Despesa.listar', compact('despesas','anos'));
+        return view('despesa.listar', compact('despesas','anos'));
+    }
+
+    public function filter_get($mes, $ano, $pago)
+    {
+        $anos = Despesa::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
+
+        $ano_busca = $ano;
+
+        if ($pago == 0 || $pago == 1) 
+        {
+            $despesas = Despesa::whereRaw('MONTH(created_at) = '.$mes)
+                ->whereRaw('YEAR(created_at) = '.$ano)
+                ->where('pago',$pago)
+                ->orderBy('id','desc')
+                ->paginate(50);
+        }
+
+        else
+        {
+            $despesas = Despesa::whereRaw('MONTH(created_at) = '.$mes)
+                ->whereRaw('YEAR(created_at) = '.$ano)
+                ->orderBy('id','desc')
+                ->paginate(50);
+        }
+
+    
+        return view('despesa.listar', compact('despesas','anos','ano_busca','mes','pago'));
     }
 }

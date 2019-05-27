@@ -31,6 +31,8 @@ Route::get('/pedido/{pedido}', 'PedidoController@show');
 Route::get('/pedido-novo', 'PedidoController@create');
 Route::get('/pedido-entrega/{pedido}', 'PedidoController@showEntrega');
 Route::get('/pedido-cliente/{pedido}', 'PedidoController@showCliente');
+Route::get('/pedido-filtrar/{mes}&{ano}&{pago}', 'PedidoController@filter_get');
+
 
 Route::post('/pedido-filtrar', 'PedidoController@filter');
 Route::post('/pedido', 'PedidoController@store');
@@ -106,6 +108,7 @@ Route::get('/despesa-listar', 'DespesaController@index');
 Route::get('/despesa/{despesa}', 'DespesaController@show');
 Route::get('/despesa-nova', 'DespesaController@create');
 Route::get('/arquivo/{despesa}', 'DespesaController@showArquivo');
+Route::get('/despesa-filtrar/{mes}&{ano}&{pago}', 'DespesaController@filter_get');
 
 Route::post('/despesa', 'DespesaController@store');
 Route::post('/despesa-filtrar', 'DespesaController@filter');

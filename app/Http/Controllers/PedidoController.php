@@ -355,16 +355,14 @@ class PedidoController extends Controller
     {
         return view('pedido.gerar', compact('pedido','flag','fechar'));
     }
+    
     public function filter(Request $request)
     {
-
         $mes = $request->mes;
         $ano = $request->ano;
 
         if ($request->pago == 3 ? $pago = null : $pago = $request->pago);
 
-        //dd($pago);
-        
         $anos = Pedido::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
 
         if ($mes && $ano && !is_null($pago)) 
@@ -559,6 +557,32 @@ class PedidoController extends Controller
         $request->session()->flash('message.content', 'Produto removido com sucesso');
 
         return redirect('/pedido/'.$pedido->id);
+    }
+
+    public function filter_get($mes, $ano, $pago)
+    {
+        $anos = Pedido::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
+
+        $ano_busca = $ano;
+
+        if ($pago == 0 || $pago == 1) 
+        {
+            $pedidos = Pedido::whereRaw('MONTH(created_at) = '.$mes)
+                ->whereRaw('YEAR(created_at) = '.$ano)
+                ->where('pago',$pago)
+                ->orderBy('id','desc')
+                ->paginate(50);
+        }
+
+        else
+        {
+            $pedidos = Pedido::whereRaw('MONTH(created_at) = '.$mes)
+                ->whereRaw('YEAR(created_at) = '.$ano)
+                ->orderBy('id','desc')
+                ->paginate(50);
+        }
+
+        return view('pedido.listar', compact('pedidos','anos','ano_busca','mes','pago'));
     }
 }
     

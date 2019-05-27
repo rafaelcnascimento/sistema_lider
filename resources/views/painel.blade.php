@@ -43,8 +43,8 @@
                         Balanços
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/painel/balanco-anual">Por ano</a>
                         <a class="dropdown-item" href="/painel/balanco-mensal/{{Date::now()->format('Y')}}">Por mês</a>
+                        <a class="dropdown-item" href="/painel/balanco-anual">Por ano</a>
                     </div>
                 </li>
                 <li class="nav-item">

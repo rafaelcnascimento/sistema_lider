@@ -77,10 +77,10 @@
                     <td>{{$despesa->descricao}}</td>
                     <td>
                         @if ($despesa->valor_pago)
-                            @moeda($despesa->valor_pago)w
+                            @moeda($despesa->valor_pago)
                         @endif
                     </td>
-                    <td><b>@moeda($despesa->valor)w</b></td>
+                    <td><b>@moeda($despesa->valor)</b></td>
                     @if ($despesa->pago)
                         <td class="table-success" id="pago{{$despesa->id}}">
                             Pago <i id="despagar{{$despesa->id}}" class="fas fa-times">

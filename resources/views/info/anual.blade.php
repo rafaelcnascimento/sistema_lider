@@ -1,11 +1,38 @@
 @extends('painel')
 @section('corpo')
     <div class="container">
-        @foreach ($anos as $ano)
-            <a href="/painel/balanco-mensal/{{$ano->valor}}">{{$ano->valor}}</a> = {{$resultados[$ano->valor]}}<br>
-        @endforeach
-        <div style="width: 100%; height: 200px;">
-            <canvas id="myChart"></canvas>
+        <div class="row">
+            <div class="col-3" >
+                <table class="table">
+                    <thead class="thead-dark">
+                        <th>Ano</th>
+                        <th>Balanço total</th>
+                    </thead>
+                    <tbody>
+                        @foreach ($anos as $ano)
+                            <tr>
+                                <td>
+                                    <a href="/painel/balanco-mensal/{{$ano->valor}}">{{$ano->valor}}</a>
+                                </td>
+                                @if ($resultados[$ano->valor] < 0)
+                                    <td class="table-danger">
+                                        {{$resultados[$ano->valor]}}
+                                    </td>
+                                @else
+                                    <td class="table-success">
+                                        {{$resultados[$ano->valor]}}
+                                    </td>
+                                @endif
+                            </tr>
+                        @endforeach 
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-9" >
+                <div style="width: 100%; height: 200px;">
+                    <canvas id="myChart"></canvas>
+                </div>    
+            </div>
         </div>    
     </div>    
 @endsection

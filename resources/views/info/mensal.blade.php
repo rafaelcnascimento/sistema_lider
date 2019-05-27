@@ -25,32 +25,69 @@
                     <tr>
                         <td>{{$mes['nome']}}</td>
                         {{-- Venda --}}
-                        <td class="table-info">@moeda($venda_paga_mes[$mes['num']])</td>
-                        <td class="table-info">@moeda($venda_aberta_mes[$mes['num']])</td>
-                        <td class="table-info">@moeda($venda_total_mes[$mes['num']])</td>
+                        <td class="table-info">
+                            <a href="/pedido-filtrar/{{$mes['num']}}&{{$ano_}}&1" target="_blank">
+                                @moeda($venda_paga_mes[$mes['num']])
+                            </a>
+                        </td>
+                        <td class="table-info">
+                            <a href="/pedido-filtrar/{{$mes['num']}}&{{$ano_}}&0" target="_blank">
+                                @moeda($venda_aberta_mes[$mes['num']])
+                            </a>
+                        </td>
+                        <td class="table-info">
+                            <a href="/pedido-filtrar/{{$mes['num']}}&{{$ano_}}&3" target="_blank">
+                                @moeda($venda_total_mes[$mes['num']])
+                            </a>
+                        </td>
+                       
                         {{-- Despesa --}}
-                        <td>@moeda($despesa_paga_mes[$mes['num']])</td>
-                        <td>@moeda($despesa_aberta_mes[$mes['num']])</td>
-                        <td>@moeda($despesa_total_mes[$mes['num']])</td>
+                        <td>
+                            <a href="/despesa-filtrar/{{$mes['num']}}&{{$ano_}}&1" target="_blank">
+                                @moeda($despesa_paga_mes[$mes['num']])
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/despesa-filtrar/{{$mes['num']}}&{{$ano_}}&0" target="_blank">
+                                @moeda($despesa_aberta_mes[$mes['num']])
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/despesa-filtrar/{{$mes['num']}}&{{$ano_}}&3" target="_blank">
+                                @moeda($despesa_total_mes[$mes['num']])
+                            </a>
+                        </td>
+                        
                         {{-- Balanco --}}
                         @if ($balanco_pago_mes[$mes['num']] < 0)
-                            <td class="table-danger">@moeda($balanco_pago_mes[$mes['num']])</td>
+                            <td class="table-danger">
+                                @moeda($balanco_pago_mes[$mes['num']])
+                            </td>
                         @else
-                            <td class="table-success">@moeda($balanco_pago_mes[$mes['num']])</td>
+                            <td class="table-success">
+                                @moeda($balanco_pago_mes[$mes['num']])
+                            </td>
                         @endif
                         @if ($balanco_aberto_mes[$mes['num']] < 0)
-                            <td class="table-danger">@moeda($balanco_aberto_mes[$mes['num']])</td>
+                            <td class="table-danger">
+                                @moeda($balanco_aberto_mes[$mes['num']])
+                            </td>
                         @else
-                            <td class="table-success">@moeda($balanco_aberto_mes[$mes['num']])</td>
+                            <td class="table-success">
+                                @moeda($balanco_aberto_mes[$mes['num']])
+                            </td>
                         @endif
                         @if ($balanco_total_mes[$mes['num']] < 0)
-                            <td class="table-danger">@moeda($balanco_total_mes[$mes['num']])</td>
+                            <td class="table-danger">
+                                @moeda($balanco_total_mes[$mes['num']])
+                            </td>
                         @else
-                            <td class="table-success">@moeda($balanco_total_mes[$mes['num']])</td>
+                            <td class="table-success">
+                                @moeda($balanco_total_mes[$mes['num']])
+                            </td>
                         @endif
                     </tr>
                 @endforeach 
-                {{-- <p><b>{{$mes['nome']}}</b>: {{$resultados[$mes['num']]}}</p><br> --}}
             </tbody>
         </table>
         <div style="width: 80%; height: 200px;">

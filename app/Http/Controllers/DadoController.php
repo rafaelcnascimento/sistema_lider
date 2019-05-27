@@ -101,6 +101,9 @@ class DadoController extends Controller
             array_push($resultados_array, $resultados[$ano->valor]);
         }
 
+        $resultados_array = array_reverse($resultados_array);
+        $anos_array = array_reverse($anos_array);
+
         return view('info.anual',compact('anos','resultados','anos_array','cores','resultados_array'));
     }
 
@@ -111,6 +114,7 @@ class DadoController extends Controller
         $anos = Pedido::distinct()->get([DB::raw('YEAR(created_at) as valor')]);
         $meses = Dado::meses();
         $cores = Dado::colorir(count(Dado::meses()));
+        $ano_ = $ano;
 
         $balanco = array();
         $despesa_total_mes = array();
@@ -143,7 +147,7 @@ class DadoController extends Controller
             array_push($balanco, $balanco_pago_mes[$mes['num']] );
         }
 
-        return view('info.mensal',compact('resultados','meses','anos','cores','mes_array','balanco',
+        return view('info.mensal',compact('resultados','meses','anos','cores','mes_array','balanco','ano_',
                                 'despesa_total_mes','despesa_paga_mes','despesa_aberta_mes',
                                 'venda_total_mes','venda_paga_mes','venda_aberta_mes',
                                 'balanco_total_mes','balanco_pago_mes','balanco_aberto_mes',
