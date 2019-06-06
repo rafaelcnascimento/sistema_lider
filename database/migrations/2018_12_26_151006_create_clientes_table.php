@@ -12,6 +12,7 @@ class CreateClientesTable extends Migration {
 			$table->string('nome', 255);
             $table->float('saldo')->nullable;
 			$table->string('telefone')->nullable();
+            $table->string('celular')->nullable();
 			$table->string('documento', 255)->nullable();
 			$table->string('logradouro')->nullable();
 			$table->string('numero')->nullable();

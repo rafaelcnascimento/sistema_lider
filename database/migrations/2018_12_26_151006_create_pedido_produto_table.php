@@ -11,9 +11,9 @@ class CreatePedidoProdutoTable extends Migration {
 			$table->increments('id');
 			$table->integer('pedido_id')->unsigned();
 			$table->integer('produto_id')->unsigned();
-			$table->integer('preco_unitario');
+			$table->float('preco_unitario');
 			$table->integer('quantidade');
-			$table->integer('preco_total');
+			$table->float('preco_total');
 		});
 	}
 

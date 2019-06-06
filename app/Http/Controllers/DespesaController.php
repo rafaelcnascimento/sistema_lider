@@ -71,7 +71,7 @@ class DespesaController extends Controller
         } 
         else 
         {
-            for ($i=0; $i < $request->parcelas; $i++) 
+            for ($i=1; $i <= $request->parcelas; $i++) 
             { 
                 $despesa = Despesa::create([
                     'tipo_despesa_id' => $request->tipo_despesa_id,
@@ -81,7 +81,7 @@ class DespesaController extends Controller
                     'valor' => $request->valor / $request->parcelas,
                     'valor_pago' => 0,
                     'pago' => 0,
-                    'parcela_atual' => $i + 1,
+                    'parcela_atual' => $i,
                     'parcela_total' => $request->parcelas,
                     'vence_em' => Carbon::parse($request->vence_em)->addMonths($i)
                 ]);
