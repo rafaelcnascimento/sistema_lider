@@ -147,12 +147,9 @@ class DadoController extends Controller
             array_push($balanco, $balanco_pago_mes[$mes['num']] );
         }
 
-        return view('info.mensal',compact('resultados','meses','anos','cores','mes_array','balanco','ano_',
-                                'despesa_total_mes','despesa_paga_mes','despesa_aberta_mes',
-                                'venda_total_mes','venda_paga_mes','venda_aberta_mes',
-                                'balanco_total_mes','balanco_pago_mes','balanco_aberto_mes',
-                                'despesa_total_ano','despesa_paga_ano','despesa_aberta_ano',
-                                'venda_total_ano','venda_paga_ano','venda_aberta_ano',
-                                'balanco_total_ano','balanco_pago_ano','balanco_aberto_ano'));
+        return view('info.mensal',compact('resultados','meses','anos','cores','mes_array','balanco','ano_','despesa_total_mes','despesa_paga_mes','despesa_aberta_mes',
+            'venda_total_mes','venda_paga_mes','venda_aberta_mes',
+            'balanco_total_mes','balanco_pago_mes','balanco_aberto_mes'
+        ));
     }
 }

@@ -28,7 +28,7 @@
        <tbody class="resultado">
             <tr>
                 <td>
-                   <a href="pedido/{{$pedido->id}}" target="_blank">{{$pedido->id}}</a>
+                    {{$pedido->id}}
                 </td>
             <td style="width:20%">
                 <select class="form-control" id="cliente_id"  name="cliente_id">

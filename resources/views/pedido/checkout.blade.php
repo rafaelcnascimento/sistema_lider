@@ -6,7 +6,7 @@
     @endsection
     @section('corpo')
         @if(session()->has('message.level'))
-            <div class="alert alert-{{ session('message.level') }}"> 
+            <div class="msg alert alert-{{ session('message.level') }}"> 
             {!! session('message.content') !!}
             </div>
         @endif
@@ -186,5 +186,9 @@
             var preco_carrinho = {{$preco_carrinho}};
             if (preco_carrinho > 0) { $('#valor').val(preco_carrinho);}
 
+            //Remover msg
+            setTimeout(function(){
+                $( ".msg" ).remove();
+            }, 3000);
         </script>
     @endsection

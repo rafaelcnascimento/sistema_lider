@@ -76,7 +76,7 @@
                 <td>
                 @if(empty($pedido->cliente->id))
                 @else
-                    <a href="cliente/{{$pedido->cliente->id}}" target="_blank">{{$pedido->cliente->nome}}</a>
+                    <a href="cliente/{{$pedido->cliente->id}}">{{$pedido->cliente->nome}}</a>
                 @endif
                 </td>
                 <td>

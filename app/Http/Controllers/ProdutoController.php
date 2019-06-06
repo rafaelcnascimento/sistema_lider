@@ -273,12 +273,12 @@ class ProdutoController extends Controller
             $produtos = Produto::
             where(function($query) use ($terms){
                 foreach($terms as $term){
-                    $query->where('produtos.nome', 'LIKE', '%'.$term.'%')->where('quantidade',0)->where('codigo',null);
+                    $query->where('produtos.nome', 'LIKE', '%'.$term.'%');
                 }
             })
             ->orWhere(function($query) use ($terms){
                 foreach($terms as $term){
-                    $query->where('produtos.codigo', 'LIKE', '%'.$term.'%')->where('quantidade',0)->where('codigo',null);
+                    $query->where('produtos.codigo', 'LIKE', '%'.$term.'%');
                 }
             })     
             ->get();                 
