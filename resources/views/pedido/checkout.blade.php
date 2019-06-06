@@ -133,6 +133,11 @@
                             </div>
                             {{-- Saldo --}}
                             <div class="saldo">
+                                <div id="valor_saldo"></div>    
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="saldo" id="saldo">
+                                    <label class="form-check-label" for="saldo">Usar saldo</label>
+                                </div>
                             </div>
                             
                             <br>

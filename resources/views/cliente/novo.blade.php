@@ -171,7 +171,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
         
     <script type="text/javascript">
-    $(window).load(function()
+    $(window).on('load',function()
     {
        var phones = [{ "mask": "(##) ####-####"}, { "mask": "(##) #####-####"}];
         $('#telefone').inputmask({ 

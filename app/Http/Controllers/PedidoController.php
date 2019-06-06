@@ -75,7 +75,6 @@ class PedidoController extends Controller
                     $valor_pago = $request->valor_pago;
                     $pago = 0;
                 }
-
                 break;
         }
 

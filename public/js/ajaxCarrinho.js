@@ -33,7 +33,8 @@ $("#cliente_id").change(function()
             'id': id
         },
         success: function(data) {
-            $('.saldo').html(data);
+            $('#saldo').val(+data);
+            $('#valor_saldo').html('Saldo disponível: R$'+data);
         }
     });
 });

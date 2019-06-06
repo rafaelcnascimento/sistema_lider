@@ -90,24 +90,43 @@ class ClienteController extends Controller
         return Response($output);
     }
 
+    // public function saldoAjax(Request $request)
+    // {
+    //     $output ='';
+    //     if (!$request->id) {  return Response($output); }
+       
+    //     $cliente = Cliente::find($request->id);
+       
+    //     if($cliente->saldo > 0) 
+    //     {
+    //         $output .= 'Saldo disponível: R$ '.$cliente->saldo.'
+    //         <div class="form-check form-check-inline">
+    //             <input class="form-check-input" type="checkbox" name="saldo" id="saldo" value="'.$cliente->saldo.'">
+    //             <label class="form-check-label" for="saldo">Usar saldo</label>
+    //         </div>';
+    //     }
+    //     else
+    //     {
+    //         $output .= '';
+    //     }
+
+    //     return Response($output);
+    // }
+
     public function saldoAjax(Request $request)
     {
-        $output ='';
+        $output;
         if (!$request->id) {  return Response($output); }
        
         $cliente = Cliente::find($request->id);
        
         if($cliente->saldo > 0) 
         {
-            $output .= 'Saldo disponível: R$ '.$cliente->saldo.'
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="saldo" id="saldo" value="'.$cliente->saldo.'">
-                <label class="form-check-label" for="saldo">Usar saldo</label>
-            </div>';
+            $output = $cliente->saldo;
         }
         else
         {
-            $output .= '';
+            $output = 0;
         }
 
         return Response($output);

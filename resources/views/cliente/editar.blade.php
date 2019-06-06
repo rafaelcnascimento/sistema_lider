@@ -1,4 +1,7 @@
 @extends('master')
+@section('css')
+    <link href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" rel="stylesheet" >
+@endsection
 @section('corpo')
         @if(session()->has('message.level'))
             <div class="alert alert-{{ session('message.level') }}"> 
@@ -217,16 +220,16 @@
                                         <td></td>
                                     @endif
                                     @if ($pedido->pago)
-                                        <td class="table-success">
-                                            Pago
+                                        <td class="table-success" id="pago{{$pedido->id}}">
+                                            Pago <i id="despagar{{$pedido->id}}" class="fas fa-times">
                                         </td>
-                                    @elseif (!$pedido->pago && $pedido->parcela_paga > 1 )
+                                    @elseif (!$pedido->pago && $pedido->parcela_total > 1 )
                                         <td class="table-warning">
                                             Em Aberto
                                         </td>
                                     @else
-                                        <td class="table-danger">
-                                            Não Pago
+                                        <td class="table-danger" id="npago{{$pedido->id}}">
+                                            Não Pago <i id="pagar{{$pedido->id}}" class="fas fa-check"></i>
                                         </td>
                                     @endif
                                     <td>{{$pedido->created_at}}</td>
@@ -244,7 +247,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.62/jquery.inputmask.bundle.js"></script>
         
     <script type="text/javascript">
-    $(window).load(function()
+    $(window).on('load',function()
     {
        var phones = [{ "mask": "(##) ####-####"}, { "mask": "(##) #####-####"}];
         $('#telefone').inputmask({ 
@@ -253,5 +256,39 @@
             definitions: { '#': { validator: "[0-9]", cardinality: 1}} 
         });
     });
+
+    //Pagar
+    $(document).on('click','.fa-check' ,function(event)
+    {
+        var id = $(this).attr("id").replace('pagar','');
+
+        $.ajax({
+            type: 'get',
+            url: '/pagarAjax',
+            data: {
+            'id': id,
+        },
+        success: function(data) {
+            $('#npago'+id).html(data);
+            $('#npago'+id).toggleClass('table-danger table-success');
+        }});
+    });        
+
+    //Despagar
+    $(document).on('click','.fa-times' ,function(event)
+    {
+        var id = $(this).attr("id").replace('despagar','');
+
+        $.ajax({
+            type: 'get',
+            url: '/despagarAjax',
+            data: {
+            'id': id,
+        },
+        success: function(data) {
+            $('#pago'+id).html(data);
+            $('#pago'+id).toggleClass('table-success table-danger');
+        }});
+    });      
     </script>
 @endsection
