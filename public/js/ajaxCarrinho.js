@@ -42,20 +42,35 @@ $("#cliente_id").change(function()
 $(document).on('change','#saldo', function(event) {
     var valor_pago = +$('#valor_pago').val();
     var saldo = +$(this).val();
+    var valor = +$('#valor').val();
+    var troco;
 
-    if(this.checked) {
-        valor_pago += saldo;
-        $('#valor_pago').val(valor_pago);
+    if(this.checked) 
+    {
+        if (saldo > valor) 
+        {
+            valor_pago = valor;
+            $('#valor_pago').val(valor_pago);
+        } 
+        else
+        {
+            valor_pago += saldo;
+            $('#valor_pago').val(valor_pago);
+        }
     } 
     else
     {
-        valor_pago -= saldo;
-        $('#valor_pago').val(valor_pago);
+        if (valor_pago == valor)
+        {
+            $('#valor_pago').val(0);
+        }
+        else 
+        {
+            valor_pago -= saldo;
+            $('#valor_pago').val(valor_pago);
+        }
     }
 
-    var troco;
-    var valor = +$('#valor').val();
-    
     if (valor_pago > valor) {troco = valor_pago - valor; }
 
     $('#troco').val(troco);
